@@ -1,0 +1,55 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    jkube.io/scm-url: https://gitlab.com/theeasteregg_web/theeasteregg_web
+    jkube.io/issue-system: Redmine
+    jkube.io/issue-tracker-url: https://redmine.fic.udc.es/project/theeasteregg_web/issues
+    jkube.io/scm-tag: head
+  labels:
+    app: theeasteregg_web
+    provider: jkube
+    version: 0.1-SNAPSHOT
+    group: com.theeasteregg
+  name: theeasteregg_web
+spec:
+  replicas: 1
+  revisionHistoryLimit: 2
+  selector:
+    matchLabels:
+      app: theeasteregg_web
+      provider: jkube
+      group: com.theeasteregg
+  template:
+    metadata:
+      annotations:
+        jkube.io/scm-url: https://gitlab.com/theeasteregg_web/theeasteregg_web
+        jkube.io/issue-system: Redmine
+        jkube.io/issue-tracker-url: https://redmine.fic.udc.es/project/theeasteregg_web/issues
+        jkube.io/scm-tag: head
+      labels:
+        app: theeasteregg_web
+        provider: jkube
+        version: 0.1-SNAPSHOT
+        group: com.theeasteregg
+    spec:
+      containers:
+      - env:
+        - name: KUBERNETES_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: HOSTNAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        image: gitlab.com:5050/theeasteregg_web/theeasteregg_web:latest
+        imagePullPolicy: Always
+        name: deploy-theeasteregg_web
+        securityContext:
+          privileged: false
+        ports:
+        - containerPort: 8080
+      imagePullSecrets:
+        - name: theeasteregg-reg-cred

@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: theeasteregg_web-ingress
+  annotations:
+    ingress.kubernetes.io/rewrite-target: /theeasteregg_web
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /theeasteregg_web
+            pathType: Prefix
+            backend:
+              service:
+                name: theeasteregg_web
+                port:
+                  number: 8080
