@@ -30,15 +30,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	 */
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-
-		// @formatter:off
-		http.cors().and().csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-				.and().addFilter(new JwtFilter(authenticationManager(), jwtGenerator)).authorizeRequests()
+		http.cors().and()
+				.csrf().disable()
+				.headers().frameOptions().disable()
+				.and()
+				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+				.and()
+				.addFilter(new JwtFilter(authenticationManager(), jwtGenerator))
+				.authorizeRequests()
 				.antMatchers("/users/signUp").permitAll()
 				.antMatchers("/users/login").permitAll()
-				.antMatchers("/users/loginFromServiceToken").permitAll();
-		// @formatter:on
-
+				.antMatchers("/users/loginFromServiceToken").permitAll()
+				.antMatchers("/h2-console/**").permitAll();
 	}
 
 	/**
