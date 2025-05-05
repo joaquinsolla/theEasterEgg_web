@@ -7,7 +7,7 @@ import {
   setReauthenticationCallback,
 } from "./appFetch";
 
-const processLoginSignUp = (authenticatedUser, reauthenticationCallback) => {
+const processLoginSignUp = (authenticatedUser, reauthenticationCallback, onSuccess) => {
   setServiceToken(authenticatedUser.serviceToken);
   setReauthenticationCallback(reauthenticationCallback);
   onSuccess(authenticatedUser);
@@ -79,3 +79,6 @@ export const changePassword = (
     onSuccess,
     onErrors
   );
+
+// TODO: deleteuser
+export const deleteUser = () => {};

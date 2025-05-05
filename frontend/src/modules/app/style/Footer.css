@@ -1,0 +1,15 @@
+@import "App.css";
+@import "Colors.css";
+
+.Footer {
+    text-align: center;
+    background-color: var(--blue-3);
+    color: var(--white);
+    margin: 0;
+    padding: 0;
+    height: var(--footer-height);
+}
+
+@media (max-width: 900px) {
+
+}

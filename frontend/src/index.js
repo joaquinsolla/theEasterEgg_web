@@ -1,10 +1,28 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
+import { IntlProvider } from 'react-intl';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 
-import './index.css';
-import registerServiceWorker from './registerServiceWorker';
+import backend, { NetworkError } from './backend';
+import app, { App } from './modules/app/';
+import { store, persistor } from './store';
+import { initReactIntl } from './i18n';
 
-import { App } from "./modules/app";
+backend.init(error => store.dispatch(app.actions.error(new NetworkError())));
 
-ReactDOM.render(<App />, document.getElementById('root'));
-registerServiceWorker();
+const { locale, messages } = initReactIntl();
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+
+root.render(
+    <React.StrictMode>
+        <Provider store={store}>
+            <PersistGate loading={null} persistor={persistor}>
+                <IntlProvider locale={locale} messages={messages}>
+                    <App />
+                </IntlProvider>
+            </PersistGate>
+        </Provider>
+    </React.StrictMode>
+);

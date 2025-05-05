@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./App.css";
+import "../style/App.css";
 
 const Test = () => {
   return (
-    <div className="App">
+    <div className="Content">
       <header className="App-header">
         <img
           src={process.env.PUBLIC_URL + "/assets/logo.svg"}

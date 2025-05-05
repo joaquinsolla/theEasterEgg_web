@@ -28,6 +28,21 @@ mvn archetype:generate \
 ```
 
 ### Local deployment
+**Access frontend in port 3000 (Frontend development)**
+* Install your maven project
+    ```bash
+    mvn clean install
+    ```
+* Start the application
+  ```
+  cd /frontend
+  ```
+  
+  ```bash
+    npm start
+  ```
+  
+* You can access to the web on http://localhost:3000/theeasteregg_web and quick update it
 
 **Access frontend in port 8080**
 
@@ -39,6 +54,6 @@ mvn archetype:generate \
     ```bash
     mvn spring-boot:run
     ```
-Thanks to the provided plugin configuration you can access your React app directly on http://localhost:8080/theeasteregg_web
+* Thanks to the provided plugin configuration you can access your React app directly on http://localhost:8080/theeasteregg_web
 
-You can also access the H2 console on http://localhost:8080/theeasteregg_web/h2-console
+* You can also access the H2 console on http://localhost:8080/theeasteregg_web/h2-console

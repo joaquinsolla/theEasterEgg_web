@@ -1,0 +1,23 @@
+@import "App.css";
+@import "Colors.css";
+@import "Measures.css";
+
+.Header {
+    text-align: left;
+    background-color: var(--blue-1);
+    color: var(--white);
+    padding: var(--container-padding);
+    height: var(--header-height);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.Header-logo{
+    height: 4rem;
+    width: auto;
+}
+
+@media (max-width: 900px) {
+
+}
