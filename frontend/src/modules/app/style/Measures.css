@@ -1,5 +1,12 @@
 :root {
     --header-height: 10vh;
     --footer-height: 20vh;
-    --container-padding: 15px;
+
+    --default-padding: 15px;
+
+    --default-margin: 15px;
+    --big-margin: 25px;
+
+    --default-radius: 10px;
+    --default-border: 1px;
 }

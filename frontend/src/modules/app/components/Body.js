@@ -10,7 +10,7 @@ const Body = () => {
     <Routes>
       <Route path="/">
         <Route index exact element={<Home />} />
-        <Route path="/test" element={<Test />} />
+        <Route path="account" element={<Test />} />
       </Route>
     </Routes>
   );

@@ -1,13 +1,14 @@
 @import "App.css";
 @import "Colors.css";
+@import "Measures.css";
 
 .Footer {
     text-align: center;
-    background-color: var(--blue-3);
+    background-color: var(--blue-2);
     color: var(--white);
-    margin: 0;
-    padding: 0;
-    height: var(--footer-height);
+    height: calc(var(--footer-height) - var(--default-padding));
+    padding: var(--default-padding);
+    font-family: 'Kanit', sans-serif;
 }
 
 @media (max-width: 900px) {
