@@ -1,5 +1,5 @@
 import React from "react";
-
+import { EuiProvider } from '@elastic/eui';
 import { HashRouter as Router } from "react-router-dom";
 
 import Body from "./Body";
@@ -10,7 +10,9 @@ const App = () => {
   return (
       <Router>
           <Header />
-          <Body />
+          <EuiProvider colorMode="dark">
+            <Body />
+          </EuiProvider>
           <Footer />
       </Router>
   );

@@ -1,72 +1,68 @@
+import React, { useState } from 'react';
+import { EuiFieldSearch, EuiSpacer } from '@elastic/eui';
+import axios from 'axios';
+
 import "../style/App.css";
-import {DataSearch, RangeInput, ReactiveBase, ReactiveList, SelectedFilters} from "@appbaseio/reactivesearch";
+import Searchbar from "./Searchbar";  // Si necesitas tus propios estilos, este archivo sigue siendo útil
 
 const Home = () => {
+    const [query, setQuery] = useState('');
+    const [results, setResults] = useState([]);
 
-  return (
-      /*
-      <ReactiveBase className="ReactiveBase" app="theeasteregg_games_index" url="http://localhost:9200">
-          <div className="Content">
-              <Searchbar />
-              <p>-----</p>
-              <DataSearch
-                          componentId="DataSearchItem"
-                          dataField={['name']}
-                          fieldWeights={[9]}
-                          placeholder="Buscar..."
-              />
-              <p>-----</p>
-              <SelectedFilters
-                  style={{
-                      marginLeft: 10,
-                      marginBottom: 20,
-                  }}
-              />
-              <p>-----</p>
-              <ReactiveList
-                  componentId="result"
-                  dataField="_score"
-                  react={{
-                      and: ["DataSearchItem"]
-                  }}
-                  renderItem={RenderItem}
-              />
-              <p>FIN</p>
-        </div>
-      </ReactiveBase>*/
+    // Función para manejar la búsqueda
+    const handleSearch = async (e) => {
+        setQuery(e.target.value);
+
+        if (e.target.value === '') {
+            setResults([]); // Si no hay query, vaciar resultados
+            return;
+        }
+
+        try {
+            const response = await axios.post('http://localhost:9200/theeasteregg_games_index/_search', {
+                query: {
+                    match: { name: e.target.value },
+                },
+            });
+
+            // Extraer los nombres de los resultados
+            const hits = response.data.hits.hits;
+            const names = hits.map((hit) => hit._source.name);
+
+            setResults(names);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+            setResults([]);
+        }
+    };
+
+    return (
+            <div className="Content">
+                    <Searchbar />
+                    <p>-----</p>
+                    {/* Barra de búsqueda */}
+                    <EuiFieldSearch
+                        placeholder="Buscar por nombre"
+                        value={query}
+                        onChange={handleSearch}
+                        isClearable
+                    />
+
+                    {/* Espaciado */}
+                    <EuiSpacer size="m" />
+
+                    {/* Mostrar los resultados debajo */}
+                    {results.length > 0 && (
+                        <div>
+                            {results.map((name, index) => (
+                                <p key={index}>{name}</p>
+                            ))}
+                        </div>
+                    )}
 
 
-      <ReactiveBase
-          app="theeasteregg_games_index"
-          url="http://localhost:9200"
-      >
-          <DataSearch
-              componentId="Search"
-              dataField={['name']}
-              placeholder="Buscar juego..."
-              fuzziness={1}
-          />
-
-          <ReactiveList
-              componentId="Result"
-              dataField="_score"
-              size={10}
-              pagination
-              react={{
-                  and: ['Search'],
-              }}
-              render={({ data }) => {
-                  console.log('Resultados:', data);
-                  return (
-                      <ul>
-                          a
-                      </ul>
-                  );
-              }}
-          />
-      </ReactiveBase>
-
-  );
+            </div>
+    );
 };
 
 export default Home;
