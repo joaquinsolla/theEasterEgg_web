@@ -6,19 +6,19 @@
     text-align: left;
     background-color: var(--blue-1);
     color: var(--white);
-    padding: var(--default-padding);
-    height: calc(var(--header-height) - var(--default-padding));
+    padding: var(--big-padding);
+    height: var(--header-height);
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.Header-logo {
-    height: calc((var(--header-height) - var(--default-padding) )* 0.75);
+.Header-Banner {
+    height: calc(var(--header-height) - var(--big-padding)*2);
     width: auto;
 }
 
-.Header-icon {
+.Header-User-Icon {
     height: 2.5rem;
     width: auto;
     color: var(--white);

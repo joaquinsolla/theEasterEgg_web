@@ -6,7 +6,7 @@
     text-align: center;
     background-color: var(--blue-2);
     color: var(--white);
-    height: calc(var(--footer-height) - var(--default-padding));
+    height: var(--footer-height);
     padding: var(--default-padding);
     font-family: 'Kanit', sans-serif;
 }

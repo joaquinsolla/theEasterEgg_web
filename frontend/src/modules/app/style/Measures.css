@@ -1,8 +1,11 @@
 :root {
     --header-height: 10vh;
     --footer-height: 20vh;
+    --min-body-height: calc(100vh - var(--header-height) - var(--footer-height));
 
     --default-padding: 15px;
+    --small-padding: 8px;
+    --big-padding: 20px;
 
     --default-margin: 15px;
     --big-margin: 25px;

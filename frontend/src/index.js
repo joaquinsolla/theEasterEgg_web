@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { IntlProvider } from 'react-intl';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
+import { EuiProvider } from '@elastic/eui';
 
 import backend, { NetworkError } from './backend';
 import app, { App } from './modules/app/';
@@ -20,7 +21,9 @@ root.render(
         <Provider store={store}>
             <PersistGate loading={null} persistor={persistor}>
                 <IntlProvider locale={locale} messages={messages}>
-                    <App />
+                    <EuiProvider colorMode="dark">
+                        <App />
+                    </EuiProvider>
                 </IntlProvider>
             </PersistGate>
         </Provider>

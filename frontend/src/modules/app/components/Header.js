@@ -14,7 +14,7 @@ const Header = () => {
         <div className="Header">
             <div>
                 <Link to="">
-                    <img src={process.env.PUBLIC_URL + "/assets/banner-3.webp"} className="Header-logo" alt="logo"/>
+                    <img src={process.env.PUBLIC_URL + "/assets/banner-3.webp"} className="Header-Banner" alt="logo"/>
                 </Link>
             </div>
             <div>
@@ -25,7 +25,7 @@ const Header = () => {
                         </Link>
                         <Link to="account" className="Link-simple Flex-center-div Margin-left">
                             <p>Mi cuenta</p>
-                            <FaUserCircle className="Header-icon Margin-left"/>
+                            <FaUserCircle className="Header-User-Icon Margin-left"/>
                         </Link>
                     </div>
                 ) : (

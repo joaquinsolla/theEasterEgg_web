@@ -14,7 +14,23 @@ https://fonts.google.com/specimen/Roboto
 
 * {
   margin: 0;
-  font-size: 1rem;
+  z-index: 1;
+}
+
+h1 {
+  font-size: 2rem !important;
+}
+
+h2 {
+  font-size: 1.5rem !important;
+}
+
+h3 {
+  font-size: 1.2rem !important;
+}
+
+p {
+  font-size: 1rem !important;
 }
 
 .ReactiveBase {
@@ -28,7 +44,7 @@ https://fonts.google.com/specimen/Roboto
   font-family: 'Kanit', sans-serif;
   background-color: var(--blue-3);
   color: var(--white);
-  min-height: calc(100vh - (var(--header-height) + var(--footer-height)) - calc(var(--default-padding)*4));
+  min-height: var(--min-body-height);
   padding: var(--default-padding) 15% var(--default-padding) 15%;
 }
 

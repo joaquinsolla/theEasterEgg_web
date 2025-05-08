@@ -10,8 +10,10 @@
     background-color: var(--blue-2);
     border-radius: var(--default-radius);
     border: var(--default-border) groove var(--blue-5);
+    border-right: none;
     height: 2.5rem;
     margin-bottom: var(--big-margin);
+    z-index: 100;
 }
 
 .Searchbar-sections {
@@ -22,14 +24,6 @@
     width: 100%;
 }
 
-.Searchbar-search {
-    height: 2.5rem;
-    width: 25%;
-    margin: 0;
-    border-radius: 0;
-    border-left: var(--default-border) groove var(--blue-5);
-}
-
 .Searchbar-separator {
     width: 1px;
     height: 2.5rem;
@@ -37,18 +31,61 @@
     border-right: var(--default-border) groove var(--blue-5);
 }
 
-.Searchbar-datasearch {
-    height: calc(2.5rem - 2px);
+.Searchbar-FieldSearch-Container {
+    height: 2.5rem;
+    width: 25%;
+    border-radius: var(--default-radius);
+}
+
+.Searchbar-FieldSearch {
+    height: calc(2.5rem) !important;
+    margin: 0 !important;
+    background-color: var(--blue-s) !important;
+    width: 100% !important;
+    border: 0 groove var(--blue-5) !important;
+    border-radius: 0 var(--default-radius) var(--default-radius) 0 !important;
+}
+
+.Searchbar-FieldSearch-Results {
+    background-color: var(--blue-4);
     margin: 0;
-    padding: 0;
-    background-color: var(--blue-2);
-
+    width: 100%;
+    border-radius: var(--default-radius);
 }
 
-.Searchbar-datasearch input {
-    color: red;
+.Searchbar-FieldSearch-Result{
+    width: 100%;
+    padding: var(--small-padding) 0;
 }
 
+.Searchbar-FieldSearch-Result:hover {
+    background-color: var(--blue-5);
+    border-radius: var(--default-radius);
+}
+
+.Searchbar-FieldSearch-Result-Image {
+    width: 40%;
+    padding: 0 0 0 var(--small-padding);
+}
+
+.Searchbar-FieldSearch-Result-Info {
+    padding: var(--small-padding);
+    width: 60%;
+}
+
+.Searchbar-FieldSearch-Result-Hr {
+    border: none;
+    border-top: 1px solid var(--blue-3);
+    margin: 0 var(--small-padding);
+}
+
+.Searchbar-FieldSearch-Result-Info-Price {
+    margin-top: var(--small-padding);
+}
+
+.Searchbar-FieldSearch-Link {
+    color: var(--white);
+}
 
 @media (max-width: 900px) {
 
