@@ -98,7 +98,7 @@ const SelectedGames = () => {
             {currentGame && (
                 <div className="SelectedGames-Carousel-Content Flex-center-div">
                     <button onClick={goPrev} className="SelectedGames-Carousel-Arrow"><FaAngleLeft /></button>
-                    <Link to={`/game/${currentGame._id}`} key={currentGame._id} className="SelectedGames-Link">
+                    <Link to={`/game/${currentGame._id}`} key={currentGame._id} className="Formatted-Link">
                         <div className="SelectedGames-Carousel-Content-Item">
                             <img src={currentGame.header_image} alt={currentGame.name} className="SelectedGames-Carousel-Content-Item-Image" />
                             <div className="SelectedGames-Carousel-Content-Item-Info" style={{backgroundImage: `var(--default-background-image-opacity), url(${currentGame.background_raw})`}}>

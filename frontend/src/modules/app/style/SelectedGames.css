@@ -88,14 +88,6 @@
     margin-right: 3px;
 }
 
-.SelectedGames-Link {
-    display: contents;
-    text-decoration: none;
-    color: inherit;
-    cursor: pointer;
-}
-
-
 .SelectedGames-Carousel-Lines {
     display: flex;
     justify-content: center;

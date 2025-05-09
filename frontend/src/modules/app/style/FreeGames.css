@@ -1,0 +1,63 @@
+@import "App.css";
+@import "Colors.css";
+@import "Measures.css";
+
+.FreeGames {
+
+}
+
+.FreeGames-List {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.FreeGames-List-Item{
+    width: calc(20% - var(--small-margin)*2);
+    margin: var(--small-margin);
+    background-color: var(--blue-4);
+    border-radius: var(--default-radius);
+}
+
+.FreeGames-List-Item-Image{
+    border-radius: var(--default-radius) var(--default-radius) 0 0;
+    width: 100%;
+    height: auto;
+}
+
+.FreeGames-List-Item-Info {
+    padding: var(--small-padding);
+}
+
+.FreeGames-List-Item-Info-Availability {
+    text-align: left;
+}
+
+.FreeGames-List-Item-Info-Availability-Svg {
+    fill: var(--white);
+    width: auto;
+    height: 1rem;
+}
+
+.FreeGames-SeeMore {
+    background-color: var(--blue-5);
+    color: white;
+    padding: var(--small-padding);
+    border-radius: var(--small-radius);
+    transition: var(--default-transition);
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.FreeGames-SeeMore:hover {
+    background-color: var(--blue-4);
+}
+
+
+
+
+@media (max-width: 900px) {
+
+}
