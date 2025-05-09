@@ -1,0 +1,123 @@
+@import "App.css";
+@import "Colors.css";
+@import "Measures.css";
+
+
+.SelectedGames-Carousel {
+    width: 100%;
+    z-index: 1;
+}
+
+.SelectedGames-Carousel-Arrow {
+    font-size: 3rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--grey-3);
+    transition: var(--default-transition);
+    margin: var(--default-margin);
+}
+
+.SelectedGames-Carousel-Arrow:hover {
+    color: var(--blue-5);
+}
+
+.SelectedGames-Carousel-Content {
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.SelectedGames-Carousel-Content-Item {
+    background-color: var(--blue-s);
+    border: var(--default-border) groove var(--blue-5);
+    border-radius: var(--big-radius);
+    width: 70%;
+    padding: 0;
+    display: flex;
+    align-items: stretch;
+}
+
+.SelectedGames-Carousel-Content-Item-Image {
+    width: 50%;
+    border-radius: var(--big-radius) 0 0 var(--big-radius);
+}
+
+.SelectedGames-Carousel-Content-Item-Info {
+    width: 50%;
+    padding: var(--default-padding);
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 0 var(--big-radius) var(--big-radius) 0;
+}
+
+.SelectedGames-Carousel-Content-Item-Info-Recommendations {
+    color: var(--white);
+    font-size: 1rem;
+    padding: var(--small-padding);
+    border-radius: var(--big-radius);
+    background-color: var(--blue-3);
+}
+
+.SelectedGames-Carousel-Content-Item-Info-Price {
+    color: var(--green-1);
+    font-size: 1.5rem;
+    padding: var(--small-padding);
+    border-radius: var(--small-radius);
+    background-color: var(--blue-4);
+    border: var(--default-border) groove var(--green-1);
+    font-family: 'Kanit', sans-serif;
+}
+
+.SelectedGames-Carousel-Content-Item-Info-Description {
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.85rem;
+}
+
+.SelectedGames-Carousel-Content-Item-Info-Genre {
+    font-family: 'Roboto', sans-serif;
+    padding: 3px;
+    border-radius: var(--small-radius);
+    background-color: var(--blue-3);
+    color: var(--grey-3);
+    font-size: 0.8rem;
+    margin-right: 3px;
+}
+
+.SelectedGames-Link {
+    display: contents;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
+
+
+.SelectedGames-Carousel-Lines {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.SelectedGames-Carousel-Lines-Line {
+    width: 30px;
+    height: 4px;
+    margin: 0 5px;
+    border: none;
+    background-color: var(--grey-3);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border-radius: 2px;
+}
+
+.SelectedGames-Carousel-Lines-Line.active {
+    background-color: var(--blue-5);
+}
+
+
+@media (max-width: 900px) {
+
+}

@@ -4,7 +4,7 @@
 
 .Footer {
     text-align: center;
-    background-color: var(--blue-2);
+    background-color: var(--blue-s);
     color: var(--white);
     height: var(--footer-height);
     padding: var(--default-padding);

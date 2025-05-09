@@ -1,7 +1,7 @@
 import "../style/Searchbar.css";
 import React, {useState} from "react";
 import {Link} from "react-router-dom";
-import {EuiFieldSearch, EuiSpacer} from "@elastic/eui";
+import {EuiFieldSearch} from "@elastic/eui";
 import axios from "axios";
 
 const Searchbar = () => {
@@ -115,7 +115,7 @@ const Searchbar = () => {
                                     <div className="Searchbar-FieldSearch-Result Flex-center-div">
                                         <img src={capsule_image} alt={name} className="Searchbar-FieldSearch-Result-Image"/>
                                         <div className="Searchbar-FieldSearch-Result-Info">
-                                            <h3>{name}</h3>
+                                            <h4>{name}</h4>
                                             <div className="Searchbar-FieldSearch-Result-Info-Price">
                                                 <p>{min_price}</p>
                                             </div>

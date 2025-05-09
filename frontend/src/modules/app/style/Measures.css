@@ -8,8 +8,16 @@
     --big-padding: 20px;
 
     --default-margin: 15px;
+    --small-margin: 8px;
     --big-margin: 25px;
 
-    --default-radius: 10px;
+    --big-radius: 10px;
+    --small-radius: 2px;
+    --default-radius: 5px;
     --default-border: 1px;
+
+    --default-background-image-opacity: linear-gradient(rgba(11, 22, 40, 0.95), rgba(11, 22, 40, 0.95));
+
+    /* TRANSITIONS */
+    --default-transition: all 0.3s ease;
 }

@@ -14,18 +14,21 @@ https://fonts.google.com/specimen/Roboto
 
 * {
   margin: 0;
-  z-index: 1;
 }
 
 h1 {
-  font-size: 2rem !important;
+  font-size: 2.25rem !important;
 }
 
 h2 {
-  font-size: 1.5rem !important;
+  font-size: 1.75rem !important;
 }
 
 h3 {
+  font-size: 1.5rem !important;
+}
+
+h4 {
   font-size: 1.2rem !important;
 }
 
@@ -48,17 +51,35 @@ p {
   padding: var(--default-padding) 15% var(--default-padding) 15%;
 }
 
+.Flex-start-div {
+  display: flex;
+  align-items: start;
+}
+
 .Flex-center-div {
   display: flex;
   align-items: center;
+}
+
+.Space-Between {
+  justify-content: space-between;
 }
 
 .Margin-left {
   margin-left: var(--default-margin);
 }
 
+.Margin-left-small {
+  margin-left: var(--small-margin);
+}
+
+
 .Margin-right {
   margin-right: var(--default-margin);
+}
+
+.Margin-right-small {
+  margin-right: var(--small-margin);
 }
 
 .Margin-bottom {
@@ -73,6 +94,23 @@ p {
   font-family: 'Kanit', sans-serif;
   color: var(--white);
   text-decoration: none;
+  transition: var(--default-transition);
+}
+
+.Link-simple:hover {
+  color: var(--grey-3);
+}
+
+.Availability-Svg {
+  fill: var(--white);
+  width: auto;
+  height: 1.25rem;
+}
+
+.Content-Section {
+  background-color: var(--blue-2);
+  padding: var(--default-padding);
+  border-radius: var(--default-radius);
 }
 
 @media (max-width: 900px) {
