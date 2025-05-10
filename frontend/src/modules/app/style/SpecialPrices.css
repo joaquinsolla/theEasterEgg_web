@@ -1,0 +1,72 @@
+@import "App.css";
+@import "Colors.css";
+@import "Measures.css";
+
+.SpecialPrices {
+
+}
+
+.SpecialPrices-Item-Content-Image {
+    width: auto;
+    height: 4rem;
+}
+
+.SpecialPrices-Item-Content-Info {
+    height: 4rem;
+    justify-content: center;
+}
+
+.SpecialPrices-Item-Price-Price {
+    color: var(--green-1);
+    font-size: 1.5rem;
+    padding: var(--small-padding);
+    border-radius: var(--small-radius);
+    background-color: var(--blue-4);
+    border: var(--default-border) groove var(--green-1);
+    font-family: 'Kanit', sans-serif;
+}
+
+.SpecialPrices-Item {
+    padding: var(--small-padding);
+    background-color: var(--blue-3);
+    border-radius: var(--small-radius);
+    border: var(--default-border) groove var(--blue-5);
+}
+
+.SpecialPrices-Item-Price-Platform-Svg {
+    fill: var(--white);
+    width: auto;
+    height: 1.5rem;
+}
+
+.SpecialPrices-Item-Content-Info-Genre {
+    font-family: 'Roboto', sans-serif;
+    padding: 3px;
+    border-radius: var(--small-radius);
+    background-color: var(--blue-4);
+    color: var(--grey-3);
+    font-size: 0.7rem;
+    margin-right: 3px;
+}
+
+.SpecialPrices-LoadMore {
+    background-color: var(--blue-3);
+    color: white;
+    padding: var(--small-padding);
+    border-radius: var(--small-radius);
+    transition: var(--default-transition);
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.SpecialPrices-LoadMore:hover {
+    background-color: var(--blue-4);
+}
+
+@media (max-width: 900px) {
+
+}

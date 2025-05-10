@@ -14,7 +14,7 @@ const Header = () => {
         <div className="Header">
             <div>
                 <Link to="">
-                    <img src={process.env.PUBLIC_URL + "/assets/banner-3.webp"} className="Header-Banner" alt="logo"/>
+                    <img src={process.env.PUBLIC_URL + "/assets/header-logo-3.webp"} className="Header-Banner" alt="logo"/>
                 </Link>
             </div>
             <div>

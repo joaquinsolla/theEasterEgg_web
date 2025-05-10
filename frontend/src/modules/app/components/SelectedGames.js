@@ -40,7 +40,7 @@ const SelectedGames = () => {
 
                     if (validPrices.length > 0) {
                         const rawMin = Math.min(...validPrices);
-                        min_price = rawMin === 0 ? "Gratis" : `${(rawMin / 100).toFixed(2)}€`;
+                        min_price = rawMin === 0 ? "Gratis" : `${(rawMin / 100).toFixed(2)} €`;
                     }
 
                     return {
@@ -94,7 +94,7 @@ const SelectedGames = () => {
 
 
     return (
-        <div className="SelectedGames-Carousel Margin-bottom">
+        <div className="SelectedGames-Carousel Margin-bottom-big">
             {currentGame && (
                 <div className="SelectedGames-Carousel-Content Flex-center-div">
                     <button onClick={goPrev} className="SelectedGames-Carousel-Arrow"><FaAngleLeft /></button>

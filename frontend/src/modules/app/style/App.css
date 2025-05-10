@@ -86,6 +86,10 @@ p {
   margin-bottom: var(--default-margin);
 }
 
+.Margin-bottom-big {
+  margin-bottom: var(--big-margin);
+}
+
 .Margin-bottom-small {
   margin-bottom: var(--small-margin);
 }
@@ -128,6 +132,10 @@ p {
   text-decoration: none;
   color: inherit;
   cursor: pointer;
+}
+
+.Text-center {
+  text-align: center;
 }
 
 @media (max-width: 900px) {
