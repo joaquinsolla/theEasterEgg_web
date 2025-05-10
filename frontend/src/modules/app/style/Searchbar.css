@@ -99,6 +99,22 @@
     z-index: 100;
 }
 
+.Searchbar-FieldSearch-Link-AdvancedSearch {
+    padding: var(--small-padding);
+    text-align: center;
+    font-family: 'Kanit Light', sans-serif;
+    font-size: 0.8rem;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+}
+
+.Searchbar-FieldSearch-Link-AdvancedSearch:hover {
+    background-color: var(--blue-5);
+    border-radius: var(--default-radius) var(--default-radius) var(--big-radius) var(--big-radius);
+    z-index: 100;
+}
+
 @media (max-width: 900px) {
 
 }

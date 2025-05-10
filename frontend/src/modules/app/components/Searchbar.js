@@ -3,6 +3,7 @@ import React, {useState} from "react";
 import {Link} from "react-router-dom";
 import {EuiFieldSearch} from "@elastic/eui";
 import axios from "axios";
+import { BsFillLightningFill } from "react-icons/bs";
 
 const Searchbar = () => {
     const [fieldSearchQuery, setFieldSearchQuery] = useState('');
@@ -86,17 +87,17 @@ const Searchbar = () => {
                 <p>Plataformas</p>
             </Link>
             <div className="Searchbar-separator"></div>
-            <Link to="genres" className="Link-simple">
-                <p>Géneros</p>
-            </Link>
-            <div className="Searchbar-separator"></div>
-
             <Link to="categories" className="Link-simple">
                 <p>Categorías</p>
             </Link>
             <div className="Searchbar-separator"></div>
             <Link to="developers" className="Link-simple">
                 <p>Desarrolladores</p>
+            </Link>
+            <div className="Searchbar-separator"></div>
+            <Link to="advanced-search" className="Link-simple Flex-center-div">
+                <BsFillLightningFill />
+                <p>&nbsp;Búsqueda avanzada</p>
             </Link>
             <div className="Searchbar-FieldSearch-Container">
                 <EuiFieldSearch
@@ -124,6 +125,14 @@ const Searchbar = () => {
                                     <hr className="Searchbar-FieldSearch-Result-Hr"/>
                                 </Link>
                             ))}
+                            <Link to="advanced-search" className="Searchbar-FieldSearch-Link">
+                                <div className="Searchbar-FieldSearch-Link-AdvancedSearch">
+                                    <div className="Flex-center-div">
+                                        <BsFillLightningFill />
+                                        &nbsp;Búsqueda avanzada
+                                    </div>
+                                </div>
+                            </Link>
                         </div>
                     )}
                 </div>
