@@ -3,13 +3,13 @@ import Searchbar from "./Searchbar";
 import SelectedGames from "./SelectedGames";
 import FreeGames from "./FreeGames";
 import SpecialPrices from "./SpecialPrices";
+import HomeBanner from "./HomeBanner";
 
 const Home = () => {
     return (
             <div className="Content">
                 <Searchbar />
-
-
+                <HomeBanner />
 
                 <div>
                     <h1 className="Margin-bottom">Destacado</h1>

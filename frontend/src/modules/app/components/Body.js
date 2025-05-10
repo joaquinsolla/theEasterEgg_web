@@ -9,9 +9,10 @@ const Body = () => {
   return (
     <Routes>
       <Route path="/">
-        <Route index exact element={<Home />} />
-        <Route path="account" element={<Test />} />
-        <Route path="game/:appid" element={<Test />} />
+          <Route index exact element={<Home />} />
+          <Route path="account" element={<Test />} />
+          <Route path="advanced-search" element={<Test />} />
+          <Route path="game/:appid" element={<Test />} />
       </Route>
     </Routes>
   );
