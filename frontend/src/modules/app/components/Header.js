@@ -20,20 +20,20 @@ const Header = () => {
             <div>
                 {isLoggedIn ? (
                     <div className="Flex-center-div">
-                        <Link to="desired-games" className="Link-simple">
+                        <Link to="/desired-games" className="Link-simple">
                             <p>Lista de deseados</p>
                         </Link>
-                        <Link to="account" className="Link-simple Flex-center-div Margin-left">
+                        <Link to="/account" className="Link-simple Flex-center-div Margin-left">
                             <p>Mi cuenta</p>
                             <FaUserCircle className="Header-User-Icon Margin-left"/>
                         </Link>
                     </div>
                 ) : (
                     <div className="Flex-center-div">
-                        <Link to="signup" className="Link-simple">
+                        <Link to="/signup" className="Link-simple">
                             <p>Crear cuenta</p>
                         </Link>
-                        <Link to="login" className="Link-simple Margin-left">
+                        <Link to="/login" className="Link-simple Margin-left">
                             <p>Iniciar sesión</p>
                         </Link>
                     </div>

@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 
 const HomeBanner = () => {
     return (
-        <Link to="advanced-search" className="Formatted-Link">
+        <Link to="/advanced-search" className="Formatted-Link">
             <div className="HomeBanner Margin-bottom-big Flex-center-div"
                  style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/assets/banner-background.webp)`}}>
                 <div className="HomeBanner-Container">

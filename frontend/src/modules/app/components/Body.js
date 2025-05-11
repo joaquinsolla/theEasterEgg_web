@@ -4,6 +4,7 @@ import { Route, Routes } from "react-router-dom";
 
 import Home from "./Home";
 import Test from "./Test";
+import PlatformsList from "./PlatformsList";
 
 const Body = () => {
   return (
@@ -13,6 +14,8 @@ const Body = () => {
           <Route path="account" element={<Test />} />
           <Route path="advanced-search" element={<Test />} />
           <Route path="game/:appid" element={<Test />} />
+
+          <Route path="platforms-list" element={<PlatformsList />} />
       </Route>
     </Routes>
   );

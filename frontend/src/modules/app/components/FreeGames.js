@@ -127,7 +127,7 @@ const FreeGames = () => {
                     </Link>
                 ))}
             </div>
-            <Link to="free-to-play" className="Formatted-Link">
+            <Link to="/free-to-play" className="Formatted-Link">
                 <div className="FreeGames-SeeMore">
                     <FaPlus className="Margin-right-small"/><h4>Ver más</h4>
                 </div>

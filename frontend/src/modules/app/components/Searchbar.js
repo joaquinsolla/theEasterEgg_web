@@ -83,19 +83,19 @@ const Searchbar = () => {
     return (
         <div className="Searchbar">
             <div className="Searchbar-separator Not-displayed"></div>
-            <Link to="platforms" className="Link-simple">
+            <Link to="/platforms-list" className="Link-simple">
                 <p>Plataformas</p>
             </Link>
             <div className="Searchbar-separator"></div>
-            <Link to="categories" className="Link-simple">
+            <Link to="/categories-list" className="Link-simple">
                 <p>Categorías</p>
             </Link>
             <div className="Searchbar-separator"></div>
-            <Link to="developers" className="Link-simple">
+            <Link to="/developers-list" className="Link-simple">
                 <p>Desarrolladores</p>
             </Link>
             <div className="Searchbar-separator"></div>
-            <Link to="advanced-search" className="Link-simple Flex-center-div">
+            <Link to="/advanced-search" className="Link-simple Flex-center-div">
                 <BsFillLightningFill />
                 <p>&nbsp;Búsqueda avanzada</p>
             </Link>
@@ -125,7 +125,7 @@ const Searchbar = () => {
                                     <hr className="Searchbar-FieldSearch-Result-Hr"/>
                                 </Link>
                             ))}
-                            <Link to="advanced-search" className="Searchbar-FieldSearch-Link">
+                            <Link to="/advanced-search" className="Searchbar-FieldSearch-Link">
                                 <div className="Searchbar-FieldSearch-Link-AdvancedSearch">
                                     <div className="Flex-center-div">
                                         <BsFillLightningFill />
