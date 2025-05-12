@@ -1,0 +1,41 @@
+@import "App.css";
+@import "Colors.css";
+@import "Measures.css";
+
+.CategoriesList{
+
+}
+
+.CategoriesList-Container{
+    width: 100%;
+}
+
+.CategoriesList-Container-Column{
+    width: 50%;
+}
+
+.CategoriesList-Container-Column-Item {
+    font-size: 1.1rem;
+    margin-bottom: 0.25rem;
+    cursor: pointer;
+    color: var(--white);
+    transition: var(--default-transition);
+}
+
+.CategoriesList-Container-Column-Item:hover {
+   color: var(--grey-3);
+    margin-left: 0.25rem;
+}
+
+.CategoriesList-FieldSearch {
+    height: calc(2.5rem) !important;
+    margin: 0 !important;
+    background-color: var(--blue-s) !important;
+    width: 100% !important;
+    border: 0 groove var(--blue-5) !important;
+    border-radius: var(--default-radius) !important;
+}
+
+@media (max-width: 900px) {
+
+}

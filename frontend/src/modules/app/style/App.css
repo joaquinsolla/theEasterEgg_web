@@ -94,6 +94,10 @@ p {
   margin-bottom: var(--small-margin);
 }
 
+.Margin-top {
+  margin-top: var(--default-margin);
+}
+
 .Not-displayed {
   opacity: 0;
 }
