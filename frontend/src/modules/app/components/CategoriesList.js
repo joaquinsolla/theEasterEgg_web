@@ -1,10 +1,9 @@
 import "../style/CategoriesList.css";
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { FaPlus } from "react-icons/fa6";
 import { Link } from "react-router-dom";
+import { EuiFieldSearch } from "@elastic/eui";
 import Searchbar from "./Searchbar";
-import {EuiFieldSearch} from "@elastic/eui";
 
 const CategoriesList = () => {
     const [categories, setCategories] = useState([]);
@@ -44,13 +43,25 @@ const CategoriesList = () => {
         fetchGenres();
     }, []);
 
+    const groupByInitial = (items) => {
+        const grouped = {};
+        items.forEach(item => {
+            const initial = item.name[0].toUpperCase();
+            if (!grouped[initial]) grouped[initial] = [];
+            grouped[initial].push(item);
+        });
+        return grouped;
+    };
+
     const filteredCategories = categories.filter(cat =>
         cat.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
-
     const filteredGenres = genres.filter(gen =>
         gen.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
+
+    const groupedCategories = groupByInitial(filteredCategories);
+    const groupedGenres = groupByInitial(filteredGenres);
 
     return (
         <div className="CategoriesList Content">
@@ -68,18 +79,35 @@ const CategoriesList = () => {
             <div className="CategoriesList-Container Flex-start-div Margin-top">
                 <div className="CategoriesList-Container-Column">
                     <h1 className="Margin-bottom">Categorías</h1>
-                    {filteredCategories.map(category => (
-                        <Link key={category._id} to={{pathname: "/advanced-search", search: `?category=${encodeURIComponent(category.name)}`}} className="Formatted-Link">
-                            <div className="CategoriesList-Container-Column-Item" key={category._id}>{category.name}</div>
-                        </Link>
+                    {Object.entries(groupedCategories).map(([letter, items]) => (
+                        <div key={letter}>
+                            <div className="CategoriesList-Container-Column-Capital">{letter}</div>
+                            {items.map(category => (
+                                <Link key={category._id} to={{ pathname: "/advanced-search", search: `?category=${encodeURIComponent(category.name)}` }} className="Formatted-Link">
+                                    <div className="CategoriesList-Container-Column-Item">
+                                        {category.name}
+                                    </div>
+                                </Link>
+                            ))}
+                            <br/>
+                        </div>
                     ))}
                 </div>
+
                 <div className="CategoriesList-Container-Column">
                     <h1 className="Margin-bottom">Géneros</h1>
-                    {filteredGenres.map(genre => (
-                        <Link key={genre._id} to={{pathname: "/advanced-search", search: `?genre=${encodeURIComponent(genre.name)}`}} className="Formatted-Link">
-                            <div className="CategoriesList-Container-Column-Item" key={genre._id}>{genre.name}</div>
-                        </Link>
+                    {Object.entries(groupedGenres).map(([letter, items]) => (
+                        <div key={letter}>
+                            <div className="CategoriesList-Container-Column-Capital">{letter}</div>
+                            {items.map(genre => (
+                                <Link key={genre._id} to={{ pathname: "/advanced-search", search: `?genre=${encodeURIComponent(genre.name)}` }} className="Formatted-Link">
+                                    <div className="CategoriesList-Container-Column-Item">
+                                        {genre.name}
+                                    </div>
+                                </Link>
+                            ))}
+                            <br/>
+                        </div>
                     ))}
                 </div>
             </div>

@@ -36,6 +36,14 @@
     border-radius: var(--default-radius) !important;
 }
 
+.CategoriesList-Container-Column-Capital {
+    font-size: 1.75rem;
+    margin-bottom: 0.25rem;
+    color: var(--blue-6);
+    font-family: 'Roboto', sans-serif;
+    font-weight: 200;
+}
+
 @media (max-width: 900px) {
 
 }

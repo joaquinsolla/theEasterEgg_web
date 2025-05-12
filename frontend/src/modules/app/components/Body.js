@@ -6,6 +6,7 @@ import Home from "./Home";
 import Test from "./Test";
 import PlatformsList from "./PlatformsList";
 import CategoriesList from "./CategoriesList";
+import DevelopersList from "./DevelopersList";
 
 const Body = () => {
   return (
@@ -18,6 +19,7 @@ const Body = () => {
 
           <Route path="platforms-list" element={<PlatformsList />} />
           <Route path="categories-list" element={<CategoriesList />} />
+          <Route path="developers-list" element={<DevelopersList />} />
 
       </Route>
     </Routes>
