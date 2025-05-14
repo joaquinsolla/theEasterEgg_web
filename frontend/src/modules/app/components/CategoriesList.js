@@ -17,6 +17,7 @@ const CategoriesList = () => {
                     query: { match_all: {} },
                     sort: [{ "name.keyword": { order: "asc" } }],
                     _source: ["name"],
+                    size: 10000
                 });
                 const hits = response.data.hits.hits;
                 setCategories(hits.map(hit => ({ _id: hit._id, name: hit._source.name })));
@@ -31,6 +32,7 @@ const CategoriesList = () => {
                     query: { match_all: {} },
                     sort: [{ "name.keyword": { order: "asc" } }],
                     _source: ["name"],
+                    size: 10000
                 });
                 const hits = response.data.hits.hits;
                 setGenres(hits.map(hit => ({ _id: hit._id, name: hit._source.name })));

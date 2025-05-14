@@ -1,0 +1,57 @@
+@import "App.css";
+@import "Colors.css";
+@import "Measures.css";
+
+.AdvancedSearch{
+
+}
+
+.AdvancedSearch-Filters {
+    width: 25%;
+    padding: var(--default-padding);
+    background-color: var(--blue-2);
+    border-radius: var(--default-radius) !important;
+}
+
+.AdvancedSearch-Results {
+    width: 75%;
+    padding: 0 var(--big-padding);
+}
+
+.AdvancedSearch-Filters-Container {
+
+}
+
+.AdvancedSearch-Filters-EuiFieldSearch {
+    height: calc(2.5rem) !important;
+    margin: 0 !important;
+    background-color: var(--blue-s) !important;
+    width: 100% !important;
+    border: 0 groove var(--blue-5) !important;
+    border-radius: var(--default-radius) !important;
+}
+
+.Filter-Platform-Svg {
+    fill: var(--white);
+    width: auto;
+    height: 1.5rem;
+}
+
+.ResetFilter-Button {
+    text-align: center;
+    width: 100%;
+}
+
+.euiRangeThumb {
+    display: none !important;
+}
+
+.ClearFilter-Button {
+    color: #7186a8;
+    font-size: 1.45rem;
+    cursor: pointer;
+}
+
+@media (max-width: 900px) {
+
+}
