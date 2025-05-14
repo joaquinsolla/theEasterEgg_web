@@ -52,12 +52,47 @@
     width: 100%;
 }
 
+.AdvancedSearch-Sorting-Sorting {
+    width: 100%;
+}
+
+.AdvancedSearch-Sorting-View {
+
+}
+
+.AdvancedSearch-Sorting-View-Content {
+    background-color: var(--blue-2);
+    padding: var(--small-padding);
+    border-radius: var(--default-radius);
+    border: var(--default-border) groove var(--blue-5);
+}
+
+.AdvancedSearch-Sorting-View-Icon-Active {
+    height: 1.6rem;
+    width: auto;
+    border-radius: var(--small-radius);
+    color: var(--blue-6);
+    cursor: pointer;
+}
+
+.AdvancedSearch-Sorting-View-Icon-Disabled {
+    height: 1.6rem;
+    width: auto;
+    color: var(--white);
+    cursor: pointer;
+}
+
 .AdvancedSearch-Results {
     width: 100%;
     padding: 0 var(--big-padding);
     display: flex;
     flex-wrap: wrap;
     gap: var(--default-margin);
+}
+
+.AdvancedSearch-Results-List {
+    width: 100%;
+    padding: 0 var(--big-padding);
 }
 
 .AdvancedSearch-Results-Item{
@@ -94,7 +129,6 @@
 
 .AdvancedSearch-Results-Item-Info-Price{
     text-align: right;
-
     padding: var(--extra-small-padding);
     border-radius: var(--default-radius);
     border: var(--default-border) groove var(--green-1);
@@ -120,6 +154,51 @@
     color: var(--white);
     font-size: 1.125rem;
 }
+
+.AdvancedSearch-List-Item-Content-Image {
+    width: auto;
+    height: 4rem;
+}
+
+.AdvancedSearch-List-Item-Content-Info {
+    height: 4rem;
+    justify-content: center;
+    align-content: center;
+}
+
+.AdvancedSearch-List-Item-Price-Price {
+    text-align: right;
+    padding: var(--small-padding);
+    border-radius: var(--default-radius);
+    border: var(--default-border) groove var(--green-1);
+    font-family: 'Kanit', sans-serif;
+}
+
+.AdvancedSearch-List-Item {
+    padding: var(--small-padding);
+    background-color: var(--blue-2);
+    border-radius: var(--small-radius);
+    border: var(--default-border) groove var(--blue-5);
+}
+
+.AdvancedSearch-List-Item-Price-Platform-Svg {
+    fill: var(--white);
+    width: auto;
+    height: 1.2rem;
+}
+
+.AdvancedSearch-List-Item-Content-Info-Genre {
+    font-family: 'Roboto', sans-serif;
+    padding: 3px;
+    border-radius: var(--small-radius);
+    background-color: var(--blue-4);
+    color: var(--grey-3);
+    font-size: 0.7rem;
+    margin-right: 3px;
+}
+
+
+
 
 @media (max-width: 900px) {
 
