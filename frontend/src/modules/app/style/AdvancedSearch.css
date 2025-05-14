@@ -13,15 +13,6 @@
     border-radius: var(--default-radius) !important;
 }
 
-.AdvancedSearch-Results {
-    width: 75%;
-    padding: 0 var(--big-padding);
-}
-
-.AdvancedSearch-Filters-Container {
-
-}
-
 .AdvancedSearch-Filters-EuiFieldSearch {
     height: calc(2.5rem) !important;
     margin: 0 !important;
@@ -50,6 +41,84 @@
     color: #7186a8;
     font-size: 1.45rem;
     cursor: pointer;
+}
+
+.AdvancedSearch-Results-And-Sorting {
+    width: 75%;
+}
+
+.AdvancedSearch-Sorting{
+    padding: var(--default-padding);
+    width: 100%;
+}
+
+.AdvancedSearch-Results {
+    width: 100%;
+    padding: 0 var(--big-padding);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--default-margin);
+}
+
+.AdvancedSearch-Results-Item{
+    width: calc(33.3% - var(--default-margin));
+    margin-bottom: 0;
+    background-color: var(--blue-s);
+    border-radius: var(--default-radius);
+    border: var(--default-border) groove var(--blue-5);
+}
+
+.AdvancedSearch-Results-Item-Image{
+    border-radius: var(--default-radius) var(--default-radius) 0 0;
+    width: 100%;
+    height: auto;
+}
+
+.AdvancedSearch-Results-Item-Info {
+    padding: var(--small-padding);
+}
+
+.AdvancedSearch-Results-Item-Info-Availability {
+    text-align: left;
+}
+
+.AdvancedSearch-Results-Item-Info-Availability-Svg {
+    fill: var(--white);
+    width: auto;
+    height: 1rem;
+}
+
+.AdvancedSearch-Results-Item-Info-Misc{
+    width: 100%;
+}
+
+.AdvancedSearch-Results-Item-Info-Price{
+    text-align: right;
+
+    padding: var(--extra-small-padding);
+    border-radius: var(--default-radius);
+    border: var(--default-border) groove var(--green-1);
+    font-family: 'Kanit', sans-serif;
+}
+
+.AdvancedSearch-Results-Item-Info-Price-Min{
+    color: var(--green-1);
+    font-size: 1.125rem;
+}
+
+.AdvancedSearch-Results-Item-Info-Price-Max {
+    color: var(--grey-4);
+    font-size: 0.8rem;
+}
+
+.AdvancedSearch-Results-Item-Info-Price-ComingSoon {
+    color: var(--white);
+    font-size: 1.125rem;
+}
+
+.AdvancedSearch-Results-Item-Info-Price-Free {
+    color: var(--white);
+    font-size: 1.125rem;
 }
 
 @media (max-width: 900px) {

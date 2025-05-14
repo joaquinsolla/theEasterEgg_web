@@ -12,14 +12,12 @@ import {
     EuiFieldSearch,
     EuiDualRange ,
     EuiComboBox,
-    EuiFlexGroup,
-    EuiFlexItem,
-    EuiCard,
     EuiSelectable,
     EuiButton,
     EuiCheckbox,
     EuiSelect
 } from '@elastic/eui';
+import {Link} from "react-router-dom";
 
 
 const AdvancedSearch = () => {
@@ -47,7 +45,8 @@ const AdvancedSearch = () => {
 
     /*** Price ***/
     const [priceRange, setPriceRange] = useState([0, 110]);
-    const [isFreeChecked, setIsFreeChecked] = useState(false);
+    const [isFreeChecked, setIsFreeChecked] = useState(false)
+    const [isNotFreeChecked, setIsNotFreeChecked] = useState(false);
 
     /*** Genres ***/
     const [genresOptions, setGenresOptions] = useState([]);
@@ -202,6 +201,9 @@ const AdvancedSearch = () => {
         yearOptions.push({ value: y.toString(), text: y.toString() });
     }
 
+    /*** Sorting ***/
+    const [sortOption, setSortOption] = useState('relevance');
+
     /*** Fetch games based on filters ***/
     useEffect(() => {
         const fetchGames = async () => {
@@ -250,23 +252,45 @@ const AdvancedSearch = () => {
                             minimum_should_match: 1
                         }
                     });
-                }
-                else {
+                } else {
+                    const storePriceRanges = [
+                        { range: { "stores.steam.price_in_cents": { gte: priceRange[0] * 100, lte: priceRange[1] * 100 } } },
+                        { range: { "stores.epic.price_in_cents": { gte: priceRange[0] * 100, lte: priceRange[1] * 100 } } },
+                        { range: { "stores.xbox.price_in_cents": { gte: priceRange[0] * 100, lte: priceRange[1] * 100 } } },
+                        { range: { "stores.battle.price_in_cents": { gte: priceRange[0] * 100, lte: priceRange[1] * 100 } } },
+                        { range: { "stores.gog.price_in_cents": { gte: priceRange[0] * 100, lte: priceRange[1] * 100 } } }
+                    ];
+                    if (isNotFreeChecked) {
+                        filter.push({
+                            bool: {
+                                must_not: [
+                                    {
+                                        bool: {
+                                            should: [
+                                                { range: { "stores.steam.price_in_cents": { lte: 0 } } },
+                                                { range: { "stores.epic.price_in_cents": { lte: 0 } } },
+                                                { range: { "stores.xbox.price_in_cents": { lte: 0 } } },
+                                                { range: { "stores.battle.price_in_cents": { lte: 0 } } },
+                                                { range: { "stores.gog.price_in_cents": { lte: 0 } } }
+                                            ],
+                                            minimum_should_match: 1
+                                        }
+                                    }
+                                ]
+                            }
+                        });
+                    }
                     if (priceRange[0] > 0 || priceRange[1] < 110) {
                         filter.push({
                             bool: {
-                                should: [
-                                    { range: { "stores.steam.price_in_cents": { gte: priceRange[0] * 100, lte: priceRange[1] * 100 } } },
-                                    { range: { "stores.epic.price_in_cents": { gte: priceRange[0] * 100, lte: priceRange[1] * 100 } } },
-                                    { range: { "stores.xbox.price_in_cents": { gte: priceRange[0] * 100, lte: priceRange[1] * 100 } } },
-                                    { range: { "stores.battle.price_in_cents": { gte: priceRange[0] * 100, lte: priceRange[1] * 100 } } },
-                                    { range: { "stores.gog.price_in_cents": { gte: priceRange[0] * 100, lte: priceRange[1] * 100 } } }
-                                ],
+                                should: storePriceRanges,
                                 minimum_should_match: 1
                             }
                         });
                     }
                 }
+
+
 
                 /*** Genres ***/
                 if (selectedGenres.length > 0) {
@@ -349,6 +373,33 @@ const AdvancedSearch = () => {
                     });
                 }
 
+                /*** Sorting ***/
+                let sort = [];
+                switch (sortOption) {
+                    case 'name_asc':
+                        sort = [{ "name.sort": "asc" }];
+                        break;
+                    case 'name_desc':
+                        sort = [{ "name.sort": "desc" }];
+                        break;
+                    case 'min_price_asc':
+                        sort = [{ "stores.steam.price_in_cents": "asc" }];
+                        break;
+                    case 'min_price_desc':
+                        sort = [{ "stores.steam.price_in_cents": "desc" }];
+                        break;
+                    case 'release_date_desc':
+                        sort = [{ "data.release_date.date": "desc" }];
+                        break;
+                    case 'release_date_asc':
+                        sort = [{ "data.release_date.date": "asc" }];
+                        break;
+                    case 'relevance':
+                    default:
+                        // No se define sort, se usa _score
+                        break;
+                }
+
                 /*** RESPONSE ***/
                 const response = await axios.post('http://localhost:9200/theeasteregg_games_index/_search', {
                     query: {
@@ -357,25 +408,45 @@ const AdvancedSearch = () => {
                             filter
                         }
                     },
-                    _source: ["name", "data.header_image", "stores"],
-                    size: 100
+                    _source: ["name", "data.header_image", "stores", "data.release_date.coming_soon"],
+                    size: 100,
+                    ...(sortOption !== 'relevance' && { sort })
                 });
 
                 const hits = response.data.hits.hits;
                 const gamesData = hits.map(hit => {
                     const stores = hit._source.stores || {};
-                    const prices = Object.values(stores)
-                        .filter(store => store && store.availability && store.price_in_cents != null)
-                        .map(store => store.price_in_cents);
+
+                    const prices = Object.values(stores).filter(store => store && store.availability && store.price_in_cents != null).map(store => store.price_in_cents);
                     const minPrice = prices.length > 0 ? Math.min(...prices) / 100 : null;
+                    const maxPrice = prices.length > 0 ? Math.max(...prices) / 100 : null;
+
+                    const genres = Array.isArray(hit._source.data.genres)
+                        ? hit._source.data.genres.slice(0, 2)
+                        : [];
+                    const categories = Array.isArray(hit._source.data.categories)
+                        ? hit._source.data.categories.slice(0, 2)
+                        : [];
+
+                    const coming_soon = hit._source.data.release_date.coming_soon;
 
                     return {
                         id: hit._id,
                         name: hit._source.name,
-                        image: hit._source.data?.header_image,
-                        price: minPrice
+                        header_image: hit._source.data?.header_image,
+                        min_price: minPrice,
+                        max_price: maxPrice,
+                        availability_steam: stores.steam?.availability ?? false,
+                        availability_epic: stores.epic?.availability ?? false,
+                        availability_xbox: stores.xbox?.availability ?? false,
+                        availability_battle: stores.battle?.availability ?? false,
+                        availability_gog: stores.gog?.availability ?? false,
+                        genres: genres,
+                        categories: categories,
+                        coming_soon: coming_soon
                     };
                 });
+
 
                 setGames(gamesData);
             } catch (error) {
@@ -384,9 +455,9 @@ const AdvancedSearch = () => {
         };
 
         fetchGames();
-    }, [searchTerm, selectedPlatforms, priceRange, isFreeChecked, selectedGenres, selectedCategories,
-        selectedDevelopers, selectedPublishers, isSoWindowsChecked, isSoMacChecked, isSoLinuxChecked,
-        selectedPegis, releaseYearFrom, releaseYearTo]);
+    }, [searchTerm, selectedPlatforms, priceRange, isFreeChecked, isNotFreeChecked, selectedGenres,
+        selectedCategories, selectedDevelopers, selectedPublishers, isSoWindowsChecked, isSoMacChecked,
+        isSoLinuxChecked, selectedPegis, releaseYearFrom, releaseYearTo, sortOption]);
 
     return (
         <div className="AdvancedSearch Content">
@@ -437,14 +508,15 @@ const AdvancedSearch = () => {
                     <div id="Price" className="AdvancedSearch-Filters-Container Margin-bottom-big">
                         <div className="Flex-start-div Space-Between">
                             <h4 className="Margin-bottom-small">
-                                {isFreeChecked ? "Rango de precios: Gratis" : `Rango de precios: ${priceRange[0]}€ - ${priceRange[1]}€`}
+                                {isFreeChecked ? "Rango de precios: Gratis" : `Rango de precios: ${priceRange[0]}€ ~ ${priceRange[1]}€`}
                             </h4>
-                            {(isFreeChecked || priceRange[0] !== 0 || priceRange[1] !== 110) && (
+                            {(isFreeChecked || isNotFreeChecked || priceRange[0] !== 0 || priceRange[1] !== 110) && (
                                 <MdCancel
                                     className="ClearFilter-Button"
                                     onClick={() => {
                                         setPriceRange([0, 110]);
                                         setIsFreeChecked(false);
+                                        setIsNotFreeChecked(false);
                                     }}
                                 />
                             )}
@@ -467,10 +539,21 @@ const AdvancedSearch = () => {
                         />
                         <EuiCheckbox
                             id="freeGamesCheckbox"
-                            label="Solo juegos gratis"
+                            label="Mostrar solo juegos gratis"
                             checked={isFreeChecked}
                             onChange={(e) => setIsFreeChecked(e.target.checked)}
                             className="Margin-bottom-small"
+                            disabled={isNotFreeChecked}
+                        />
+                        <EuiCheckbox
+                            id="notFreeGamesCheckbox"
+                            label="Excluir juegos gratis"
+                            checked={isNotFreeChecked}
+                            onChange={(e) => {
+                                setIsNotFreeChecked(e.target.checked);
+                                setIsFreeChecked(false);
+                            }}
+                            disabled={isFreeChecked}
                         />
                     </div>
                     <div id="Genres" className="AdvancedSearch-Filters-Container Margin-bottom-big">
@@ -628,6 +711,7 @@ const AdvancedSearch = () => {
                             setSelectedPlatforms([]);
                             setPriceRange([0, 110]);
                             setIsFreeChecked(false);
+                            setIsNotFreeChecked(false);
                             setSelectedGenres([]);
                             setSelectedCategories([]);
                             setSelectedDevelopers([]);
@@ -646,18 +730,74 @@ const AdvancedSearch = () => {
 
                 </div>
 
-                <div className="AdvancedSearch-Results">
-                    <EuiFlexGroup gutterSize="l" wrap>
-                        {games.map(game => (
-                            <EuiFlexItem key={game.id} grow={false} style={{ width: 300 }}>
-                                <EuiCard
-                                    image={game.image}
-                                    title={game.name}
-                                    description={game.price != null ? `Desde ${game.price.toFixed(2)} €` : 'Precio no disponible'}
-                                />
-                            </EuiFlexItem>
+                <div className="AdvancedSearch-Results-And-Sorting">
+                    <div className="AdvancedSearch-Sorting">
+                        <div>
+                            <h4 className="Margin-bottom-small">Ordenar por: </h4>
+                            <EuiSelect
+                                options={[
+                                    { value: 'relevance', text: 'Relevancia' },
+                                    { value: 'name_asc', text: 'Nombre A-Z' },
+                                    { value: 'name_desc', text: 'Nombre Z-A' },
+                                    { value: 'min_price_asc', text: 'Precio: menor a mayor' },
+                                    { value: 'min_price_desc', text: 'Precio: mayor a menor' },
+                                    { value: 'release_date_desc', text: 'Lanzamiento: más recientes primero' },
+                                    { value: 'release_date_asc', text: 'Lanzamiento: más antiguos primero' },
+                                ]}
+                                value={sortOption}
+                                onChange={(e) => setSortOption(e.target.value)}
+                                aria-label="Ordenar resultados"
+                            />
+                        </div>
+
+                    </div>
+                    <div className="AdvancedSearch-Results">
+                        {games.map((game, index) => (
+                            <Link to={`/game/${game._id}`} key={game._id} className="Formatted-Link">
+                                <div className="AdvancedSearch-Results-Item" key={index}>
+                                    <img className="AdvancedSearch-Results-Item-Image" src={game.header_image} />
+                                    <div className="AdvancedSearch-Results-Item-Info">
+                                        <h4 className="Margin-bottom-small">{game.name}</h4>
+                                        <div className="Flex-center-div">
+                                            <div className="AdvancedSearch-Results-Item-Info-Misc">
+                                                <div className="AdvancedSearch-Results-Item-Info-Availability">
+                                                    {game.availability_steam && (
+                                                        <SteamIcon className="AdvancedSearch-Results-Item-Info-Availability-Svg"/>
+                                                    )}
+                                                    {game.availability_epic && (
+                                                        <EpicIcon className="AdvancedSearch-Results-Item-Info-Availability-Svg Margin-left-small" />
+                                                    )}
+                                                    {game.availability_xbox && (
+                                                        <XboxIcon className="AdvancedSearch-Results-Item-Info-Availability-Svg Margin-left-small" />
+                                                    )}
+                                                    {game.availability_battle && (
+                                                        <BattleIcon className="AdvancedSearch-Results-Item-Info-Availability-Svg Margin-left-small" />
+                                                    )}
+                                                    {game.availability_gog && (
+                                                        <GogIcon className="AdvancedSearch-Results-Item-Info-Availability-Svg Margin-left-small" />
+                                                    )}
+                                                </div>
+                                            </div>
+                                            <div className="AdvancedSearch-Results-Item-Info-Price">
+                                                {game.coming_soon === true ? (
+                                                    <span className="AdvancedSearch-Results-Item-Info-Price-ComingSoon">Próximamente</span>
+                                                ) : game.min_price === 0 && game.max_price === 0 ? (
+                                                    <span className="AdvancedSearch-Results-Item-Info-Price-Free">Gratis</span>
+                                                ) : (
+                                                    <>
+                                                        <span className="AdvancedSearch-Results-Item-Info-Price-Min">{game.min_price}€</span>
+                                                        {game.max_price > game.min_price && (
+                                                            <span className="AdvancedSearch-Results-Item-Info-Price-Max">&nbsp;~&nbsp;{game.max_price}€</span>
+                                                        )}
+                                                    </>
+                                                )}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </Link>
                         ))}
-                    </EuiFlexGroup>
+                    </div>
                 </div>
             </div>
 
