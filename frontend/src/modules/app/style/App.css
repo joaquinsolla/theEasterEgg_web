@@ -131,6 +131,12 @@ p {
   border-radius: var(--default-radius);
 }
 
+.Content-Section-3 {
+  background-color: var(--blue-s);
+  padding: var(--default-padding);
+  border-radius: var(--default-radius);
+}
+
 .Formatted-Link {
   display: contents;
   text-decoration: none;

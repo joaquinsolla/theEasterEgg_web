@@ -296,6 +296,11 @@ const AdvancedSearch = () => {
             setIsFreeChecked(true);
         }
 
+        // --- Coming soon ---
+        const comingSoonParam = params.get('coming_soon');
+        if (comingSoonParam && comingSoonParam === "true") {
+            setIsComingSoonChecked(true);
+        }
 
     }, [location.search, categoriesOptions, genresOptions, developersOptions, publishersOptions]);
     //endregion
