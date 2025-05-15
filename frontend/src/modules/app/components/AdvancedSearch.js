@@ -27,8 +27,8 @@ import {Link} from "react-router-dom";
 const AdvancedSearch = () => {
     const [games, setGames] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-    const [visibleCount, setVisibleCount] = useState(3);
-    const step = 2;
+    const [visibleCount, setVisibleCount] = useState(100);
+    const step = 50;
 
     //region Filter constants
     /*** Name ***/
@@ -203,6 +203,7 @@ const AdvancedSearch = () => {
     /*** Release year ***/
     const [releaseYearFrom, setReleaseYearFrom] = useState('');
     const [releaseYearTo, setReleaseYearTo] = useState('');
+    const [isComingSoonChecked, setIsComingSoonChecked] = useState(false)
     const yearOptions = [{ value: '', text: 'Seleccionar...' }];
     const currentYear = new Date().getFullYear();
     for (let y = 1990; y <= currentYear; y++) {
@@ -392,7 +393,13 @@ const AdvancedSearch = () => {
                 }
 
                 /*** Release year ***/
-                if (releaseYearFrom || releaseYearTo) {
+                if (isComingSoonChecked) {
+                    filter.push({
+                        term: {
+                            "data.release_date.coming_soon": true
+                        }
+                    });
+                } else if (releaseYearFrom || releaseYearTo) {
                     const rangeQuery = {};
                     if (releaseYearFrom) {
                         rangeQuery.gte = parseInt(releaseYearFrom);
@@ -406,6 +413,7 @@ const AdvancedSearch = () => {
                         }
                     });
                 }
+
                 //endregion
 
                 /*** RESPONSE ***/
@@ -458,7 +466,7 @@ const AdvancedSearch = () => {
 
     }, [searchTerm, selectedPlatforms, priceRange, isFreeChecked, isNotFreeChecked, selectedGenres,
         selectedCategories, selectedDevelopers, selectedPublishers, isSoWindowsChecked, isSoMacChecked,
-        isSoLinuxChecked, selectedPegis, releaseYearFrom, releaseYearTo, viewList, visibleCount]);
+        isSoLinuxChecked, selectedPegis, releaseYearFrom, releaseYearTo, viewList, visibleCount, isComingSoonChecked]);
 
     return (
         <div className="AdvancedSearch Content">
@@ -642,12 +650,13 @@ const AdvancedSearch = () => {
                     <div id="ReleaseYear" className="AdvancedSearch-Filters-Container Margin-bottom-big">
                         <div className="Flex-start-div Space-Between">
                             <h4 className="Margin-bottom">Lanzamiento</h4>
-                            {(releaseYearFrom !== '' || releaseYearTo !== '' ) && (
+                            {(releaseYearFrom !== '' || releaseYearTo !== '' || isComingSoonChecked ) && (
                                 <MdCancel
                                     className="ClearFilter-Button"
                                     onClick={() => {
                                         setReleaseYearFrom('');
                                         setReleaseYearTo('');
+                                        setIsComingSoonChecked(false)
                                     }}
                                 />
                             )}
@@ -659,17 +668,29 @@ const AdvancedSearch = () => {
                                 value={releaseYearFrom}
                                 onChange={(e) => setReleaseYearFrom(e.target.value)}
                                 aria-label="Año desde"
+                                disabled={isComingSoonChecked}
                             />
                         </div>
-                        <div>
+                        <div className="Margin-bottom">
                             <p className="Margin-bottom-small">Año hasta:</p>
                             <EuiSelect
                                 options={yearOptions}
                                 value={releaseYearTo}
                                 onChange={(e) => setReleaseYearTo(e.target.value)}
                                 aria-label="Año hasta"
+                                disabled={isComingSoonChecked}
                             />
                         </div>
+                        <EuiCheckbox
+                            id="comingSoonCheckbox"
+                            label="Mostrar solo próximos lanzamientos"
+                            checked={isComingSoonChecked}
+                            onChange={(e) => {
+                                setIsComingSoonChecked(e.target.checked)
+                                setReleaseYearFrom('');
+                                setReleaseYearTo('');
+                            }}
+                        />
                     </div>
                     <div id="PEGI" className="AdvancedSearch-Filters-Container Margin-bottom-big">
                         <div className="Flex-start-div Space-Between">
@@ -723,6 +744,7 @@ const AdvancedSearch = () => {
                             setSelectedPegis([]);
                             setReleaseYearFrom('');
                             setReleaseYearTo('');
+                            setIsComingSoonChecked(false);
                         }}
                         className="ResetFilter-Button"
                     >
