@@ -426,13 +426,6 @@ const AdvancedSearch = () => {
                     const minPrice = prices.length > 0 ? Math.min(...prices) / 100 : null;
                     const maxPrice = prices.length > 0 ? Math.max(...prices) / 100 : null;
 
-                    const genres = Array.isArray(hit._source.data.genres)
-                        ? hit._source.data.genres.slice(0, 2)
-                        : [];
-                    const categories = Array.isArray(hit._source.data.categories)
-                        ? hit._source.data.categories.slice(0, 2)
-                        : [];
-
                     const coming_soon = hit._source.data.release_date.coming_soon;
 
                     return {
@@ -446,8 +439,6 @@ const AdvancedSearch = () => {
                         availability_xbox: stores.xbox?.availability ?? false,
                         availability_battle: stores.battle?.availability ?? false,
                         availability_gog: stores.gog?.availability ?? false,
-                        genres: genres,
-                        categories: categories,
                         coming_soon: coming_soon,
                         capsule_image: hit._source.data?.capsule_image
                     };
@@ -783,37 +774,77 @@ const AdvancedSearch = () => {
                             </div>
                         </div>
                     </div>
-
-                        {viewList ? (
-                            <div className="AdvancedSearch-Results-List">
-                                {games.map((game, index) => (
-                                    <Link to={`/game/${game.id}`} key={game.id} className="Formatted-Link">
-                                        <div className="AdvancedSearch-List-Item Flex-center-div Space-Between" key={index}>
-                                            <div className="AdvancedSearch-List-Item-Content Flex-start-div">
-                                                <img className="AdvancedSearch-List-Item-Content-Image Margin-right" src={game.capsule_image} />
-                                                <div className="AdvancedSearch-List-Item-Content-Info">
-                                                    <h3 className="Margin-bottom-small">{game.name}</h3>
-                                                    <div className="AdvancedSearch-List-Item-Price-Platform">
+                    <div className={viewList ? "AdvancedSearch-Results-List" : "AdvancedSearch-Results"}>
+                        {games.map((game, index) => (
+                            <Link to={`/game/${game.id}`} key={game.id} className="Formatted-Link">
+                                {viewList ? (
+                                    <div className="AdvancedSearch-List-Item Flex-center-div Space-Between" key={index}>
+                                    <div className="AdvancedSearch-List-Item-Content Flex-start-div">
+                                        <img className="AdvancedSearch-List-Item-Content-Image Margin-right" src={game.capsule_image} />
+                                        <div className="AdvancedSearch-List-Item-Content-Info">
+                                            <h3 className="Margin-bottom-small">{game.name}</h3>
+                                            <div className="AdvancedSearch-List-Item-Price-Platform">
+                                                {game.availability_steam && (
+                                                    <SteamIcon className="AdvancedSearch-List-Item-Price-Platform-Svg"/>
+                                                )}
+                                                {game.availability_epic && (
+                                                    <EpicIcon className="AdvancedSearch-List-Item-Price-Platform-Svg Margin-left-small" />
+                                                )}
+                                                {game.availability_xbox && (
+                                                    <XboxIcon className="AdvancedSearch-List-Item-Price-Platform-Svg Margin-left-small" />
+                                                )}
+                                                {game.availability_battle && (
+                                                    <BattleIcon className="AdvancedSearch-List-Item-Price-Platform-Svg Margin-left-small" />
+                                                )}
+                                                {game.availability_gog && (
+                                                    <GogIcon className="AdvancedSearch-List-Item-Price-Platform-Svg Margin-left-small" />
+                                                )}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="AdvancedSearch-List-Item-Price">
+                                        <div className="AdvancedSearch-List-Item-Price-Price">
+                                            {game.coming_soon === true ? (
+                                                <span className="AdvancedSearch-Results-Item-Info-Price-ComingSoon">Próximamente</span>
+                                            ) : game.min_price === 0 && game.max_price === 0 ? (
+                                                <span className="AdvancedSearch-Results-Item-Info-Price-Free">Gratis</span>
+                                            ) : (
+                                                <>
+                                                    <span className="AdvancedSearch-Results-Item-Info-Price-Min">{game.min_price}€</span>
+                                                    {game.max_price > game.min_price && (
+                                                        <span className="AdvancedSearch-Results-Item-Info-Price-Max">&nbsp;~&nbsp;{game.max_price}€</span>
+                                                    )}
+                                                </>
+                                            )}
+                                        </div>
+                                    </div>
+                                </div>
+                                ) : (
+                                    <div className="AdvancedSearch-Results-Item" key={index}>
+                                        <img className="AdvancedSearch-Results-Item-Image" src={game.header_image} />
+                                        <div className="AdvancedSearch-Results-Item-Info">
+                                            <h4 className="Margin-bottom-small">{game.name}</h4>
+                                            <div className="Flex-center-div">
+                                                <div className="AdvancedSearch-Results-Item-Info-Misc">
+                                                    <div className="AdvancedSearch-Results-Item-Info-Availability">
                                                         {game.availability_steam && (
-                                                            <SteamIcon className="AdvancedSearch-List-Item-Price-Platform-Svg"/>
+                                                            <SteamIcon className="AdvancedSearch-Results-Item-Info-Availability-Svg"/>
                                                         )}
                                                         {game.availability_epic && (
-                                                            <EpicIcon className="AdvancedSearch-List-Item-Price-Platform-Svg Margin-left-small" />
+                                                            <EpicIcon className="AdvancedSearch-Results-Item-Info-Availability-Svg Margin-left-small" />
                                                         )}
                                                         {game.availability_xbox && (
-                                                            <XboxIcon className="AdvancedSearch-List-Item-Price-Platform-Svg Margin-left-small" />
+                                                            <XboxIcon className="AdvancedSearch-Results-Item-Info-Availability-Svg Margin-left-small" />
                                                         )}
                                                         {game.availability_battle && (
-                                                            <BattleIcon className="AdvancedSearch-List-Item-Price-Platform-Svg Margin-left-small" />
+                                                            <BattleIcon className="AdvancedSearch-Results-Item-Info-Availability-Svg Margin-left-small" />
                                                         )}
                                                         {game.availability_gog && (
-                                                            <GogIcon className="AdvancedSearch-List-Item-Price-Platform-Svg Margin-left-small" />
+                                                            <GogIcon className="AdvancedSearch-Results-Item-Info-Availability-Svg Margin-left-small" />
                                                         )}
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div className="AdvancedSearch-List-Item-Price">
-                                                <div className="AdvancedSearch-List-Item-Price-Price">
+                                                <div className="AdvancedSearch-Results-Item-Info-Price">
                                                     {game.coming_soon === true ? (
                                                         <span className="AdvancedSearch-Results-Item-Info-Price-ComingSoon">Próximamente</span>
                                                     ) : game.min_price === 0 && game.max_price === 0 ? (
@@ -829,58 +860,46 @@ const AdvancedSearch = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                    </Link>
-                                ))}
-                            </div>
-                        ) : (
-                            <div className="AdvancedSearch-Results">
-                                {games.map((game, index) => (
-                                        <Link to={`/game/${game.id}`} key={game.id} className="Formatted-Link">
-                                            <div className="AdvancedSearch-Results-Item" key={index}>
-                                                <img className="AdvancedSearch-Results-Item-Image" src={game.header_image} />
-                                                <div className="AdvancedSearch-Results-Item-Info">
-                                                    <h4 className="Margin-bottom-small">{game.name}</h4>
-                                                    <div className="Flex-center-div">
-                                                        <div className="AdvancedSearch-Results-Item-Info-Misc">
-                                                            <div className="AdvancedSearch-Results-Item-Info-Availability">
-                                                                {game.availability_steam && (
-                                                                    <SteamIcon className="AdvancedSearch-Results-Item-Info-Availability-Svg"/>
-                                                                )}
-                                                                {game.availability_epic && (
-                                                                    <EpicIcon className="AdvancedSearch-Results-Item-Info-Availability-Svg Margin-left-small" />
-                                                                )}
-                                                                {game.availability_xbox && (
-                                                                    <XboxIcon className="AdvancedSearch-Results-Item-Info-Availability-Svg Margin-left-small" />
-                                                                )}
-                                                                {game.availability_battle && (
-                                                                    <BattleIcon className="AdvancedSearch-Results-Item-Info-Availability-Svg Margin-left-small" />
-                                                                )}
-                                                                {game.availability_gog && (
-                                                                    <GogIcon className="AdvancedSearch-Results-Item-Info-Availability-Svg Margin-left-small" />
-                                                                )}
-                                                            </div>
-                                                        </div>
-                                                        <div className="AdvancedSearch-Results-Item-Info-Price">
-                                                            {game.coming_soon === true ? (
-                                                                <span className="AdvancedSearch-Results-Item-Info-Price-ComingSoon">Próximamente</span>
-                                                            ) : game.min_price === 0 && game.max_price === 0 ? (
-                                                                <span className="AdvancedSearch-Results-Item-Info-Price-Free">Gratis</span>
-                                                            ) : (
-                                                                <>
-                                                                    <span className="AdvancedSearch-Results-Item-Info-Price-Min">{game.min_price}€</span>
-                                                                    {game.max_price > game.min_price && (
-                                                                        <span className="AdvancedSearch-Results-Item-Info-Price-Max">&nbsp;~&nbsp;{game.max_price}€</span>
-                                                                    )}
-                                                                </>
-                                                            )}
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </Link>
-                                ))}
-                            </div>
-                        )}
+                                    </div>
+                                )}
+                            </Link>
+                        ))}
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    {/*
+                                          <button className="Formatted-Link" onClick={() => fetchGames(from)} disabled={loading}>
+                        <div className="AdvancedSearch-LoadMore-Container">
+                            {loading ?
+                                <div className="AdvancedSearch-LoadMore">
+                                    <LuLoader className="Margin-right-small"/><h4>Cargando...</h4>
+                                </div>
+                                :
+                                <div className="AdvancedSearch-LoadMore">
+                                    <FaPlus className="Margin-right-small"/><h4>Cargar más</h4>
+                                </div>
+                            }
+                        </div>
+                    </button>
+                    */}
                 </div>
             </div>
 
