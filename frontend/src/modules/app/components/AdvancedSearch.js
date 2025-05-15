@@ -1,5 +1,6 @@
 import "../style/AdvancedSearch.css";
 import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { ReactComponent as SteamIcon } from "./svg/steam.svg";
 import { ReactComponent as XboxIcon } from "./svg/xbox.svg";
@@ -238,8 +239,69 @@ const AdvancedSearch = () => {
     const [viewList, setViewList] = useState(false);
     //endregion
 
+    //region URL params
+    /*** Fetch filters from URL params ***/
+    const location = useLocation();
     useEffect(() => {
-        /*** Fetch games based on filters ***/
+        const params = new URLSearchParams(location.search);
+
+        // --- Platform ---
+        const platformParam = params.get('platform');
+        if (platformParam) {
+            const match = platformOptions.find(p => p.value === platformParam);
+            if (match) {
+                setSelectedPlatforms([{ label: match.label, value: match.value }]);
+            }
+        }
+
+        // --- Genre ---
+        const genreParam = params.get('genre');
+        if (genreParam && genresOptions.length > 0) {
+            const match = genresOptions.find(c => c.label.toLowerCase() === genreParam.toLowerCase());
+            if (match) {
+                setSelectedGenres([match]);
+            }
+        }
+
+        // --- Category ---
+        const categoryParam = params.get('category');
+        if (categoryParam && categoriesOptions.length > 0) {
+            const match = categoriesOptions.find(c => c.label.toLowerCase() === categoryParam.toLowerCase());
+            if (match) {
+                setSelectedCategories([match]);
+            }
+        }
+
+        // --- Developer ---
+        const developerParam = params.get('developer');
+        if (developerParam && developersOptions.length > 0) {
+            const match = developersOptions.find(c => c.label.toLowerCase() === developerParam.toLowerCase());
+            if (match) {
+                setSelectedDevelopers([match]);
+            }
+        }
+
+        // --- Publisher ---
+        const publisherParam = params.get('publisher');
+        if (publisherParam && publishersOptions.length > 0) {
+            const match = publishersOptions.find(c => c.label.toLowerCase() === publisherParam.toLowerCase());
+            if (match) {
+                setSelectedPublishers([match]);
+            }
+        }
+
+        // --- Free ---
+        const freeParam = params.get('free');
+        if (freeParam && freeParam === "true") {
+            setIsFreeChecked(true);
+        }
+
+
+    }, [location.search, categoriesOptions, genresOptions, developersOptions, publishersOptions]);
+    //endregion
+
+    /*** Fetch games based on filters ***/
+    useEffect(() => {
         const fetchGames = async () => {
             try {
                 setIsLoading(true);
