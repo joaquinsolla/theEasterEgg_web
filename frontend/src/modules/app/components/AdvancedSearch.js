@@ -10,6 +10,8 @@ import { MdCancel } from "react-icons/md";
 import Searchbar from "./Searchbar";
 import { CgDisplayGrid } from "react-icons/cg";
 import { MdViewList } from "react-icons/md";
+import { LuLoader } from "react-icons/lu";
+import {FaPlus } from "react-icons/fa6";
 import {
     EuiFieldSearch,
     EuiDualRange ,
@@ -24,7 +26,11 @@ import {Link} from "react-router-dom";
 
 const AdvancedSearch = () => {
     const [games, setGames] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const [visibleCount, setVisibleCount] = useState(100);
+    const step = 50;
 
+    //region Filter constants
     /*** Name ***/
     const [searchTerm, setSearchTerm] = useState('');
 
@@ -208,14 +214,18 @@ const AdvancedSearch = () => {
 
     /*** View ***/
     const [viewList, setViewList] = useState(false);
+    //endregion
 
-    /*** Fetch games based on filters ***/
     useEffect(() => {
+        /*** Fetch games based on filters ***/
         const fetchGames = async () => {
             try {
+                setIsLoading(true);
+
                 const must = [];
                 const filter = [];
 
+                //region Query filters
                 /*** Name ***/
                 if (searchTerm) {
                     must.push({
@@ -294,8 +304,6 @@ const AdvancedSearch = () => {
                         });
                     }
                 }
-
-
 
                 /*** Genres ***/
                 if (selectedGenres.length > 0) {
@@ -404,6 +412,7 @@ const AdvancedSearch = () => {
                         // No se define sort, se usa _score
                         break;
                 }
+                //endregion
 
                 /*** RESPONSE ***/
                 const response = await axios.post('http://localhost:9200/theeasteregg_games_index/_search', {
@@ -413,8 +422,8 @@ const AdvancedSearch = () => {
                             filter
                         }
                     },
+                    size: visibleCount,
                     _source: ["name", "data.header_image", "stores", "data.release_date.coming_soon", "data.capsule_image"],
-                    size: 100,
                     ...(sortOption !== 'relevance' && { sort })
                 });
 
@@ -443,18 +452,19 @@ const AdvancedSearch = () => {
                         capsule_image: hit._source.data?.capsule_image
                     };
                 });
-
-
                 setGames(gamesData);
             } catch (error) {
                 console.error("Error fetching games:", error);
+            } finally {
+                setIsLoading(false);
             }
         };
 
         fetchGames();
+
     }, [searchTerm, selectedPlatforms, priceRange, isFreeChecked, isNotFreeChecked, selectedGenres,
         selectedCategories, selectedDevelopers, selectedPublishers, isSoWindowsChecked, isSoMacChecked,
-        isSoLinuxChecked, selectedPegis, releaseYearFrom, releaseYearTo, sortOption, viewList]);
+        isSoLinuxChecked, selectedPegis, releaseYearFrom, releaseYearTo, sortOption, viewList, visibleCount]);
 
     return (
         <div className="AdvancedSearch Content">
@@ -726,7 +736,6 @@ const AdvancedSearch = () => {
                     </EuiButton >
 
                 </div>
-
                 <div className="AdvancedSearch-Results-And-Sorting">
                     <div className="AdvancedSearch-Sorting Flex-center-div">
                         <div className="AdvancedSearch-Sorting-Sorting">
@@ -774,7 +783,7 @@ const AdvancedSearch = () => {
                             </div>
                         </div>
                     </div>
-                    <div className={viewList ? "AdvancedSearch-Results-List" : "AdvancedSearch-Results"}>
+                    <div className={viewList ? "AdvancedSearch-Results-List Margin-bottom" : "AdvancedSearch-Results Margin-bottom"}>
                         {games.map((game, index) => (
                             <Link to={`/game/${game.id}`} key={game.id} className="Formatted-Link">
                                 {viewList ? (
@@ -865,30 +874,9 @@ const AdvancedSearch = () => {
                             </Link>
                         ))}
                     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                    {/*
-                                          <button className="Formatted-Link" onClick={() => fetchGames(from)} disabled={loading}>
+                    <button className="Formatted-Link" onClick={() => setVisibleCount(prev => prev + step)}>
                         <div className="AdvancedSearch-LoadMore-Container">
-                            {loading ?
+                            {isLoading ?
                                 <div className="AdvancedSearch-LoadMore">
                                     <LuLoader className="Margin-right-small"/><h4>Cargando...</h4>
                                 </div>
@@ -899,10 +887,8 @@ const AdvancedSearch = () => {
                             }
                         </div>
                     </button>
-                    */}
                 </div>
             </div>
-
         </div>
     );
 };

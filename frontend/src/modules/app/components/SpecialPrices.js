@@ -140,14 +140,14 @@ const SpecialPrices = () => {
                                             <span key={`genre-${index}`} className="SpecialPrices-Item-Content-Info-Genre">{genre}</span>
                                         ))
                                     ) : (
-                                        <div>Sin género</div>
+                                        <span className="SpecialPrices-Item-Content-Info-Genre">Sin género</span>
                                     )}
                                     {game.categories && game.categories.length > 0 ? (
                                         game.categories.map((category, index) => (
                                             <span key={`category-${index}`} className="SpecialPrices-Item-Content-Info-Genre">{category}</span>
                                         ))
                                     ) : (
-                                        <div>Sin categoría</div>
+                                        <span className="SpecialPrices-Item-Content-Info-Genre">Sin categoría</span>
                                     )}
                                 </div>
                             </div>
