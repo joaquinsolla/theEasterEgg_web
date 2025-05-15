@@ -19,7 +19,11 @@ const SelectedGames = () => {
                 const response = await axios.post('http://localhost:9200/theeasteregg_games_index/_search', {
                     size: 5,
                     query: {
-                        match_all: {}
+                        range: {
+                            "stores.steam.price_in_cents": {
+                                gt: 0
+                            }
+                        }
                     },
                     sort: [
                         { "data.total_recommendations": "desc" }
