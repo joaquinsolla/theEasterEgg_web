@@ -1,6 +1,6 @@
 import "../style/Searchbar.css";
 import React, {useState} from "react";
-import {Link} from "react-router-dom";
+import {Link, useNavigate } from "react-router-dom";
 import {EuiFieldSearch} from "@elastic/eui";
 import axios from "axios";
 import { BsFillLightningFill } from "react-icons/bs";
@@ -8,6 +8,14 @@ import { BsFillLightningFill } from "react-icons/bs";
 const Searchbar = () => {
     const [fieldSearchQuery, setFieldSearchQuery] = useState('');
     const [fieldSearchResults, setFieldSearchResults] = useState([]);
+    const navigate = useNavigate();
+
+    const handleFieldSearchSubmit = () => {
+        if (fieldSearchQuery.trim() !== '') {
+            navigate(`/advanced-search?search_term=${encodeURIComponent(fieldSearchQuery.trim())}`);
+        }
+    };
+
 
     const handleFieldSearchQuery = async (e) => {
         const query = e.target.value;
@@ -25,9 +33,7 @@ const Searchbar = () => {
                     multi_match: {
                         query: query,
                         fields: [
-                            "name",
-                            "data.developers",
-                            "data.publishers"
+                            "name"
                         ],
                         analyzer: "ngram_analyzer",
                         minimum_should_match: "75%"
@@ -107,6 +113,11 @@ const Searchbar = () => {
                     onChange={handleFieldSearchQuery}
                     isClearable
                     fullWidth
+                    onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                            handleFieldSearchSubmit();
+                        }
+                    }}
                 />
                 <div className="Searchbar-FieldSearch-Results">
                     {fieldSearchResults.length > 0 && (

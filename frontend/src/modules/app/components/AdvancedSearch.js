@@ -302,10 +302,16 @@ const AdvancedSearch = () => {
             setIsComingSoonChecked(true);
         }
 
+        // --- Search term ---
+        const searchTermParam = params.get('search_term');
+        if (searchTermParam && searchTermParam.length > 0) {
+            setSearchTerm(searchTermParam);
+        }
+
     }, [location.search, categoriesOptions, genresOptions, developersOptions, publishersOptions]);
     //endregion
 
-    /*** Fetch games based on filters ***/
+    //region Fetch games based on filters
     useEffect(() => {
         const fetchGames = async () => {
             try {
@@ -534,6 +540,7 @@ const AdvancedSearch = () => {
     }, [searchTerm, selectedPlatforms, priceRange, isFreeChecked, isNotFreeChecked, selectedGenres,
         selectedCategories, selectedDevelopers, selectedPublishers, isSoWindowsChecked, isSoMacChecked,
         isSoLinuxChecked, selectedPegis, releaseYearFrom, releaseYearTo, viewList, visibleCount, isComingSoonChecked]);
+    //endregion
 
     return (
         <div className="AdvancedSearch Content">
