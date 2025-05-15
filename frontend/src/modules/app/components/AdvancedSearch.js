@@ -27,8 +27,8 @@ import {Link} from "react-router-dom";
 const AdvancedSearch = () => {
     const [games, setGames] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-    const [visibleCount, setVisibleCount] = useState(100);
-    const step = 50;
+    const [visibleCount, setVisibleCount] = useState(3);
+    const step = 2;
 
     //region Filter constants
     /*** Name ***/
@@ -211,6 +211,27 @@ const AdvancedSearch = () => {
 
     /*** Sorting ***/
     const [sortOption, setSortOption] = useState('relevance');
+    const getSortedGames = () => {
+        return [...games].sort((a, b) => {
+            switch (sortOption) {
+                case 'name_asc':
+                    return a.name.localeCompare(b.name);
+                case 'name_desc':
+                    return b.name.localeCompare(a.name);
+                case 'min_price_asc':
+                    return (a.min_price ?? Infinity) - (b.min_price ?? Infinity);
+                case 'min_price_desc':
+                    return (b.min_price ?? 0) - (a.min_price ?? 0);
+                case 'release_date_asc':
+                    return (a.release_date ?? Infinity) - (b.release_date ?? Infinity);
+                case 'release_date_desc':
+                    return (b.release_date ?? 0) - (a.release_date ?? 0);
+                case 'relevance':
+                default:
+                    return 0;
+            }
+        });
+    };
 
     /*** View ***/
     const [viewList, setViewList] = useState(false);
@@ -385,33 +406,6 @@ const AdvancedSearch = () => {
                         }
                     });
                 }
-
-                /*** Sorting ***/
-                let sort = [];
-                switch (sortOption) {
-                    case 'name_asc':
-                        sort = [{ "name.sort": "asc" }];
-                        break;
-                    case 'name_desc':
-                        sort = [{ "name.sort": "desc" }];
-                        break;
-                    case 'min_price_asc':
-                        sort = [{ "stores.steam.price_in_cents": "asc" }];
-                        break;
-                    case 'min_price_desc':
-                        sort = [{ "stores.steam.price_in_cents": "desc" }];
-                        break;
-                    case 'release_date_desc':
-                        sort = [{ "data.release_date.date": "desc" }];
-                        break;
-                    case 'release_date_asc':
-                        sort = [{ "data.release_date.date": "asc" }];
-                        break;
-                    case 'relevance':
-                    default:
-                        // No se define sort, se usa _score
-                        break;
-                }
                 //endregion
 
                 /*** RESPONSE ***/
@@ -423,8 +417,7 @@ const AdvancedSearch = () => {
                         }
                     },
                     size: visibleCount,
-                    _source: ["name", "data.header_image", "stores", "data.release_date.coming_soon", "data.capsule_image"],
-                    ...(sortOption !== 'relevance' && { sort })
+                    _source: ["name", "data.header_image", "stores", "data.release_date.coming_soon", "data.capsule_image", "data.release_date.date"],
                 });
 
                 const hits = response.data.hits.hits;
@@ -449,7 +442,8 @@ const AdvancedSearch = () => {
                         availability_battle: stores.battle?.availability ?? false,
                         availability_gog: stores.gog?.availability ?? false,
                         coming_soon: coming_soon,
-                        capsule_image: hit._source.data?.capsule_image
+                        capsule_image: hit._source.data?.capsule_image,
+                        release_date: hit._source.data?.release_date.date,
                     };
                 });
                 setGames(gamesData);
@@ -464,7 +458,7 @@ const AdvancedSearch = () => {
 
     }, [searchTerm, selectedPlatforms, priceRange, isFreeChecked, isNotFreeChecked, selectedGenres,
         selectedCategories, selectedDevelopers, selectedPublishers, isSoWindowsChecked, isSoMacChecked,
-        isSoLinuxChecked, selectedPegis, releaseYearFrom, releaseYearTo, sortOption, viewList, visibleCount]);
+        isSoLinuxChecked, selectedPegis, releaseYearFrom, releaseYearTo, viewList, visibleCount]);
 
     return (
         <div className="AdvancedSearch Content">
@@ -784,7 +778,7 @@ const AdvancedSearch = () => {
                         </div>
                     </div>
                     <div className={viewList ? "AdvancedSearch-Results-List Margin-bottom" : "AdvancedSearch-Results Margin-bottom"}>
-                        {games.map((game, index) => (
+                        {getSortedGames().map((game, index) => (
                             <Link to={`/game/${game.id}`} key={game.id} className="Formatted-Link">
                                 {viewList ? (
                                     <div className="AdvancedSearch-List-Item Flex-center-div Space-Between" key={index}>
