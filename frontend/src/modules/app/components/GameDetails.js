@@ -260,7 +260,6 @@ const GameDetails = () => {
                         Recomendaciones: {game.data.total_recommendations}
                         <FaThumbsUp className="Margin-left-small"/>
                     </div>
-
                     <div className="Flex-start-div">
                         <div className="GameDetails-MainInfo">
                             <div className="GameDetails-MainInfo-Media Margin-bottom">
@@ -342,7 +341,6 @@ const GameDetails = () => {
                             </div>
                             <div className="GameDetails-MainInfo-LegalInfo Margin-bottom" dangerouslySetInnerHTML={{ __html: game.data?.legal_notice }}/>
                         </div>
-
                         <div className="GameDetails-SecondaryInfo">
                             <img className="GameDetails-SecondaryInfo-HeaderImage Margin-bottom" src={game.data.header_image} />
                             <div className="Margin-bottom">
@@ -402,6 +400,9 @@ const GameDetails = () => {
                             </div>
                             <div className="Margin-bottom">
                                 <h2 className="Margin-bottom-small">Historial de precios</h2>
+
+
+
 
                             </div>
                             <div className="Margin-bottom">
@@ -552,11 +553,16 @@ const GameDetails = () => {
                             )}
                         </div>
                     </div>
-
                 </div>
             ) : (
-                // TODO
-                <p>Cargando...</p>
+                <div className="Content Text-center">
+                    <div className="NotFound404 Margin-top">
+                        404
+                    </div>
+                    <div className="NotFoundText">
+                        Página no encontrada
+                    </div>
+                </div>
             )}
         </>
     );

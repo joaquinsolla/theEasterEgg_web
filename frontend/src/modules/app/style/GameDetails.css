@@ -331,6 +331,17 @@
     text-decoration: none;
 }
 
+.NotFound404{
+    font-size: 10rem;
+    font-weight: bold;
+}
+
+.NotFoundText {
+    font-size: 5rem;
+    font-weight: 300;
+    font-family: 'Roboto', sans-serif;
+}
+
 @media (max-width: 900px) {
 
 }
