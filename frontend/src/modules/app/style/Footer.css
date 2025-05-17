@@ -5,10 +5,22 @@
 .Footer {
     text-align: center;
     background-color: var(--blue-s);
-    color: var(--white);
-    height: var(--footer-height);
-    padding: var(--default-padding);
+    color: var(--grey-3);
+    min-height: var(--footer-height);
+    padding: var(--big-padding);
     font-family: 'Kanit', sans-serif;
+    font-size: 0.9rem;
+}
+
+.Footer-Platforms{
+    color: var(--grey-3);
+}
+
+.Footer-Platforms-Svg{
+    fill: var(--grey-3);
+    width: auto;
+    height: 4rem;
+    margin: var(--small-margin) var(--default-margin);
 }
 
 @media (max-width: 900px) {

@@ -1,7 +1,4 @@
 import "../style/PlatformsList.css";
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import {FaPlus } from "react-icons/fa6";
 import { ReactComponent as SteamIcon } from "./svg/steam.svg";
 import { ReactComponent as XboxIcon } from "./svg/xbox.svg";
 import { ReactComponent as EpicIcon } from "./svg/epic.svg";
