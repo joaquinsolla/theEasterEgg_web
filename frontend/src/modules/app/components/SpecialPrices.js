@@ -99,10 +99,13 @@ const SpecialPrices = () => {
                     ? hit._source.data.categories.slice(0, 2)
                     : [];
 
+                const id = hit._id;
+
                 return {
                     ...hit._source,
                     genres,
                     categories,
+                    _id: id,
                     min_price: minPrice !== Infinity ? `${(minPrice / 100).toFixed(2)} €` : 'No disponible',
                     min_price_platform: platform || 'No disponible'
                 };

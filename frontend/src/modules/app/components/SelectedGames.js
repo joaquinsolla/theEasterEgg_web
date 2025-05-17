@@ -105,7 +105,7 @@ const SelectedGames = () => {
                     <Link to={`/game/${currentGame._id}`} key={currentGame._id} className="Formatted-Link">
                         <div className="SelectedGames-Carousel-Content-Item">
                             <img src={currentGame.header_image} alt={currentGame.name} className="SelectedGames-Carousel-Content-Item-Image" />
-                            <div className="SelectedGames-Carousel-Content-Item-Info" style={{backgroundImage: `var(--default-background-image-opacity), url(${currentGame.background_raw})`}}>
+                            <div className="SelectedGames-Carousel-Content-Item-Info" style={{backgroundImage: `var(--background-image-opacity-1), url(${currentGame.background_raw})`}}>
                                 <div>
                                     <div className="Flex-center-div Space-Between Margin-bottom">
                                         <h1>{currentGame.name}</h1>

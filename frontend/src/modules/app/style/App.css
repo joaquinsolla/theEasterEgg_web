@@ -56,6 +56,11 @@ p {
   align-items: start;
 }
 
+.Flex-end-div {
+  display: flex;
+  align-items: end;
+}
+
 .Flex-center-div {
   display: flex;
   align-items: center;
@@ -96,6 +101,10 @@ p {
 
 .Margin-top {
   margin-top: var(--default-margin);
+}
+
+.Margin-top-small {
+  margin-top: var(--small-margin);
 }
 
 .Not-displayed {
@@ -141,6 +150,13 @@ p {
   display: contents;
   text-decoration: none;
   color: inherit;
+  cursor: pointer;
+}
+
+.Formatted-Link-Blue {
+  display: contents;
+  text-decoration: none;
+  color: var(--blue-link);
   cursor: pointer;
 }
 
