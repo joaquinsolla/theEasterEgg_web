@@ -5,6 +5,7 @@ import FreeGames from "./FreeGames";
 import SpecialPrices from "./SpecialPrices";
 import HomeBanner from "./HomeBanner";
 import ComingSoonGames from "./ComingSoonGames";
+import IndieGames from "./IndieGames";
 
 const Home = () => {
     return (
@@ -25,6 +26,11 @@ const Home = () => {
                 <div className="Content-Section-3 Margin-bottom-big">
                     <h2 className="Margin-bottom">Próximos lanzamientos</h2>
                     <ComingSoonGames />
+                </div>
+
+                <div className="Content-Section-1 Margin-bottom-big">
+                    <h2 className="Margin-bottom">Apoyando a los juegos Indie</h2>
+                    <IndieGames />
                 </div>
 
                 <div className="Content-Section-2 Margin-bottom-big">
