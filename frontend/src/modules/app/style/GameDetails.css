@@ -342,6 +342,12 @@
     font-family: 'Roboto', sans-serif;
 }
 
+.GameDetails-SecondaryInfo-PricesHistory{
+    height: 25rem;
+    width: 100%;
+    padding: var(--small-padding) var(--small-padding) var(--small-padding) 0;
+}
+
 @media (max-width: 900px) {
 
 }

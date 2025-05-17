@@ -10,6 +10,15 @@ import { ReactComponent as EpicIcon } from "./svg/epic.svg";
 import { ReactComponent as BattleIcon } from "./svg/battle.svg";
 import { ReactComponent as GogIcon } from "./svg/gog.svg";
 import Searchbar from "./Searchbar";
+import {
+    LineChart,
+    Line,
+    XAxis,
+    YAxis,
+    CartesianGrid,
+    Tooltip,
+    ResponsiveContainer
+} from 'recharts';
 
 const GameDetails = () => {
     const { appid } = useParams();
@@ -67,7 +76,7 @@ const GameDetails = () => {
                 if (hits.length > 0) {
                     if (hits[0]._source.stores.steam.availability) hits[0]._source.stores.steam.price_in_euros = hits[0]._source.stores.steam.price_in_cents === 0 ? "Gratis" : `${(hits[0]._source.stores.steam.price_in_cents / 100).toFixed(2)} €`;
                     else hits[0]._source.stores.steam.price_in_euros = "No disponible"
-                    if (hits[0]._source.stores.epic.availability) hits[0]._source.stores.epic.price_in_euros = hits[0]._source.stores.epic.price_in_cents === 0 ? "Gratis" : `${(hits[0]._source.stores.steam.price_in_cents / 100).toFixed(2)} €`;
+                    if (hits[0]._source.stores.epic.availability) hits[0]._source.stores.epic.price_in_euros = hits[0]._source.stores.epic.price_in_cents === 0 ? "Gratis" : `${(hits[0]._source.stores.epic.price_in_cents / 100).toFixed(2)} €`;
                     else hits[0]._source.stores.epic.price_in_euros = "No disponible"
                     if (hits[0]._source.stores.xbox.availability) {
                         const xboxPrice = hits[0]._source.stores.xbox.price_in_cents;
@@ -78,9 +87,9 @@ const GameDetails = () => {
                                     ? "Solo en Battle Pass"
                                     : `${(xboxPrice / 100).toFixed(2)} €`;
                     } else hits[0]._source.stores.xbox.price_in_euros = "No disponible"
-                    if (hits[0]._source.stores.battle.availability) hits[0]._source.stores.battle.price_in_euros = hits[0]._source.stores.battle.price_in_cents === 0 ? "Gratis" : `${(hits[0]._source.stores.steam.price_in_cents / 100).toFixed(2)} €`;
+                    if (hits[0]._source.stores.battle.availability) hits[0]._source.stores.battle.price_in_euros = hits[0]._source.stores.battle.price_in_cents === 0 ? "Gratis" : `${(hits[0]._source.stores.battle.price_in_cents / 100).toFixed(2)} €`;
                     else hits[0]._source.stores.battle.price_in_euros = "No disponible"
-                    if (hits[0]._source.stores.gog.availability) hits[0]._source.stores.gog.price_in_euros = hits[0]._source.stores.gog.price_in_cents === 0 ? "Gratis" : `${(hits[0]._source.stores.steam.price_in_cents / 100).toFixed(2)} €`;
+                    if (hits[0]._source.stores.gog.availability) hits[0]._source.stores.gog.price_in_euros = hits[0]._source.stores.gog.price_in_cents === 0 ? "Gratis" : `${(hits[0]._source.stores.gog.price_in_cents / 100).toFixed(2)} €`;
                     else hits[0]._source.stores.gog.price_in_euros = "No disponible"
 
                     if (hits[0]._source.data?.pc_requirements?.minimum === '<strong>Minimum:</strong><br><ul class="bb_ul"></ul>') hits[0]._source.data.pc_requirements.minimum = '<i>Sin Información</i>'
@@ -165,6 +174,105 @@ const GameDetails = () => {
 
         fetchGameDetails();
     }, [appid]);
+    //endregion
+
+    //region Fetch prices history
+    const [pricesHistory, setPricesHistory] = useState([]);
+
+    useEffect(() => {
+        const fetchGameDetails = async () => {
+            try {
+                const response = await axios.post('http://localhost:9200/theeasteregg_prices_history_index/_search', {
+                    size: 1,
+                    query: {
+                        term: {
+                            "appid": parseInt(appid)
+                        }
+                    },
+                    _source: ["steam", "epic", "xbox", "battle", "gog"]
+                });
+
+                const hits = response.data.hits.hits;
+
+                if (hits.length > 0) {
+                    const data = hits[0]._source;
+
+                    // Procesar los precios
+                    const allPrices = [];
+                    const platforms = [
+                        {key: 'steam', value: 'Steam'},
+                        {key: 'epic', value: 'Epic Games'},
+                        {key: 'xbox', value: 'Xbox'},
+                        {key: 'battle', value: 'Battle.net'},
+                        {key: 'gog', value: 'GOG.com'},
+                    ];
+
+                    platforms.forEach(platform => {
+                        const prices = data[platform["key"]] || [];
+                        prices.forEach(entry => {
+                            const date = new Date(entry.price_time * 1000);
+                            const formattedDate = date.toLocaleDateString('es-ES'); // "dd/MM/yyyy"
+                            allPrices.push({
+                                date: formattedDate,
+                                price_in_euros: entry.price_in_cents / 100,
+                                platform: platform["value"]
+                            });
+                        });
+                    });
+
+                    // Agrupar por fecha y quedarse con el precio más bajo
+                    const groupedByDate = {};
+
+                    allPrices.forEach(({ date, price_in_euros, platform }) => {
+                        if (!groupedByDate[date] || price_in_euros < groupedByDate[date].price_in_euros) {
+                            groupedByDate[date] = {
+                                price_in_euros,
+                                price_time: date,
+                                platform
+                            };
+                        }
+                    });
+
+                    const prices_history = Object.values(groupedByDate);
+                    console.log(prices_history);
+                    setPricesHistory(prices_history);
+                }
+
+            } catch (error) {
+                console.error("Error fetching game prices history:", error);
+            }
+        };
+
+        fetchGameDetails();
+    }, [appid]);
+
+    const CustomTooltip = ({ active, payload }) => {
+        if (active && payload && payload.length) {
+            const data = payload[0].payload;
+            return (
+                <div className="bg-white p-2 rounded shadow text-sm border border-gray-200">
+                    <p><strong>Fecha:</strong> {data.price_time}</p>
+                    <p><strong>Precio:</strong> {data.price_in_euros.toFixed(2)}€</p>
+                    <p><strong>Plataforma:</strong> {data.platform}</p>
+                </div>
+            );
+        }
+
+        return null;
+    };
+
+    const allowedTicks = [pricesHistory[0]?.price_time, pricesHistory[pricesHistory.length - 1]?.price_time];
+    const CustomXAxisTick = ({ x, y, payload, index, allowedTicks }) => {
+        if (payload && (payload.value === allowedTicks[0] || payload.value === allowedTicks[allowedTicks.length - 1])) {
+            return (
+                <text x={x} y={y + 15} textAnchor="middle" fill="#FFFFFF" fontSize={12}>
+                    {payload.value}
+                </text>
+            );
+        }
+        return null;
+    };
+
     //endregion
 
     //region Manage media
@@ -398,13 +506,48 @@ const GameDetails = () => {
                                     </a>
                                 </div>
                             </div>
-                            <div className="Margin-bottom">
-                                <h2 className="Margin-bottom-small">Historial de precios</h2>
-
-
-
-
-                            </div>
+                            {pricesHistory.length > 0 && (
+                                <div className="Margin-bottom">
+                                    <h2 className="Margin-bottom-small">Historial de precios</h2>
+                                    <div className="GameDetails-SecondaryInfo-Section GameDetails-SecondaryInfo-PricesHistory">
+                                        <ResponsiveContainer width="100%" height="100%">
+                                            <LineChart
+                                                data={pricesHistory}
+                                                margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+                                            >
+                                                <CartesianGrid
+                                                    stroke="#FFFFFF"
+                                                    strokeDasharray="3 3"
+                                                    vertical={true}
+                                                    horizontal={true}
+                                                />
+                                                <XAxis
+                                                    dataKey="price_time"
+                                                    tick={(props) => <CustomXAxisTick {...props} allowedTicks={allowedTicks} />}
+                                                    ticks={allowedTicks}
+                                                    stroke="#FFFFFF"
+                                                />
+                                                <YAxis
+                                                    domain={[0, 'auto']}
+                                                    unit="€"
+                                                    stroke="#FFFFFF"
+                                                />
+                                                <Tooltip
+                                                    content={<CustomTooltip />}
+                                                />
+                                                <Line
+                                                    type="monotone"
+                                                    dataKey="price_in_euros"
+                                                    stroke="#61a2ff"
+                                                    strokeWidth={2}
+                                                    dot={{ r: 4 }}
+                                                    activeDot={{ r: 6 }}
+                                                />
+                                            </LineChart>
+                                        </ResponsiveContainer>
+                                    </div>
+                                </div>
+                            )}
                             <div className="Margin-bottom">
                                 <h2 className="Margin-bottom-small">Información</h2>
                                 <div className="GameDetails-SecondaryInfo-Section">
