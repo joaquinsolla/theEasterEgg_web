@@ -67,8 +67,8 @@ public class JwtFilter extends BasicAuthenticationFilter {
 			request.setAttribute("serviceToken", serviceToken);
 			request.setAttribute("userId", jwtInfo.getUserId());
 			
-			configureSecurityContext(jwtInfo.getUserName(), jwtInfo.getRole());
-			
+			configureSecurityContext(jwtInfo.getUserName());
+
 		} catch (Exception e) {
 			 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 			 return;
@@ -82,14 +82,11 @@ public class JwtFilter extends BasicAuthenticationFilter {
 	 * Configure security context.
 	 *
 	 * @param userName the user name
-	 * @param role the role
 	 */
-	private void configureSecurityContext(String userName, String role) {
+	private void configureSecurityContext(String userName) {
 		
 		Set<GrantedAuthority> authorities = new HashSet<>();
-		
-		authorities.add(new SimpleGrantedAuthority("ROLE_" + role));
-		
+
 		SecurityContextHolder.getContext().setAuthentication(
 			new UsernamePasswordAuthenticationToken(userName, null, authorities));
 		

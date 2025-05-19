@@ -18,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.theeasteregg.model.entities.User;
-import com.theeasteregg.model.entities.User.RoleType;
 import com.theeasteregg.model.entities.UserDao;
 import com.theeasteregg.model.services.exceptions.IncorrectLoginException;
 import com.theeasteregg.rest.controllers.UserController;
@@ -57,23 +56,20 @@ public class UserControllerTest {
 	/**
 	 * Creates the authenticated user.
 	 *
-	 * @param userName the user name
-	 * @param roleType the role type
 	 * @return the authenticated user dto
 	 * @throws IncorrectLoginException the incorrect login exception
 	 */
-	private AuthenticatedUserDto createAuthenticatedUser(String userName, RoleType roleType)
+	private AuthenticatedUserDto createAuthenticatedUser()
 			throws IncorrectLoginException {
 
-		User user = new User(userName, PASSWORD, "user@test.com");
+		User user = new User("test1", PASSWORD, "user@test.com");
 
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
-		user.setRole(roleType);
 
 		userDao.save(user);
 
 		LoginParamsDto loginParams = new LoginParamsDto();
-		loginParams.setUserName(user.getUserName());
+		loginParams.setEmail(user.getEmail());
 		loginParams.setPassword(PASSWORD);
 
 		return userController.login(loginParams);
@@ -88,10 +84,10 @@ public class UserControllerTest {
 	@Test
 	public void testPostLogin_Ok() throws Exception {
 
-		AuthenticatedUserDto user = createAuthenticatedUser("admin", RoleType.USER);
+		AuthenticatedUserDto user = createAuthenticatedUser();
 
 		LoginParamsDto loginParams = new LoginParamsDto();
-		loginParams.setUserName(user.getUserDto().getUserName());
+		loginParams.setEmail(user.getUserDto().getEmail());
 		loginParams.setPassword(PASSWORD);
 
 		ObjectMapper mapper = new ObjectMapper();

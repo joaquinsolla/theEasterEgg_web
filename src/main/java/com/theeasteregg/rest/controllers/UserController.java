@@ -5,23 +5,16 @@ import static com.theeasteregg.rest.dtos.UserConversor.toUser;
 import static com.theeasteregg.rest.dtos.UserConversor.toUserDto;
 
 import java.net.URI;
+import java.util.List;
 import java.util.Locale;
 
+import com.theeasteregg.model.services.FavoriteGameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.theeasteregg.model.common.exceptions.DuplicateInstanceException;
@@ -63,6 +56,9 @@ public class UserController {
 	/** The user service. */
 	@Autowired
 	private UserService userService;
+
+	@Autowired
+	private FavoriteGameService favoriteGameService;
 
 	/**
 	 * Handle incorrect login exception.
@@ -135,7 +131,7 @@ public class UserController {
 	@PostMapping("/login")
 	public AuthenticatedUserDto login(@Validated @RequestBody LoginParamsDto params) throws IncorrectLoginException {
 
-		User user = userService.login(params.getUserName(), params.getPassword());
+		User user = userService.login(params.getEmail(), params.getPassword());
 
 		return toAuthenticatedUserDto(generateServiceToken(user), user);
 
@@ -172,14 +168,14 @@ public class UserController {
 	@PutMapping("/{id}")
 	public UserDto updateProfile(@RequestAttribute Long userId, @PathVariable("id") Long id,
 			@Validated({ UserDto.UpdateValidations.class }) @RequestBody UserDto userDto)
-			throws InstanceNotFoundException, PermissionException {
+            throws InstanceNotFoundException, PermissionException, DuplicateInstanceException {
 
 		if (!id.equals(userId)) {
 			throw new PermissionException();
 		}
 
 		return toUserDto(
-				userService.updateProfile(id, userDto.getEmail()));
+				userService.updateProfile(id, userDto.getUserName()));
 
 	}
 
@@ -215,10 +211,25 @@ public class UserController {
 	 */
 	private String generateServiceToken(User user) {
 
-		JwtInfo jwtInfo = new JwtInfo(user.getId(), user.getUserName(), user.getRole().toString());
+		JwtInfo jwtInfo = new JwtInfo(user.getId(), user.getUserName());
 
 		return jwtGenerator.generate(jwtInfo);
 
+	}
+
+	@GetMapping("/{id}/favorites")
+	public List<Long> getFavorites(@PathVariable Long id) {
+		return favoriteGameService.getFavoriteGameIds(id);
+	}
+
+	@PostMapping("/{id}/addFavorite/{gameId}")
+	public void addFavorite(@PathVariable Long id, @PathVariable Long gameId) {
+		favoriteGameService.addFavoriteGame(id, gameId);
+	}
+
+	@PostMapping("/{id}/removeFavorite/{gameId}")
+	public void removeFavorite(@PathVariable Long id, @PathVariable Long gameId) {
+		favoriteGameService.removeFavoriteGame(id, gameId);
 	}
 
 }

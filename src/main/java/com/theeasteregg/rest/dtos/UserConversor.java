@@ -20,8 +20,7 @@ public class UserConversor {
 	 * @return the user dto
 	 */
 	public static final UserDto toUserDto(User user) {
-		return new UserDto(user.getId(), user.getUserName(), user.getEmail(),
-				user.getRole().toString());
+		return new UserDto(user.getId(), user.getUserName(), user.getEmail());
 	}
 
 	/**

@@ -55,5 +55,3 @@ mvn archetype:generate \
     mvn spring-boot:run
     ```
 * Thanks to the provided plugin configuration you can access your React app directly on http://localhost:8080/theeasteregg_web
-
-* You can also access the H2 console on http://localhost:8080/theeasteregg_web/h2-console

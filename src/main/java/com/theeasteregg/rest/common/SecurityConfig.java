@@ -40,9 +40,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.and()
 				.addFilter(new JwtFilter(authenticationManager(), jwtGenerator))
 				.authorizeRequests()
+				.antMatchers("/*").permitAll()
+				.antMatchers("/static/**").permitAll()
+				.antMatchers("/assets/**").permitAll()
 				.antMatchers("/users/signUp").permitAll()
 				.antMatchers("/users/login").permitAll()
-				.antMatchers("/users/loginFromServiceToken").permitAll();
+				.antMatchers("/users/loginFromServiceToken").permitAll()
+				.antMatchers("/users/{id}/favorites").permitAll()
+				.antMatchers("/users/{id}/addFavorite/{gameId}").permitAll()
+				.antMatchers("/users/{id}/removeFavorite/{gameId}").permitAll();
 	}
 
 	/**

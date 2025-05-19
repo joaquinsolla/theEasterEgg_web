@@ -55,7 +55,6 @@ public class UserServiceTest {
 		User loggedInUser = userService.loginFromId(user.getId());
 
 		assertEquals(user, loggedInUser);
-		assertEquals(User.RoleType.USER, user.getRole());
 
 	}
 }

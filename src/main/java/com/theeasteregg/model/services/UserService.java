@@ -22,12 +22,12 @@ public interface UserService {
 	/**
 	 * Login.
 	 *
-	 * @param userName the user name
+	 * @param email the email
 	 * @param password the password
 	 * @return the user
 	 * @throws IncorrectLoginException the incorrect login exception
 	 */
-	User login(String userName, String password) throws IncorrectLoginException;
+	User login(String email, String password) throws IncorrectLoginException;
 	
 	/**
 	 * Login from id.
@@ -42,11 +42,11 @@ public interface UserService {
 	 * Update profile.
 	 *
 	 * @param id the id
-	 * @param email the email
+	 * @param userName the user name
 	 * @return the user
 	 * @throws InstanceNotFoundException the instance not found exception
 	 */
-	User updateProfile(Long id, String email) throws InstanceNotFoundException;
+	User updateProfile(Long id, String userName) throws InstanceNotFoundException, DuplicateInstanceException;
 	
 	/**
 	 * Change password.

@@ -7,8 +7,8 @@ import javax.validation.constraints.NotNull;
  */
 public class LoginParamsDto {
 
-	/** The user name. */
-	private String userName;
+	/** The email. */
+	private String email;
 
 	/** The password. */
 	private String password;
@@ -21,22 +21,22 @@ public class LoginParamsDto {
 	}
 
 	/**
-	 * Gets the user name.
+	 * Gets the email.
 	 *
-	 * @return the user name
+	 * @return the email
 	 */
 	@NotNull
-	public String getUserName() {
-		return userName;
+	public String getEmail() {
+		return email;
 	}
 
 	/**
-	 * Sets the user name.
+	 * Sets the email.
 	 *
-	 * @param userName the new user name
+	 * @param email the new email
 	 */
-	public void setUserName(String userName) {
-		this.userName = userName.trim();
+	public void setEmail(String email) {
+		this.email = email.trim();
 	}
 
 	/**

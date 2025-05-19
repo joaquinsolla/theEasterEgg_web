@@ -30,9 +30,6 @@ public class UserDto {
 	
 	/** The email. */
 	private String email;
-	
-	/** The role. */
-	private String role;
 
 	/**
 	 * Instantiates a new user dto.
@@ -45,15 +42,13 @@ public class UserDto {
 	 * @param id the id
 	 * @param userName the user name
 	 * @param email the email
-	 * @param role the role
 	 */
-	public UserDto(Long id, String userName, String email, String role) {
+	public UserDto(Long id, String userName, String email) {
 
 		this.id = id;
 		this.userName = userName != null ? userName.trim() : null;
 		this.email = email.trim();
-		this.role = role;
-		
+
 	}
 
 	/**
@@ -133,24 +128,6 @@ public class UserDto {
 	 */
 	public void setEmail(String email) {
 		this.email = email.trim();
-	}
-
-	/**
-	 * Gets the role.
-	 *
-	 * @return the role
-	 */
-	public String getRole() {
-		return role;
-	}
-
-	/**
-	 * Sets the role.
-	 *
-	 * @param role the new role
-	 */
-	public void setRole(String role) {
-		this.role = role;
 	}
 
 }

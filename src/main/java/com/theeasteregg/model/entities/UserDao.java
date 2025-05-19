@@ -25,4 +25,8 @@ public interface UserDao extends PagingAndSortingRepository<User, Long> {
 	 */
 	Optional<User> findByUserName(String userName);
 
+	boolean existsByEmail(String email);
+
+	Optional<User> findByEmail(String email);
+
 }

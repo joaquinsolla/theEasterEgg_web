@@ -11,14 +11,6 @@ import javax.persistence.Id;
 @Entity
 public class User {
 
-	/**
-	 * The Enum RoleType.
-	 */
-	public enum RoleType {
-		/** The user. */
-		USER
-	}
-
 	/** The id. */
 	private Long id;
 
@@ -30,9 +22,6 @@ public class User {
 
 	/** The email. */
 	private String email;
-
-	/** The role. */
-	private RoleType role;
 
 	/**
 	 * Instantiates a new user.
@@ -127,24 +116,6 @@ public class User {
 	 */
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	/**
-	 * Gets the role.
-	 *
-	 * @return the role
-	 */
-	public RoleType getRole() {
-		return role;
-	}
-
-	/**
-	 * Sets the role.
-	 *
-	 * @param role the new role
-	 */
-	public void setRole(RoleType role) {
-		this.role = role;
 	}
 
 }
