@@ -4,11 +4,29 @@ import { useParams, Link } from "react-router-dom";
 import axios from 'axios';
 import { FaThumbsUp, FaAnglesDown, FaAnglesUp, FaCheck, FaXmark, FaLink } from "react-icons/fa6";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
-import { ReactComponent as SteamIcon } from "./svg/steam.svg";
-import { ReactComponent as XboxIcon } from "./svg/xbox.svg";
-import { ReactComponent as EpicIcon } from "./svg/epic.svg";
-import { ReactComponent as BattleIcon } from "./svg/battle.svg";
-import { ReactComponent as GogIcon } from "./svg/gog.svg";
+
+import { ReactComponent as SteamIcon } from "../../common/assets/svg/steam.svg";
+import { ReactComponent as XboxIcon } from "../../common/assets/svg/xbox.svg";
+import { ReactComponent as EpicIcon } from "../../common/assets/svg/epic.svg";
+import { ReactComponent as BattleIcon } from "../../common/assets/svg/battle.svg";
+import { ReactComponent as GogIcon } from "../../common/assets/svg/gog.svg";
+import Metacritic from '../../common/assets/metacritic.webp';
+
+import Pegi3 from '../../common/assets/pegi/PEGI_3.webp';
+import Pegi7 from '../../common/assets/pegi/PEGI_7.webp';
+import Pegi12 from '../../common/assets/pegi/PEGI_12.webp';
+import Pegi16 from '../../common/assets/pegi/PEGI_16.webp';
+import Pegi18 from '../../common/assets/pegi/PEGI_18.webp';
+
+import PegiBadLanguage from '../../common/assets/pegi/bad-language.webp';
+import PegiDicrimination from '../../common/assets/pegi/discrimination.webp';
+import PegiDrugs from '../../common/assets/pegi/drugs.webp';
+import PegiFear from '../../common/assets/pegi/fear.webp';
+import PegiGambling from '../../common/assets/pegi/gambling.webp';
+import PegiInGamePurchases from '../../common/assets/pegi/in-game-purchases.webp';
+import PegiSexualContent from '../../common/assets/pegi/sexual-content.webp';
+import PegiViolence from '../../common/assets/pegi/violence.webp';
+
 import Searchbar from "./Searchbar";
 import {
     LineChart,
@@ -116,22 +134,22 @@ const GameDetails = () => {
                     if (hits[0]._source.data.pegi.rating !== null){
                         switch (hits[0]._source.data.pegi.rating) {
                             case "3":
-                                hits[0]._source.data.pegi.rating_image = "PEGI_3.webp";
+                                hits[0]._source.data.pegi.rating_image = Pegi3;
                                 break;
                             case "7":
-                                hits[0]._source.data.pegi.rating_image = "PEGI_7.webp";
+                                hits[0]._source.data.pegi.rating_image = Pegi7;
                                 break;
                             case "12":
-                                hits[0]._source.data.pegi.rating_image = "PEGI_12.webp";
+                                hits[0]._source.data.pegi.rating_image = Pegi12;
                                 break;
                             case "16":
-                                hits[0]._source.data.pegi.rating_image = "PEGI_16.webp";
+                                hits[0]._source.data.pegi.rating_image = Pegi16;
                                 break;
                             case "18":
-                                hits[0]._source.data.pegi.rating_image = "PEGI_18.webp";
+                                hits[0]._source.data.pegi.rating_image = Pegi18;
                                 break;
                             default:
-                                hits[0]._source.data.pegi.rating_image = "PEGI_3.webp";
+                                hits[0]._source.data.pegi.rating_image = Pegi3;
                                 break;
                         }
                     }
@@ -145,14 +163,14 @@ const GameDetails = () => {
                         const descriptors_images = [];
 
                         const checks = [
-                            { keywords: ["bad", "language"], file: "bad-language.webp" },
-                            { keywords: ["discrimination"], file: "discrimination.webp" },
-                            { keywords: ["drugs"], file: "drugs.webp" },
-                            { keywords: ["fear"], file: "fear.webp" },
-                            { keywords: ["gambling"], file: "gambling.webp" },
-                            { keywords: ["purchase", "purchases"], file: "in-game-purchases.webp" },
-                            { keywords: ["sex", "sexual"], file: "sexual-content.webp" },
-                            { keywords: ["extreme", "violence"], file: "violence.webp" },
+                            { keywords: ["bad", "language"], file: PegiBadLanguage },
+                            { keywords: ["discrimination"], file: PegiDicrimination },
+                            { keywords: ["drugs"], file: PegiDrugs },
+                            { keywords: ["fear"], file: PegiFear },
+                            { keywords: ["gambling"], file: PegiGambling },
+                            { keywords: ["purchase", "purchases"], file: PegiInGamePurchases },
+                            { keywords: ["sex", "sexual"], file: PegiSexualContent },
+                            { keywords: ["extreme", "violence"], file: PegiViolence },
                         ];
 
                         checks.forEach(({ keywords, file }) => {
@@ -598,7 +616,7 @@ const GameDetails = () => {
                                         <div className="GameDetails-SecondaryInfo-Metacritic-Grade Margin-right" style={{ backgroundColor: game.metacritic.color }}>
                                             {game.metacritic.score}
                                         </div>
-                                        <img src={process.env.PUBLIC_URL + "/assets/metacritic.webp"} className="Margin-right GameDetails-SecondaryInfo-Metacritic-Image" />
+                                        <img src={Metacritic} className="Margin-right GameDetails-SecondaryInfo-Metacritic-Image" />
                                     </div>
                                 </a>
                             ) }
@@ -670,7 +688,7 @@ const GameDetails = () => {
                                 <div className="Margin-bottom">
                                     <div className="GameDetails-SecondaryInfo-Section">
                                         <div className="Margin-bottom-small Flex-start-div">
-                                            <img className="GameDetails-SecondaryInfo-Pegi-RatingImage Margin-right-small" src={process.env.PUBLIC_URL + "/assets/pegi/" + game.data.pegi.rating_image}/>
+                                            <img className="GameDetails-SecondaryInfo-Pegi-RatingImage Margin-right-small" src={game.data.pegi.rating_image}/>
                                             { (game.data.pegi.descriptors !== null) && (
                                                 <div>
                                                     {game.data.pegi.descriptors_list.map((desc, index) => (
@@ -682,7 +700,7 @@ const GameDetails = () => {
                                         { (game.data.pegi.descriptors !== null) && (
                                             <div>
                                                 {game.data.pegi.descriptors_images.map((img, index) => (
-                                                    <img className="GameDetails-SecondaryInfo-Pegi-DescriptorImage Margin-right-small" key={index} src={process.env.PUBLIC_URL + "/assets/pegi/" + img}/>
+                                                    <img className="GameDetails-SecondaryInfo-Pegi-DescriptorImage Margin-right-small" key={index} src={img}/>
                                                 ))}
                                             </div>
                                         )}

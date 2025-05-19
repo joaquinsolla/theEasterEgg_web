@@ -3,6 +3,8 @@ package com.theeasteregg.rest.common;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -40,8 +42,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.authorizeRequests()
 				.antMatchers("/users/signUp").permitAll()
 				.antMatchers("/users/login").permitAll()
-				.antMatchers("/users/loginFromServiceToken").permitAll()
-				.antMatchers("/h2-console/**").permitAll();
+				.antMatchers("/users/loginFromServiceToken").permitAll();
+	}
+
+	/**
+	 * Authentication manager.
+	 *
+	 * @param authenticationConfiguration Configuración de autenticación
+	 * @return El gestor de autenticación
+	 * @throws Exception Si ocurre un error al obtener el gestor de
+	 * autenticación
+	 */
+	@Bean
+	public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
+			throws Exception {
+		return authenticationConfiguration.getAuthenticationManager();
 	}
 
 	/**

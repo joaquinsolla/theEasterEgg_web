@@ -2,11 +2,11 @@ import "../style/SpecialPrices.css";
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import {FaPlus } from "react-icons/fa6";
-import { ReactComponent as SteamIcon } from "./svg/steam.svg";
-import { ReactComponent as XboxIcon } from "./svg/xbox.svg";
-import { ReactComponent as EpicIcon } from "./svg/epic.svg";
-import { ReactComponent as BattleIcon } from "./svg/battle.svg";
-import { ReactComponent as GogIcon } from "./svg/gog.svg";
+import { ReactComponent as SteamIcon } from "../../common/assets/svg/steam.svg";
+import { ReactComponent as XboxIcon } from "../../common/assets/svg/xbox.svg";
+import { ReactComponent as EpicIcon } from "../../common/assets/svg/epic.svg";
+import { ReactComponent as BattleIcon } from "../../common/assets/svg/battle.svg";
+import { ReactComponent as GogIcon } from "../../common/assets/svg/gog.svg";
 import {Link} from "react-router-dom";
 import { LuLoader } from "react-icons/lu";
 

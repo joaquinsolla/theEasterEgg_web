@@ -6,6 +6,8 @@ import {FaUserCircle} from "react-icons/fa";
 import users from '../../users';
 import {Link} from "react-router-dom";
 
+import HeaderLogo from '../../common/assets/header-logo-3.webp';
+
 const Header = () => {
 
     const isLoggedIn = useSelector(users.selectors.isLoggedIn);
@@ -14,7 +16,7 @@ const Header = () => {
         <div className="Header">
             <div>
                 <Link to="">
-                    <img src={process.env.PUBLIC_URL + "/assets/header-logo-3.webp"} className="Header-Banner" alt="logo"/>
+                    <img src={HeaderLogo} className="Header-Banner" alt="logo"/>
                 </Link>
             </div>
             <div>

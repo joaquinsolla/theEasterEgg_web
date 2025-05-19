@@ -28,12 +28,6 @@ public class User {
 	/** The password. */
 	private String password;
 
-	/** The first name. */
-	private String firstName;
-
-	/** The last name. */
-	private String lastName;
-
 	/** The email. */
 	private String email;
 
@@ -51,16 +45,12 @@ public class User {
 	 *
 	 * @param userName  the user name
 	 * @param password  the password
-	 * @param firstName the first name
-	 * @param lastName  the last name
 	 * @param email     the email
 	 */
-	public User(String userName, String password, String firstName, String lastName, String email) {
+	public User(String userName, String password, String email) {
 
 		this.userName = userName;
 		this.password = password;
-		this.firstName = firstName;
-		this.lastName = lastName;
 		this.email = email;
 
 	}
@@ -119,42 +109,6 @@ public class User {
 	 */
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	/**
-	 * Gets the first name.
-	 *
-	 * @return the first name
-	 */
-	public String getFirstName() {
-		return firstName;
-	}
-
-	/**
-	 * Sets the first name.
-	 *
-	 * @param firstName the new first name
-	 */
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	/**
-	 * Gets the last name.
-	 *
-	 * @return the last name
-	 */
-	public String getLastName() {
-		return lastName;
-	}
-
-	/**
-	 * Sets the last name.
-	 *
-	 * @param lastName the new last name
-	 */
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
 	}
 
 	/**

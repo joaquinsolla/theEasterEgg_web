@@ -28,12 +28,6 @@ public class UserDto {
 	/** The password. */
 	private String password;
 	
-	/** The first name. */
-	private String firstName;
-	
-	/** The last name. */
-	private String lastName;
-	
 	/** The email. */
 	private String email;
 	
@@ -50,17 +44,13 @@ public class UserDto {
 	 *
 	 * @param id the id
 	 * @param userName the user name
-	 * @param firstName the first name
-	 * @param lastName the last name
 	 * @param email the email
 	 * @param role the role
 	 */
-	public UserDto(Long id, String userName, String firstName, String lastName, String email, String role) {
+	public UserDto(Long id, String userName, String email, String role) {
 
 		this.id = id;
 		this.userName = userName != null ? userName.trim() : null;
-		this.firstName = firstName.trim();
-		this.lastName = lastName.trim();
 		this.email = email.trim();
 		this.role = role;
 		
@@ -122,46 +112,6 @@ public class UserDto {
 	 */
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	/**
-	 * Gets the first name.
-	 *
-	 * @return the first name
-	 */
-	@NotNull(groups={AllValidations.class, UpdateValidations.class})
-	@Size(min=1, max=60, groups={AllValidations.class, UpdateValidations.class})
-	public String getFirstName() {
-		return firstName;
-	}
-
-	/**
-	 * Sets the first name.
-	 *
-	 * @param firstName the new first name
-	 */
-	public void setFirstName(String firstName) {
-		this.firstName = firstName.trim();
-	}
-
-	/**
-	 * Gets the last name.
-	 *
-	 * @return the last name
-	 */
-	@NotNull(groups={AllValidations.class, UpdateValidations.class})
-	@Size(min=1, max=60, groups={AllValidations.class, UpdateValidations.class})
-	public String getLastName() {
-		return lastName;
-	}
-
-	/**
-	 * Sets the last name.
-	 *
-	 * @param lastName the new last name
-	 */
-	public void setLastName(String lastName) {
-		this.lastName = lastName.trim();
 	}
 
 	/**
