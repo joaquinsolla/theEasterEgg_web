@@ -19,7 +19,6 @@ export const login = (email, password, onSuccess, onErrors, reauthenticationCall
     backend.userService.login(email, password,
         authenticatedUser => {
             dispatch(loginCompleted(authenticatedUser));
-            dispatch(showSuccessMessage('Bienvenido'));
             onSuccess();
         },
         onErrors,

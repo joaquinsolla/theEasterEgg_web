@@ -51,6 +51,10 @@ p {
   padding: var(--default-padding) 15% var(--default-padding) 15%;
 }
 
+.Text-left {
+  text-align: left;
+}
+
 .Flex-start-div {
   display: flex;
   align-items: start;
@@ -162,6 +166,10 @@ p {
 
 .Text-center {
   text-align: center;
+}
+
+.Justify-Content-Center {
+  justify-content: center;
 }
 
 @media (max-width: 900px) {

@@ -1,0 +1,81 @@
+@import 'App.css';
+@import "Colors.css";
+@import "Measures.css";
+
+.User-Login {
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.User-Login-Container {
+    border-radius: var(--big-radius);
+    background-color: var(--blue-1);
+    padding: var(--big-padding);
+    width: 50%;
+}
+
+.User-Login-Alternative {
+    padding: var(--big-padding);
+    width: fit-content;
+    color: var(--grey-3);
+}
+
+.User-Login-Image{
+    width: 100%;
+    height: auto;
+    border-radius: var(--big-radius);
+}
+
+.User-Login-Label {
+    color: var(--white);
+    font-size: 1.2rem;
+    margin-bottom: var(--extra-small-margin);
+}
+
+.User-Login-Label-Small {
+    color: var(--white);
+    font-size: 1rem;
+    margin-bottom: var(--extra-small-margin);
+}
+
+.User-Login-Input {
+    background-color: var(--blue-3);
+    margin-bottom: var(--extra-small-margin);
+    border-radius: var(--small-radius);
+    color: var(--white);
+    border: none;
+    width: 100%;
+    padding: var(--small-margin);
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+}
+
+.User-Login-Button {
+    background-color: var(--blue-5);
+    color: white;
+    padding: var(--small-padding);
+    border-radius: var(--small-radius);
+    transition: var(--default-transition);
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.User-Login-Button:hover {
+    background-color: var(--blue-4);
+}
+
+.User-Login-Error {
+    font-family: 'Roboto', sans-serif;
+    color: var(--red-2);
+}
+
+@media (max-width: 900px) {
+
+}

@@ -14,7 +14,7 @@ const processLoginSignUp = (authenticatedUser, reauthenticationCallback, onSucce
 }
 
 export const login = (
-  userName,
+  email,
   password,
   onSuccess,
   onErrors,
@@ -22,9 +22,9 @@ export const login = (
 ) =>
   appFetch(
     "/users/login",
-    fetchConfig("POST", { userName, password }),
+    fetchConfig("POST", { email, password }),
     (authenticatedUser) => {
-      processLoginSignUp(authenticatedUser, reauthenticationCallback);
+      processLoginSignUp(authenticatedUser, reauthenticationCallback, onSuccess);
     },
     onErrors
   );
@@ -52,12 +52,12 @@ export const tryLoginFromServiceToken = (
 
 export const signUp = (user, onSuccess, onErrors, reauthenticationCallback) => {
   appFetch(
-    "/users/signUp",
-    fetchConfig("POST", user),
-    (authenticatedUser) => {
-      processLoginSignUp(authenticatedUser, reauthenticationCallback);
-    },
-    onErrors
+      "/users/signUp",
+      fetchConfig("POST", user),
+      (authenticatedUser) => {
+        processLoginSignUp(authenticatedUser, reauthenticationCallback, onSuccess);
+      },
+      onErrors
   );
 };
 
