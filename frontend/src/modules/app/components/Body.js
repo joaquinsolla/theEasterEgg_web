@@ -38,7 +38,7 @@ const Body = () => {
         {loggedIn && <Route path="/desired-games" element={<DesiredGames />} />}
 
         <Route path="/notFound" element={<NotFoundPage />} />
-        <Route path="/*" element={<Navigate to="/notFound" />} />
+        {/*<Route path="/*" element={<Navigate to="/notFound" />} />*/}
     </Routes>
   );
 };
