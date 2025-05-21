@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Route, Routes } from "react-router-dom";
+import {Navigate, Route, Routes} from "react-router-dom";
 
 import Home from "./Home";
 import PlatformsList from "./PlatformsList";
@@ -10,6 +10,7 @@ import AdvancedSearch from "./AdvancedSearch";
 import GameDetails from "./GameDetails";
 import AccountDetails from "./AccountDetails";
 import DesiredGames from "./DesiredGames";
+import NotFoundPage from "./NotFoundPage";
 
 import users, {
     Login,
@@ -36,7 +37,8 @@ const Body = () => {
         {loggedIn && <Route path="/account" element={<AccountDetails />} />}
         {loggedIn && <Route path="/desired-games" element={<DesiredGames />} />}
 
-        {/* NOT FOUND PAGE */}
+        <Route path="/notFound" element={<NotFoundPage />} />
+        <Route path="/*" element={<Navigate to="/notFound" />} />
     </Routes>
   );
 };

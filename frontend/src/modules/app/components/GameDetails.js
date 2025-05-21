@@ -762,14 +762,8 @@ const GameDetails = () => {
                     </div>
                 </div>
             ) : (
-                <div className="Content Text-center">
-                    <div className="NotFound404 Margin-top">
-                        404
-                    </div>
-                    <div className="NotFoundText">
-                        Página no encontrada
-                    </div>
-                </div>
+                <>
+                </>
             )}
         </>
     );
