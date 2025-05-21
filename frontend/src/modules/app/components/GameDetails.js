@@ -366,6 +366,7 @@ const GameDetails = () => {
 
     //region Favorite
     const user = useSelector(users.selectors.getUser);
+    const isLoggedIn = useSelector(users.selectors.isLoggedIn);
     const [favoriteGameIds, setFavoriteGameIds] = useState([]);
     const isFavorite = favoriteGameIds.includes(Number(appid));
 
@@ -415,16 +416,27 @@ const GameDetails = () => {
                     <Searchbar />
                     <div className="Flex-center-div Space-Between">
                         <h1 className="Margin-bottom-small">{game.name}&nbsp;{ game.data.release_date.year !== null && (<span className="GameDetails-Year">{game.data.release_date.year}</span>)}</h1>
-                        {isFavorite ? (
-                            <div className="Flex-center-div" onClick={handleRemoveFavorite} style={{ cursor: 'pointer' }}>
-                                <span className="GameDetails-Liked-Text Margin-right">En la lista de deseados</span>
-                                <FaHeart className="GameDetails-Liked" />
-                            </div>
+                        {isLoggedIn ? (
+                            <>
+                                {isFavorite ? (
+                                    <div className="Flex-center-div" onClick={handleRemoveFavorite} style={{ cursor: 'pointer' }}>
+                                        <span className="GameDetails-Liked-Text Margin-right">En la lista de deseados</span>
+                                        <FaHeart className="GameDetails-Liked" />
+                                    </div>
+                                ) : (
+                                    <div className="Flex-center-div" onClick={handleAddFavorite} style={{ cursor: 'pointer' }}>
+                                        <span className="GameDetails-Liked-Text Margin-right">Añadir a la lista de deseados</span>
+                                        <FaRegHeart className="GameDetails-NoLiked" />
+                                    </div>
+                                )}
+                            </>
                         ) : (
-                            <div className="Flex-center-div" onClick={handleAddFavorite} style={{ cursor: 'pointer' }}>
-                                <span className="GameDetails-Liked-Text Margin-right">Añadir a la lista de deseados</span>
-                                <FaRegHeart className="GameDetails-NoLiked" />
-                            </div>
+                            <Link to="/login" className="Link-simple">
+                                <div className="Flex-center-div" onClick={handleAddFavorite} style={{ cursor: 'pointer' }}>
+                                    <span className="GameDetails-Liked-Text Margin-right">Añadir a la lista de deseados</span>
+                                    <FaRegHeart className="GameDetails-NoLiked" />
+                                </div>
+                            </Link>
                         )}
 
                     </div>
