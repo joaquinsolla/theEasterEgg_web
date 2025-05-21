@@ -1,8 +1,7 @@
 import "../style/Header.css";
 import {useSelector} from 'react-redux';
 import React from "react";
-import {FaUserCircle} from "react-icons/fa";
-
+import { TbLogout } from "react-icons/tb";
 import users from '../../users';
 import {Link} from "react-router-dom";
 
@@ -11,6 +10,7 @@ import HeaderLogo from '../../common/assets/header-logo-3.webp';
 const Header = () => {
 
     const isLoggedIn = useSelector(users.selectors.isLoggedIn);
+    const user = useSelector(users.selectors.getUser);
 
     return (
         <div className="Header">
@@ -25,9 +25,12 @@ const Header = () => {
                         <Link to="/desired-games" className="Link-simple">
                             <p>Lista de deseados</p>
                         </Link>
-                        <Link to="/account" className="Link-simple Flex-center-div Margin-left">
-                            <p>Mi cuenta</p>
-                            <FaUserCircle className="Header-User-Icon Margin-left"/>
+                        <Link to="/account" className="Link-simple Flex-center-div Margin-left Flex-center-div">
+                            <p>{user.userName}</p>
+                        </Link>
+                        <Link to="/logout" className="Link-simple Flex-center-div Margin-left Flex-center-div Logout-Container">
+                            <p>Cerrar sesión</p>
+                            <TbLogout className="Header-User-Icon Margin-left-small"/>
                         </Link>
                     </div>
                 ) : (

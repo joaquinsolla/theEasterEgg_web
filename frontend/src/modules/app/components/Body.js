@@ -12,7 +12,8 @@ import GameDetails from "./GameDetails";
 
 import users, {
     Login,
-    SignUp
+    SignUp,
+    Logout
 } from "../../users";
 
 const Body = () => {
@@ -30,6 +31,8 @@ const Body = () => {
 
         {!loggedIn && <Route path="/login" element={<Login />} />}
         {!loggedIn && <Route path="/signup" element={<SignUp />} />}
+        {loggedIn && <Route path="/logout" element={<Logout />} />}
+
 
 
         <Route path="/account" element={<Test />} />
