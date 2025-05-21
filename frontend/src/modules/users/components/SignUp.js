@@ -110,8 +110,11 @@ const SignUp = () => {
             if (msg.includes('IncorrectLoginException')) {
                 return 'Credenciales incorrectas.';
             }
-            if (msg.includes('DuplicatedInstanceException')) {
+            if (msg.includes('DuplicateInstanceException')) {
                 return 'Ya existe una cuenta con este email.';
+            }
+            if (msg.includes('DuplicateUserNameException')) {
+                return 'Ya existe una cuenta con este nombre de usuario.';
             }
 
             return 'Ha ocurrido un error inesperado';

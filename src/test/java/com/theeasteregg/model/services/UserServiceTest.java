@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 
 import javax.transaction.Transactional;
 
+import com.theeasteregg.model.common.exceptions.DuplicateUserNameException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +47,7 @@ public class UserServiceTest {
 	 * @throws InstanceNotFoundException  the instance not found exception
 	 */
 	@Test
-	public void testSignUpAndLoginFromId() throws DuplicateInstanceException, InstanceNotFoundException {
+	public void testSignUpAndLoginFromId() throws DuplicateInstanceException, InstanceNotFoundException, DuplicateUserNameException {
 
 		User user = createUser("user");
 

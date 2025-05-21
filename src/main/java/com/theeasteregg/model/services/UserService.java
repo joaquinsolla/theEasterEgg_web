@@ -1,6 +1,7 @@
 package com.theeasteregg.model.services;
 
 import com.theeasteregg.model.common.exceptions.DuplicateInstanceException;
+import com.theeasteregg.model.common.exceptions.DuplicateUserNameException;
 import com.theeasteregg.model.common.exceptions.InstanceNotFoundException;
 import com.theeasteregg.model.entities.User;
 import com.theeasteregg.model.services.exceptions.IncorrectLoginException;
@@ -17,7 +18,7 @@ public interface UserService {
 	 * @param user the user
 	 * @throws DuplicateInstanceException the duplicate instance exception
 	 */
-	void signUp(User user) throws DuplicateInstanceException;
+	void signUp(User user) throws DuplicateInstanceException, DuplicateUserNameException;
 	
 	/**
 	 * Login.

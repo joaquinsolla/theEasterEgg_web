@@ -1,6 +1,7 @@
 package com.theeasteregg.model.services;
 
 import com.theeasteregg.model.common.exceptions.DuplicateInstanceException;
+import com.theeasteregg.model.common.exceptions.DuplicateUserNameException;
 import com.theeasteregg.model.common.exceptions.InstanceNotFoundException;
 import com.theeasteregg.model.entities.User;
 import org.junit.Test;
@@ -44,7 +45,7 @@ public class FavoriteGameServiceTest {
 	 * @throws InstanceNotFoundException  the instance not found exception
 	 */
 	@Test
-	public void testGetFavorites() throws DuplicateInstanceException, InstanceNotFoundException {
+	public void testGetFavorites() throws DuplicateInstanceException, InstanceNotFoundException, DuplicateUserNameException {
 
 		User user = createUser("user");
 

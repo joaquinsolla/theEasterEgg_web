@@ -8,6 +8,7 @@ import java.net.URI;
 import java.util.List;
 import java.util.Locale;
 
+import com.theeasteregg.model.common.exceptions.DuplicateUserNameException;
 import com.theeasteregg.model.services.FavoriteGameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -108,7 +109,7 @@ public class UserController {
 	@PostMapping("/signUp")
 	public ResponseEntity<AuthenticatedUserDto> signUp(
 			@Validated({ UserDto.AllValidations.class }) @RequestBody UserDto userDto)
-			throws DuplicateInstanceException {
+            throws DuplicateInstanceException, DuplicateUserNameException {
 
 		User user = toUser(userDto);
 

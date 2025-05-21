@@ -2,6 +2,7 @@ package com.theeasteregg.model.services;
 
 import java.util.Optional;
 
+import com.theeasteregg.model.common.exceptions.DuplicateUserNameException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -40,14 +41,14 @@ public class UserServiceImpl implements UserService {
 	 * @throws DuplicateInstanceException the duplicate instance exception
 	 */
 	@Override
-	public void signUp(User user) throws DuplicateInstanceException {
+	public void signUp(User user) throws DuplicateInstanceException, DuplicateUserNameException {
 
 		if (userDao.existsByEmail(user.getEmail())) {
 			throw new DuplicateInstanceException("project.entities.user", user.getEmail());
 		}
 
 		if (userDao.existsByUserName(user.getUserName())) {
-			throw new DuplicateInstanceException("project.entities.user", user.getUserName());
+			throw new DuplicateUserNameException("project.entities.user", user.getUserName());
 		}
 
 		user.setPassword(passwordEncoder.encode(user.getPassword()));

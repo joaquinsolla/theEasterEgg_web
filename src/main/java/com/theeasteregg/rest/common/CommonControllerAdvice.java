@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
+import com.theeasteregg.model.common.exceptions.DuplicateUserNameException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
@@ -31,6 +32,9 @@ public class CommonControllerAdvice {
 
 	/** The Constant PERMISSION_EXCEPTION_CODE. */
 	private static final String PERMISSION_EXCEPTION_CODE = "project.exceptions.PermissionException";
+
+	/** The Constant DUPLICATE_USERNAME_EXCEPTION_CODE. */
+	private static final String DUPLICATE_USERNAME_EXCEPTION_CODE = "project.exceptions.DuplicateUserNameException";
 
 	/** The message source. */
 	@Autowired
@@ -113,5 +117,26 @@ public class CommonControllerAdvice {
 		return new ErrorsDto(errorMessage);
 
 	}
+
+	/**
+	 * Handle duplicate username exception.
+	 *
+	 * @param exception the exception
+	 * @param locale    the locale
+	 * @return the errors dto
+	 */
+	@ExceptionHandler(DuplicateUserNameException.class)
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ResponseBody
+	public ErrorsDto handleDuplicateUserNameException(DuplicateUserNameException exception, Locale locale) {
+
+		String nameMessage = messageSource.getMessage(exception.getName(), null, exception.getName(), locale);
+		String errorMessage = messageSource.getMessage(DUPLICATE_USERNAME_EXCEPTION_CODE,
+				new Object[] { nameMessage, exception.getKey().toString() }, DUPLICATE_USERNAME_EXCEPTION_CODE, locale);
+
+		return new ErrorsDto(errorMessage);
+
+	}
+
 
 }
