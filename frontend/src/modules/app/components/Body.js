@@ -9,6 +9,7 @@ import DevelopersList from "./DevelopersList";
 import AdvancedSearch from "./AdvancedSearch";
 import GameDetails from "./GameDetails";
 import AccountDetails from "./AccountDetails";
+import DesiredGames from "./DesiredGames";
 
 import users, {
     Login,
@@ -33,6 +34,7 @@ const Body = () => {
         {!loggedIn && <Route path="/signup" element={<SignUp />} />}
         {loggedIn && <Route path="/logout" element={<Logout />} />}
         {loggedIn && <Route path="/account" element={<AccountDetails />} />}
+        {loggedIn && <Route path="/desired-games" element={<DesiredGames />} />}
 
         {/* NOT FOUND PAGE */}
     </Routes>

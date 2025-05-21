@@ -37,6 +37,8 @@ import {
     Tooltip,
     ResponsiveContainer
 } from 'recharts';
+import {useSelector} from "react-redux";
+import users from "../../users";
 
 const GameDetails = () => {
     const { appid } = useParams();
@@ -362,6 +364,50 @@ const GameDetails = () => {
     };
     //endregion
 
+    //region Favorite
+    const user = useSelector(users.selectors.getUser);
+    const [favoriteGameIds, setFavoriteGameIds] = useState([]);
+    const isFavorite = favoriteGameIds.includes(Number(appid));
+
+    useEffect(() => {
+        if (user?.id) {
+            fetch(`/theeasteregg_web/api/users/${user.id}/favorites`)
+                .then(res => {
+                    if (!res.ok) throw new Error("Error fetching favorites");
+                    return res.json();
+                })
+                .then(setFavoriteGameIds)
+                .catch(console.error);
+        }
+    }, [user]);
+
+    const handleAddFavorite = () => {
+        if (!user?.id) return;
+
+        fetch(`/theeasteregg_web/api/users/${user.id}/addFavorite/${appid}`, {
+            method: "POST",
+        })
+            .then(res => {
+                if (!res.ok) throw new Error("Error al añadir a favoritos");
+                setFavoriteGameIds(prev => [...prev, Number(appid)]);
+            })
+            .catch(console.error);
+    };
+
+    const handleRemoveFavorite = () => {
+        if (!user?.id) return;
+
+        fetch(`/theeasteregg_web/api/users/${user.id}/removeFavorite/${appid}`, {
+            method: "POST",
+        })
+            .then(res => {
+                if (!res.ok) throw new Error("Error al quitar de favoritos");
+                setFavoriteGameIds(prev => prev.filter(id => id !== Number(appid)));
+            })
+            .catch(console.error);
+    };
+    //endregion
+
     return (
         <>
             {game ? (
@@ -369,18 +415,18 @@ const GameDetails = () => {
                     <Searchbar />
                     <div className="Flex-center-div Space-Between">
                         <h1 className="Margin-bottom-small">{game.name}&nbsp;{ game.data.release_date.year !== null && (<span className="GameDetails-Year">{game.data.release_date.year}</span>)}</h1>
-                        { true ? (
-                            <div className="Flex-center-div">
+                        {isFavorite ? (
+                            <div className="Flex-center-div" onClick={handleRemoveFavorite} style={{ cursor: 'pointer' }}>
                                 <span className="GameDetails-Liked-Text Margin-right">En la lista de deseados</span>
-                                <FaHeart className="GameDetails-Liked"/>
+                                <FaHeart className="GameDetails-Liked" />
                             </div>
                         ) : (
-                            <div className="Flex-center-div">
+                            <div className="Flex-center-div" onClick={handleAddFavorite} style={{ cursor: 'pointer' }}>
                                 <span className="GameDetails-Liked-Text Margin-right">Añadir a la lista de deseados</span>
-                                <FaRegHeart className="GameDetails-NoLiked"/>
+                                <FaRegHeart className="GameDetails-NoLiked" />
                             </div>
-                            )
-                        }
+                        )}
+
                     </div>
                     <div className="GameDetails-Year-Recommendations Flex-center-div Margin-bottom-small">
                         Recomendaciones: {game.data.total_recommendations}
