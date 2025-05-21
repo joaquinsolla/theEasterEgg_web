@@ -164,6 +164,13 @@ p {
   cursor: pointer;
 }
 
+.Formatted-Link-Red {
+  display: contents;
+  text-decoration: none;
+  color: var(--red-2);
+  cursor: pointer;
+}
+
 .Text-center {
   text-align: center;
 }
