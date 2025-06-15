@@ -19,12 +19,12 @@
 .PlatformsList-Container-Item-Svg {
     width: 75%;
     height: auto;
-    fill: var(--white);
+    fill: var(--color-white);
     transition: var(--default-transition);
 }
 
 .PlatformsList-Container-Item-Svg:hover {
-    fill: var(--grey-3);
+    fill: var(--color-grey);
 }
 
 @media (max-width: 900px) {

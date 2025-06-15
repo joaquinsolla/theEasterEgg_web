@@ -4,8 +4,8 @@
 
 .Header {
     text-align: left;
-    background-color: var(--blue-1);
-    color: var(--white);
+    background-color: var(--color-header);
+    color: var(--color-white);
     padding: var(--big-padding);
     height: var(--header-height);
     display: flex;
@@ -21,11 +21,11 @@
 .Header-User-Icon {
     height: 1.2rem;
     width: auto;
-    color: var(--white);
+    color: var(--color-white);
 }
 
 .Logout-Container{
-    border-left: var(--default-border) groove var(--blue-5);
+    border-left: var(--default-border) groove var(--color-generic-light);
     padding-left: var(--default-margin);
 }
 

@@ -13,17 +13,17 @@
 .GameDetails-Year{
     font-size: 1.5rem;
     font-weight: 200;
-    color: var(--blue-6);
+    color: var(--color-generic-light);
     font-style: italic;
 }
 
 .GameDetails-Year-Recommendations {
     width: fit-content;
-    color: var(--white);
+    color: var(--color-white);
     font-size: 1rem;
     padding: var(--small-padding);
     border-radius: var(--big-radius);
-    background-color: var(--blue-2);
+    background-color: var(--color-generic-dark);
 }
 
 .GameDetails-Liked-Text {
@@ -41,7 +41,7 @@
 
 .GameDetails-NoLiked {
     font-size: 2rem;
-    color: var(--white);
+    color: var(--color-white);
     cursor: pointer;
 }
 
@@ -60,7 +60,7 @@
 }
 
 .GameDetails-MainInfo-DisplayingMedia {
-    border: var(--default-border) groove var(--blue-5);
+    border: var(--default-border) groove var(--color-special-secondary);
     width: 100%;
     height: auto;
     border-radius: var(--small-radius);
@@ -90,7 +90,7 @@
 }
 
 .GameDetails-SecondaryInfo-HeaderImage {
-    border: var(--default-border) groove var(--blue-5);
+    border: var(--default-border) groove var(--color-special-secondary);
     width: 100%;
     height: auto;
     border-radius: var(--small-radius);
@@ -99,50 +99,50 @@
 .GameDetails-SecondaryInfo-PricesTable {
     width: 100%;
     border-radius: var(--default-radius);
-    border: var(--default-border) groove var(--blue-5);
-    background-color: var(--blue-s);
+    border: var(--default-border) groove var(--color-special-secondary);
+    background-color: var(--color-generic-medium);
 }
 
 .GameDetails-SecondaryInfo-PricesTable-Row {
     width: 100%;
     border-radius: 0;
-    color: var(--white);
-    border-bottom: var(--default-border) groove var(--blue-5);
+    color: var(--color-white);
+    border-bottom: var(--default-border) groove var(--color-special-secondary);
     padding: var(--default-padding);
     cursor: pointer;
 }
 
 .GameDetails-SecondaryInfo-PricesTable-Row:hover {
-    background-color: var(--blue-3);
+    background-color: var(--color-generic-dark);
 }
 
 .GameDetails-SecondaryInfo-PricesTable-Row-First {
     width: 100%;
     border-radius: var(--default-radius) var(--default-radius) 0 0;
-    color: var(--white);
-    border-bottom: var(--default-border) groove var(--blue-5);
+    color: var(--color-white);
+    border-bottom: var(--default-border) groove var(--color-special-secondary);
     padding: var(--default-padding);
     cursor: pointer;
 }
 
 .GameDetails-SecondaryInfo-PricesTable-Row-First:hover {
-    background-color: var(--blue-3);
+    background-color: var(--color-generic-dark);
 }
 
 .GameDetails-SecondaryInfo-PricesTable-Row-Last {
     width: 100%;
     border-radius: 0 0 var(--default-radius) var(--default-radius);
-    color: var(--white);
+    color: var(--color-white);
     padding: var(--default-padding);
     cursor: pointer;
 }
 
 .GameDetails-SecondaryInfo-PricesTable-Row-Last:hover {
-    background-color: var(--blue-3);
+    background-color: var(--color-generic-dark);
 }
 
 .Prices-Svg {
-    fill: var(--white);
+    fill: var(--color-white);
     width: auto;
     height: 1.5rem;
 }
@@ -182,12 +182,12 @@
     left: 0;
     right: 0;
     height: 10vh; /* altura del fade */
-    background: linear-gradient(to bottom, rgba(15, 29, 50,0), rgba(15, 29, 50,1));
+    background: linear-gradient(to bottom, rgba(52, 52, 55, 0), rgba(52, 52, 55, 1));
     pointer-events: none;
 }
 
 .GameDetails-MainInfo-Description-ShowMoreButton {
-    color: var(--blue-6);
+    color: var(--color-generic-light);
     border: none;
     text-decoration: underline;
     cursor: pointer;
@@ -199,13 +199,13 @@
 
 .GameDetails-MainInfo-Description-Container{
     border-radius: var(--default-radius);
-    background-color: var(--blue-2);
+    background-color: var(--color-generic-medium);
     padding: var(--default-padding);
 }
 
 .GameDetails-MainInfo-Requirements {
     border-radius: var(--default-radius);
-    background-color: var(--blue-2);
+    background-color: var(--color-generic-medium);
     padding: var(--default-padding);
 }
 
@@ -221,7 +221,6 @@
 
 .GameDetails-MainInfo-GameDetails-MainInfo-Requirements-Container {
     border-radius: var(--default-radius);
-    background-color: var(--blue-s);
     padding: var(--default-padding) var(--default-padding) 0 var(--default-padding);
 }
 
@@ -239,19 +238,19 @@
     left: 0;
     right: 0;
     height: 10vh; /* altura del fade */
-    background: linear-gradient(to bottom, rgba(15, 29, 50,0), rgba(15, 29, 50,1));
+    background: linear-gradient(to bottom, rgba(52, 52, 55,0), rgba(52, 52, 55,1));
     pointer-events: none;
 }
 
 .GameDetails-MainInfo-GameDetails-MainInfo-Requirements-Container {
     border-radius: var(--default-radius);
-    background-color: var(--blue-2);
+    background-color: var(--color-generic-medium);
     padding: var(--default-padding) var(--default-padding) 0 var(--default-padding);
 }
 
 .GameDetails-MainInfo-Languages {
     border-radius: var(--default-radius);
-    background-color: var(--blue-2);
+    background-color: var(--color-generic-medium);
     padding: var(--default-padding);
 }
 
@@ -262,13 +261,13 @@
 
 .GameDetails-MainInfo-LegalInfo {
     font-size: 0.8rem;
-    color: var(--grey-3);
+    color: var(--color-grey);
     text-align: center;
 }
 
 .GameDetails-SecondaryInfo-Section{
     border-radius: var(--default-radius);
-    background-color: var(--blue-2);
+    background-color: var(--color-generic-medium);
     padding: var(--default-padding);
     font-family: 'Roboto', sans-serif;
 }
@@ -277,7 +276,7 @@
     width: fit-content;
     padding: var(--small-padding);
     font-size: 2rem;
-    color: var(--white);
+    color: var(--color-white);
 }
 
 .GameDetails-SecondaryInfo-Metacritic-Image {
@@ -287,25 +286,25 @@
 
 .GameDetails-SecondaryInfo-ListItem {
     border-radius: var(--small-radius);
-    background-color: var(--blue-4);
-    color: var(--white);
+    background-color: var(--color-generic-dark);
+    color: var(--color-white);
     padding: var(--small-padding);
-    border: var(--default-border) groove var(--blue-5);
+    border: var(--default-border) groove var(--color-special-secondary);
     margin-bottom: -2px;
 }
 
 .GameDetails-SecondaryInfo-ListItem:hover {
-    background-color: var(--blue-5);
+    background-color: var(--color-generic-medium);
 }
 
 .GameDetails-SecondaryInfo-SO {
-    color: var(--white);
+    color: var(--color-white);
     font-size: 1rem;
     padding: var(--small-padding) 0 0 var(--small-padding);
 }
 
 .GameDetails-SecondaryInfo-SO-disabled {
-    color: var(--grey-3);
+    color: var(--color-grey);
     font-size: 1rem;
     padding: var(--small-padding) 0 0 var(--small-padding);
 }

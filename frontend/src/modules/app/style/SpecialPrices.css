@@ -17,31 +17,31 @@
 }
 
 .SpecialPrices-Item-Price-Price {
-    color: var(--green-1);
+    color: var(--color-special-primary);
     font-size: 1.5rem;
     padding: var(--small-padding);
     border-radius: var(--small-radius);
-    background-color: var(--blue-4);
-    border: var(--default-border) groove var(--green-1);
+    background-color: var(--color-generic-dark);
+    border: var(--default-border) groove var(--color-special-primary);
     font-family: 'Kanit', sans-serif;
 }
 
 .SpecialPrices-Item {
     padding: var(--small-padding);
-    background-color: var(--blue-3);
+    background-color: var(--color-background);
     border-radius: var(--small-radius);
-    border: var(--default-border) groove var(--blue-5);
+    border: var(--default-border) groove var(--color-generic-medium);
 }
 
 .SpecialPrices-Item-2 {
     padding: var(--small-padding);
-    background-color: var(--blue-2);
+    background-color: var(--color-generic-dark);
     border-radius: var(--small-radius);
-    border: var(--default-border) groove var(--blue-5);
+    border: var(--default-border) groove var(--color-special-secondary);
 }
 
 .SpecialPrices-Item-Price-Platform-Svg {
-    fill: var(--white);
+    fill: var(--color-white);
     width: auto;
     height: 1.5rem;
 }
@@ -50,14 +50,14 @@
     font-family: 'Roboto', sans-serif;
     padding: 3px;
     border-radius: var(--small-radius);
-    background-color: var(--blue-4);
-    color: var(--grey-3);
+    background-color: var(--color-generic-medium);
+    color: var(--color-grey);
     font-size: 0.7rem;
     margin-right: 3px;
 }
 
 .SpecialPrices-LoadMore {
-    background-color: var(--blue-3);
+    background-color: var(--color-generic-dark);
     color: white;
     padding: var(--small-padding);
     border-radius: var(--small-radius);
@@ -71,11 +71,11 @@
 }
 
 .SpecialPrices-LoadMore:hover {
-    background-color: var(--blue-4);
+    background-color: var(--color-generic-medium);
 }
 
 .No-Desired-Games {
-    color: var(--grey-3);
+    color: var(--color-grey);
     font-style: italic;
     font-weight: 300;
 }

@@ -9,21 +9,21 @@
 .AdvancedSearch-Filters {
     width: 25%;
     padding: var(--default-padding);
-    background-color: var(--blue-2);
+    background-color: var(--color-generic-dark);
     border-radius: var(--default-radius) !important;
 }
 
 .AdvancedSearch-Filters-EuiFieldSearch {
     height: calc(2.5rem) !important;
     margin: 0 !important;
-    background-color: var(--blue-s) !important;
+    background-color: var(--color-generic-medium) !important;
     width: 100% !important;
-    border: 0 groove var(--blue-5) !important;
+    border: 0 groove var(--color-special-secondary) !important;
     border-radius: var(--default-radius) !important;
 }
 
 .Filter-Platform-Svg {
-    fill: var(--white);
+    fill: var(--color-white);
     width: auto;
     height: 1.5rem;
 }
@@ -31,6 +31,8 @@
 .ResetFilter-Button {
     text-align: center;
     width: 100%;
+    background-color: var(--color-generic-medium) !important;
+    color: var(--color-white) !important;
 }
 
 .euiRangeThumb {
@@ -61,24 +63,23 @@
 }
 
 .AdvancedSearch-Sorting-View-Content {
-    background-color: var(--blue-2);
+    background-color: var(--color-generic-dark);
     padding: var(--small-padding);
     border-radius: var(--default-radius);
-    border: var(--default-border) groove var(--blue-5);
 }
 
 .AdvancedSearch-Sorting-View-Icon-Active {
     height: 1.6rem;
     width: auto;
     border-radius: var(--small-radius);
-    color: var(--blue-6);
+    color: var(--color-white);
     cursor: pointer;
 }
 
 .AdvancedSearch-Sorting-View-Icon-Disabled {
     height: 1.6rem;
     width: auto;
-    color: var(--white);
+    color: var(--color-generic-medium);
     cursor: pointer;
 }
 
@@ -98,9 +99,9 @@
 .AdvancedSearch-Results-Item{
     width: calc(33.3% - var(--default-margin));
     margin-bottom: 0;
-    background-color: var(--blue-s);
+    background-color: var(--color-header);
     border-radius: var(--default-radius);
-    border: var(--default-border) groove var(--blue-5);
+    border: var(--default-border) groove var(--color-generic-medium);
 }
 
 .AdvancedSearch-Results-Item-Image{
@@ -118,7 +119,7 @@
 }
 
 .AdvancedSearch-Results-Item-Info-Availability-Svg {
-    fill: var(--white);
+    fill: var(--color-white);
     width: auto;
     height: 1rem;
 }
@@ -131,27 +132,27 @@
     text-align: right;
     padding: var(--extra-small-padding);
     border-radius: var(--default-radius);
-    border: var(--default-border) groove var(--green-1);
+    border: var(--default-border) groove var(--color-special-secondary);
     font-family: 'Kanit', sans-serif;
 }
 
 .AdvancedSearch-Results-Item-Info-Price-Min{
-    color: var(--green-1);
+    color: var(--color-special-primary);
     font-size: 1.125rem;
 }
 
 .AdvancedSearch-Results-Item-Info-Price-Max {
-    color: var(--grey-4);
+    color: var(--color-grey);
     font-size: 0.8rem;
 }
 
 .AdvancedSearch-Results-Item-Info-Price-ComingSoon {
-    color: var(--white);
+    color: var(--color-white);
     font-size: 1.125rem;
 }
 
 .AdvancedSearch-Results-Item-Info-Price-Free {
-    color: var(--white);
+    color: var(--color-white);
     font-size: 1.125rem;
 }
 
@@ -170,33 +171,22 @@
     text-align: right;
     padding: var(--small-padding);
     border-radius: var(--default-radius);
-    border: var(--default-border) groove var(--green-1);
+    border: var(--default-border) groove var(--color-special-secondary);
     font-family: 'Kanit', sans-serif;
 }
 
 .AdvancedSearch-List-Item {
     padding: var(--small-padding);
-    background-color: var(--blue-2);
+    background-color: var(--color-header);
     border-radius: var(--small-radius);
-    border: var(--default-border) groove var(--blue-5);
+    border: var(--default-border) groove var(--color-generic-medium);
 }
 
 .AdvancedSearch-List-Item-Price-Platform-Svg {
-    fill: var(--white);
+    fill: var(--color-white);
     width: auto;
     height: 1.2rem;
 }
-
-.AdvancedSearch-List-Item-Content-Info-Genre {
-    font-family: 'Roboto', sans-serif;
-    padding: 3px;
-    border-radius: var(--small-radius);
-    background-color: var(--blue-4);
-    color: var(--grey-3);
-    font-size: 0.7rem;
-    margin-right: 3px;
-}
-
 
 .AdvancedSearch-LoadMore-Container {
     display: flex;
@@ -206,7 +196,7 @@
 }
 
 .AdvancedSearch-LoadMore {
-    background-color: var(--blue-4);
+    background-color: var(--color-generic-medium);
     color: white;
     padding: var(--small-padding);
     border-radius: var(--small-radius);
@@ -220,10 +210,46 @@
 }
 
 .AdvancedSearch-LoadMore:hover {
-    background-color: var(--blue-2);
+    background-color: var(--color-header);
 }
 
+.AdvancedSearch-Filter {
+    border: none !important;
+    background-color: var(--color-generic-dark) !important;
+    color: white !important;
+}
 
+.AdvancedSearch-Filter-ComboBox {
+    border: none !important;
+    background-color: var(--color-generic-dark) !important;
+    color: #8494af !important;
+}
+
+.AdvancedSearch-Filter .euiComboBox__inputWrap {
+    background-color: var(--color-generic-dark) !important;
+    border: none !important;
+    color: white !important;
+}
+
+.AdvancedSearch-Filter .euiComboBoxPlaceholder {
+    color: white !important;
+}
+
+.AdvancedSearch-Filter .euiComboBoxPill {
+    background-color: #444 !important;
+    color: white !important;
+}
+
+.euiComboBoxOptionsList {
+    background-color: var(--color-generic-dark) !important;
+    color: white !important;
+    border: none !important;
+}
+
+.euiComboBoxOption {
+    background-color: var(--color-generic-dark) !important;
+    color: white !important;
+}
 
 @media (max-width: 900px) {
 

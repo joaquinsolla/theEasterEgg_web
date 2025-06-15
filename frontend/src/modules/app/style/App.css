@@ -45,8 +45,8 @@ p {
 
 .Content {
   font-family: 'Kanit', sans-serif;
-  background-color: var(--blue-3);
-  color: var(--white);
+  background-color: var(--color-background);
+  color: var(--color-white);
   min-height: var(--min-body-height);
   padding: var(--default-padding) 15% var(--default-padding) 15%;
 }
@@ -117,38 +117,33 @@ p {
 
 .Link-simple {
   font-family: 'Kanit', sans-serif;
-  color: var(--white);
+  color: var(--color-white);
   text-decoration: none;
   transition: var(--default-transition);
 }
 
 .Link-simple:hover {
-  color: var(--grey-3);
+  color: var(--color-grey);
 }
 
 .Availability-Svg {
-  fill: var(--white);
+  fill: var(--color-white);
   width: auto;
   height: 1.25rem;
 }
 
 .Content-Section-1 {
-  background-color: var(--blue-2);
+  background-color: var(--color-generic-dark);
   padding: var(--default-padding);
   border-radius: var(--default-radius);
 }
 
 .Content-Section-2 {
-  background-color: var(--blue-5);
+  background-color: var(--color-generic-medium);
   padding: var(--default-padding);
   border-radius: var(--default-radius);
 }
 
-.Content-Section-3 {
-  background-color: var(--blue-s);
-  padding: var(--default-padding);
-  border-radius: var(--default-radius);
-}
 
 .Formatted-Link {
   display: contents;
@@ -160,7 +155,7 @@ p {
 .Formatted-Link-Blue {
   display: contents;
   text-decoration: none;
-  color: var(--blue-link);
+  color: var(--color-special-primary);
   cursor: pointer;
 }
 

@@ -7,9 +7,9 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: var(--blue-2);
+    background-color: var(--color-generic-medium);
     border-radius: var(--big-radius);
-    border: var(--default-border) groove var(--blue-5);
+    border: var(--default-border) groove var(--color-special-secondary);
     border-right: none;
     height: 2.5rem;
     margin-bottom: var(--big-margin);
@@ -29,7 +29,7 @@
     width: 1px;
     height: 2.5rem;
     border-radius: 0;
-    border-right: var(--default-border) groove var(--blue-5);
+    border-right: var(--default-border) groove var(--color-special-secondary);
     z-index: 100;
 }
 
@@ -41,17 +41,17 @@
 }
 
 .Searchbar-FieldSearch {
-    height: calc(2.5rem) !important;
+    height: 2.5rem !important;
     margin: 0 !important;
-    background-color: var(--blue-s) !important;
+    background-color: var(--color-generic-dark) !important;
     width: 100% !important;
-    border: 0 groove var(--blue-5) !important;
+    border: 0 groove var(--color-special-secondary) !important;
     border-radius: 0 var(--big-radius) var(--big-radius) 0 !important;
     z-index: 100;
 }
 
 .Searchbar-FieldSearch-Results {
-    background-color: var(--blue-4);
+    background-color: var(--color-generic-medium);
     margin: 0;
     width: 100%;
     border-radius: var(--big-radius);
@@ -65,7 +65,7 @@
 }
 
 .Searchbar-FieldSearch-Result:hover {
-    background-color: var(--blue-5);
+    background-color: var(--color-generic-dark);
     border-radius: var(--big-radius);
     z-index: 100;
 }
@@ -84,7 +84,7 @@
 
 .Searchbar-FieldSearch-Result-Hr {
     border: none;
-    border-top: 1px solid var(--blue-3);
+    border-top: 1px solid var(--color-background);
     margin: 0 var(--small-padding);
     z-index: 100;
 }
@@ -95,7 +95,7 @@
 }
 
 .Searchbar-FieldSearch-Link {
-    color: var(--white);
+    color: var(--color-white);
     z-index: 100;
 }
 
@@ -110,7 +110,7 @@
 }
 
 .Searchbar-FieldSearch-Link-AdvancedSearch:hover {
-    background-color: var(--blue-5);
+    background-color: var(--color-generic-dark);
     border-radius: var(--default-radius) var(--default-radius) var(--big-radius) var(--big-radius);
     z-index: 100;
 }

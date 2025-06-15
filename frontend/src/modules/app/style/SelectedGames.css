@@ -13,13 +13,13 @@
     background: none;
     border: none;
     cursor: pointer;
-    color: var(--grey-3);
+    color: var(--color-grey);
     transition: var(--default-transition);
     margin: var(--default-margin);
 }
 
 .SelectedGames-Carousel-Arrow:hover {
-    color: var(--blue-5);
+    color: var(--color-white);
 }
 
 .SelectedGames-Carousel-Content {
@@ -29,8 +29,7 @@
 }
 
 .SelectedGames-Carousel-Content-Item {
-    background-color: var(--blue-s);
-    border: var(--default-border) groove var(--blue-5);
+    border: var(--default-border) groove var(--color-special-secondary);
     border-radius: var(--big-radius);
     width: 70%;
     padding: 0;
@@ -56,20 +55,20 @@
 }
 
 .SelectedGames-Carousel-Content-Item-Info-Recommendations {
-    color: var(--white);
+    color: var(--color-white);
     font-size: 1rem;
     padding: var(--small-padding);
     border-radius: var(--big-radius);
-    background-color: var(--blue-3);
+    background-color: var(--color-generic-medium);
 }
 
 .SelectedGames-Carousel-Content-Item-Info-Price {
-    color: var(--green-1);
+    color: var(--color-special-primary);
     font-size: 1.5rem;
     padding: var(--small-padding);
     border-radius: var(--small-radius);
-    background-color: var(--blue-4);
-    border: var(--default-border) groove var(--green-1);
+    background-color: var(--color-generic-dark);
+    border: var(--default-border) groove var(--color-special-primary);
     font-family: 'Kanit', sans-serif;
 }
 
@@ -82,8 +81,8 @@
     font-family: 'Roboto', sans-serif;
     padding: 3px;
     border-radius: var(--small-radius);
-    background-color: var(--blue-3);
-    color: var(--grey-3);
+    background-color: var(--color-generic-medium);
+    color: var(--color-grey);
     font-size: 0.8rem;
     margin-right: 3px;
 }
@@ -99,14 +98,14 @@
     height: 4px;
     margin: 0 5px;
     border: none;
-    background-color: var(--grey-3);
+    background-color: var(--color-grey);
     cursor: pointer;
     transition: background-color 0.3s ease;
     border-radius: 2px;
 }
 
 .SelectedGames-Carousel-Lines-Line.active {
-    background-color: var(--blue-5);
+    background-color: var(--color-white);
 }
 
 

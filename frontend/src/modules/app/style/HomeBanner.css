@@ -3,7 +3,7 @@
 @import "Measures.css";
 
 .HomeBanner {
-    border: var(--default-border) groove var(--blue-5);
+    border: var(--default-border) groove var(--color-special-secondary);
     border-radius: var(--default-radius);
     width: 100%;
     padding: var(--small-padding);

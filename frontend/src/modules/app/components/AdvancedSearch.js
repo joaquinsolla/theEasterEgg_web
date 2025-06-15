@@ -618,14 +618,14 @@ const AdvancedSearch = () => {
                             tickInterval={Math.ceil(110 / 5)}
                             fullWidth
                             disabled={isFreeChecked}
-
+                            className="AdvancedSearch-Filter"
                         />
                         <EuiCheckbox
                             id="freeGamesCheckbox"
                             label="Mostrar solo juegos gratis"
                             checked={isFreeChecked}
                             onChange={(e) => setIsFreeChecked(e.target.checked)}
-                            className="Margin-bottom-small"
+                            className="Margin-bottom-small AdvancedSearch-Filter"
                             disabled={isNotFreeChecked}
                         />
                         <EuiCheckbox
@@ -637,6 +637,7 @@ const AdvancedSearch = () => {
                                 setIsFreeChecked(false);
                             }}
                             disabled={isFreeChecked}
+                            className="AdvancedSearch-Filter"
                         />
                     </div>
                     <div id="Genres" className="AdvancedSearch-Filters-Container Margin-bottom-big">
@@ -649,6 +650,7 @@ const AdvancedSearch = () => {
                             selectedOptions={selectedGenres}
                             onChange={setSelectedGenres}
                             isClearable
+                            className="AdvancedSearch-Filter"
                         />
                     </div>
                     <div id="Categories" className="AdvancedSearch-Filters-Container Margin-bottom-big">
@@ -661,6 +663,7 @@ const AdvancedSearch = () => {
                             selectedOptions={selectedCategories}
                             onChange={setSelectedCategories}
                             isClearable
+                            className="AdvancedSearch-Filter"
                         />
                     </div>
                     <div id="Developers" className="AdvancedSearch-Filters-Container Margin-bottom-big">
@@ -673,6 +676,7 @@ const AdvancedSearch = () => {
                             selectedOptions={selectedDevelopers}
                             onChange={setSelectedDevelopers}
                             isClearable
+                            className="AdvancedSearch-Filter"
                         />
                     </div>
                     <div id="Publishers" className="AdvancedSearch-Filters-Container Margin-bottom-big">
@@ -685,6 +689,7 @@ const AdvancedSearch = () => {
                             selectedOptions={selectedPublishers}
                             onChange={setSelectedPublishers}
                             isClearable
+                            className="AdvancedSearch-Filter"
                         />
                     </div>
                     <div id="OS" className="AdvancedSearch-Filters-Container Margin-bottom-big">
@@ -706,19 +711,21 @@ const AdvancedSearch = () => {
                             label="Windows"
                             checked={isSoWindowsChecked}
                             onChange={(e) => setIsSoWindowsChecked(e.target.checked)}
+                            className="AdvancedSearch-Filter"
                         />
                         <EuiCheckbox
                             id="soMacCheckbox"
                             label="Mac"
                             checked={isSoMacChecked}
                             onChange={(e) => setIsSoMacChecked(e.target.checked)}
+                            className="AdvancedSearch-Filter"
                         />
                         <EuiCheckbox
                             id="soLinuxCheckbox"
                             label="Linux"
                             checked={isSoLinuxChecked}
                             onChange={(e) => setIsSoLinuxChecked(e.target.checked)}
-                            className="Margin-bottom-small"
+                            className="Margin-bottom-small AdvancedSearch-Filter"
                         />
                     </div>
                     <div id="ReleaseYear" className="AdvancedSearch-Filters-Container Margin-bottom-big">
@@ -743,6 +750,7 @@ const AdvancedSearch = () => {
                                 onChange={(e) => setReleaseYearFrom(e.target.value)}
                                 aria-label="Año desde"
                                 disabled={isComingSoonChecked}
+                                className="AdvancedSearch-Filter-ComboBox"
                             />
                         </div>
                         <div className="Margin-bottom">
@@ -753,6 +761,7 @@ const AdvancedSearch = () => {
                                 onChange={(e) => setReleaseYearTo(e.target.value)}
                                 aria-label="Año hasta"
                                 disabled={isComingSoonChecked}
+                                className="AdvancedSearch-Filter-ComboBox"
                             />
                         </div>
                         <EuiCheckbox
@@ -764,6 +773,7 @@ const AdvancedSearch = () => {
                                 setReleaseYearFrom('');
                                 setReleaseYearTo('');
                             }}
+                            className="AdvancedSearch-Filter"
                         />
                     </div>
                     <div id="PEGI" className="AdvancedSearch-Filters-Container Margin-bottom-big">
@@ -794,7 +804,7 @@ const AdvancedSearch = () => {
                                     label={option.label}
                                     checked={isChecked}
                                     onChange={handleChange}
-                                    className="Margin-bottom-small"
+                                    className="Margin-bottom-small AdvancedSearch-Filter"
                                 />
                             );
                         })}
@@ -843,6 +853,7 @@ const AdvancedSearch = () => {
                                 value={sortOption}
                                 onChange={(e) => setSortOption(e.target.value)}
                                 aria-label="Ordenar resultados"
+                                className="AdvancedSearch-Filter"
                             />
                         </div>
                         <div className="AdvancedSearch-Sorting-View Margin-right">

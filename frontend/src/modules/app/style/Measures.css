@@ -18,8 +18,8 @@
     --default-radius: 5px;
     --default-border: 1px;
 
-    --background-image-opacity-1: linear-gradient(rgba(11, 22, 40, 0.95), rgba(11, 22, 40, 0.95));
-    --background-image-opacity-2: linear-gradient(rgba(29, 45, 68, 0.9), rgba(29, 45, 68, 0.9));
+    --background-image-opacity-1: linear-gradient(rgba(23, 23, 25, 0.92), rgba(23, 23, 25, 0.92));
+    --background-image-opacity-2: linear-gradient(rgba(23, 23, 25, 0.875), rgba(23, 23, 25, 0.875));
 
     /* TRANSITIONS */
     --default-transition: all 0.3s ease;

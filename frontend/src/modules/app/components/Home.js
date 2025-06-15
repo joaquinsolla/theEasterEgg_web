@@ -23,7 +23,7 @@ const Home = () => {
                     <FreeGames />
                 </div>
 
-                <div className="Content-Section-3 Margin-bottom-big">
+                <div className="Content-Section-1 Margin-bottom-big">
                     <h2 className="Margin-bottom">Próximos lanzamientos</h2>
                     <ComingSoonGames />
                 </div>

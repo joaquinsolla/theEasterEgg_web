@@ -12,7 +12,7 @@
 
 .User-Login-Container {
     border-radius: var(--big-radius);
-    background-color: var(--blue-1);
+    background-color: var(--color-header);
     padding: var(--big-padding);
     width: 50%;
 }
@@ -20,7 +20,7 @@
 .User-Login-Alternative {
     padding: var(--big-padding);
     width: fit-content;
-    color: var(--grey-3);
+    color: var(--color-grey);
 }
 
 .User-Login-Image{
@@ -30,22 +30,22 @@
 }
 
 .User-Login-Label {
-    color: var(--white);
+    color: var(--color-white);
     font-size: 1.2rem;
     margin-bottom: var(--extra-small-margin);
 }
 
 .User-Login-Label-Small {
-    color: var(--white);
+    color: var(--color-white);
     font-size: 1rem;
     margin-bottom: var(--extra-small-margin);
 }
 
 .User-Login-Input {
-    background-color: var(--blue-3);
+    background-color: var(--color-background);
     margin-bottom: var(--extra-small-margin);
     border-radius: var(--small-radius);
-    color: var(--white);
+    color: var(--color-white);
     border: none;
     width: 100%;
     padding: var(--small-margin);
@@ -54,7 +54,7 @@
 }
 
 .User-Login-Button {
-    background-color: var(--blue-5);
+    background-color: var(--color-generic-medium);
     color: white;
     padding: var(--small-padding);
     border-radius: var(--small-radius);
@@ -68,7 +68,7 @@
 }
 
 .User-Login-Button:hover {
-    background-color: var(--blue-4);
+    background-color: var(--color-generic-dark);
 }
 
 .User-Login-Error {

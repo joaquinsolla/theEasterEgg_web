@@ -18,28 +18,28 @@
     font-size: 1.1rem;
     margin-bottom: 0.25rem;
     cursor: pointer;
-    color: var(--white);
+    color: var(--color-white);
     transition: var(--default-transition);
 }
 
 .CategoriesList-Container-Column-Item:hover {
-   color: var(--grey-3);
+   color: var(--color-grey);
     margin-left: 0.25rem;
 }
 
 .CategoriesList-FieldSearch {
     height: calc(2.5rem) !important;
     margin: 0 !important;
-    background-color: var(--blue-s) !important;
+    background-color: var(--color-generic-dark) !important;
     width: 100% !important;
-    border: 0 groove var(--blue-5) !important;
+    border: 0 groove var(--color-generic-light) !important;
     border-radius: var(--default-radius) !important;
 }
 
 .CategoriesList-Container-Column-Capital {
     font-size: 1.75rem;
     margin-bottom: 0.25rem;
-    color: var(--blue-6);
+    color: var(--color-generic-light);
     font-family: 'Roboto', sans-serif;
     font-weight: 200;
 }
