@@ -22,7 +22,10 @@ const Header = () => {
             <div>
                 {isLoggedIn ? (
                     <div className="Flex-center-div">
-                        <Link to="/desired-games" className="Link-simple">
+                        <Link to="/for-you" className="Link-simple">
+                            <p>Para ti</p>
+                        </Link>
+                        <Link to="/desired-games" className="Link-simple Flex-center-div Margin-left Flex-center-div">
                             <p>Lista de deseados</p>
                         </Link>
                         <Link to="/account" className="Link-simple Flex-center-div Margin-left Flex-center-div">

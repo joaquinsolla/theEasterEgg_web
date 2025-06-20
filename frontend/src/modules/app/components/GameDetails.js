@@ -254,7 +254,6 @@ const GameDetails = () => {
                     });
 
                     const prices_history = Object.values(groupedByDate);
-                    console.log(prices_history);
                     setPricesHistory(prices_history);
                 }
 

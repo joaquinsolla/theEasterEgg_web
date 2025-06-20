@@ -11,6 +11,7 @@ import GameDetails from "./GameDetails";
 import AccountDetails from "./AccountDetails";
 import DesiredGames from "./DesiredGames";
 import NotFoundPage from "./NotFoundPage";
+import ForYou from "./ForYou";
 
 import users, {
     Login,
@@ -36,6 +37,7 @@ const Body = () => {
         {loggedIn && <Route path="/logout" element={<Logout />} />}
         {loggedIn && <Route path="/account" element={<AccountDetails />} />}
         {loggedIn && <Route path="/desired-games" element={<DesiredGames />} />}
+        {loggedIn && <Route path="/for-you" element={<ForYou />} />}
 
         <Route path="/notFound" element={<NotFoundPage />} />
         {/*<Route path="/*" element={<Navigate to="/notFound" />} />*/}
