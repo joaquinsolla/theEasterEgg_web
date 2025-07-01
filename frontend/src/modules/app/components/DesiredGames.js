@@ -45,20 +45,21 @@ const DesiredGames = () => {
                 sort: [
                     { "data.total_recommendations": { order: "desc" } }
                 ],
-                _source: ["name", "data.capsule_image", "stores", "data.genres", "data.categories"]
+                _source: ["name", "data.capsule_image", "stores", "data.genres", "data.categories", "data.release_date"]
             });
 
             const hits = response.data.hits.hits;
 
             const newGames = hits.map(hit => {
                 const stores = hit._source.stores || {};
+                let coming_soon = hit._source.data.release_date.coming_soon;
                 let minPrice = Infinity;
                 let platform = null;
 
                 for (const [key, store] of Object.entries(stores)) {
                     if (store?.availability && typeof store.price_in_cents === 'number') {
                         const price = store.price_in_cents;
-                        if (price > 0 && price < minPrice) {
+                        if (price >= 0 && price < minPrice) {
                             minPrice = price;
                             platform = key;
                         }
@@ -72,14 +73,26 @@ const DesiredGames = () => {
                     ? hit._source.data.categories.slice(0, 2)
                     : [];
 
-                return {
-                    ...hit._source,
-                    genres,
-                    categories,
-                    _id: hit._id,
-                    min_price: minPrice !== Infinity ? `${(minPrice / 100).toFixed(2)} €` : 'No disponible',
-                    min_price_platform: platform || 'No disponible'
-                };
+                if (!coming_soon){
+                    return {
+                        ...hit._source,
+                        genres,
+                        categories,
+                        _id: hit._id,
+                        min_price: (minPrice !== Infinity && minPrice !== 0) ? `${(minPrice / 100).toFixed(2)} €` : 'Gratis',
+                        min_price_platform: platform || 'Gratis'
+                    };
+                } else {
+                    return {
+                        ...hit._source,
+                        genres,
+                        categories,
+                        _id: hit._id,
+                        min_price: 'Próximamente',
+                        min_price_platform: 'No diponible'
+                    };
+                }
+
             });
 
             setGames(newGames);
