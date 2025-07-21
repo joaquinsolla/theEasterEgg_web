@@ -11,6 +11,8 @@ import {useSelector} from "react-redux";
 import users from "../../users";
 import Searchbar from "./Searchbar";
 
+const REACT_APP_ELASTICSEARCH_URL = process.env.REACT_APP_ELASTICSEARCH_URL;
+
 const DesiredGames = () => {
     const [games, setGames] = useState([]);
     const [favoriteIds, setFavoriteIds] = useState([]);
@@ -35,7 +37,7 @@ const DesiredGames = () => {
         if (!favoriteIds.length) return;
 
         try {
-            const response = await axios.post('http://localhost:9200/theeasteregg_games_index/_search', {
+            const response = await axios.post(`${REACT_APP_ELASTICSEARCH_URL}/theeasteregg_games_index/_search`, {
                 size: favoriteIds.length,
                 query: {
                     ids: {

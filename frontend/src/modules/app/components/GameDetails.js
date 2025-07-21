@@ -10,22 +10,6 @@ import { ReactComponent as XboxIcon } from "../../common/assets/svg/xbox.svg";
 import { ReactComponent as EpicIcon } from "../../common/assets/svg/epic.svg";
 import { ReactComponent as BattleIcon } from "../../common/assets/svg/battle.svg";
 import { ReactComponent as GogIcon } from "../../common/assets/svg/gog.svg";
-import Metacritic from '../../common/assets/metacritic.webp';
-
-import Pegi3 from '../../common/assets/pegi/PEGI_3.webp';
-import Pegi7 from '../../common/assets/pegi/PEGI_7.webp';
-import Pegi12 from '../../common/assets/pegi/PEGI_12.webp';
-import Pegi16 from '../../common/assets/pegi/PEGI_16.webp';
-import Pegi18 from '../../common/assets/pegi/PEGI_18.webp';
-
-import PegiBadLanguage from '../../common/assets/pegi/bad-language.webp';
-import PegiDicrimination from '../../common/assets/pegi/discrimination.webp';
-import PegiDrugs from '../../common/assets/pegi/drugs.webp';
-import PegiFear from '../../common/assets/pegi/fear.webp';
-import PegiGambling from '../../common/assets/pegi/gambling.webp';
-import PegiInGamePurchases from '../../common/assets/pegi/in-game-purchases.webp';
-import PegiSexualContent from '../../common/assets/pegi/sexual-content.webp';
-import PegiViolence from '../../common/assets/pegi/violence.webp';
 
 import Searchbar from "./Searchbar";
 import {
@@ -39,6 +23,8 @@ import {
 } from 'recharts';
 import {useSelector} from "react-redux";
 import users from "../../users";
+
+const REACT_APP_ELASTICSEARCH_URL = process.env.REACT_APP_ELASTICSEARCH_URL;
 
 const GameDetails = () => {
     const { appid } = useParams();
@@ -81,7 +67,7 @@ const GameDetails = () => {
     useEffect(() => {
         const fetchGameDetails = async () => {
             try {
-                const response = await axios.post('http://localhost:9200/theeasteregg_games_index/_search', {
+                const response = await axios.post(`${REACT_APP_ELASTICSEARCH_URL}/theeasteregg_games_index/_search`, {
                     size: 1,
                     query: {
                         term: {
@@ -136,22 +122,22 @@ const GameDetails = () => {
                     if (hits[0]._source.data.pegi.rating !== null){
                         switch (hits[0]._source.data.pegi.rating) {
                             case "3":
-                                hits[0]._source.data.pegi.rating_image = Pegi3;
+                                hits[0]._source.data.pegi.rating_image = "/theeasteregg_web/assets/pegi/PEGI_3.webp";
                                 break;
                             case "7":
-                                hits[0]._source.data.pegi.rating_image = Pegi7;
+                                hits[0]._source.data.pegi.rating_image = "/theeasteregg_web/assets/pegi/PEGI_7.webp";
                                 break;
                             case "12":
-                                hits[0]._source.data.pegi.rating_image = Pegi12;
+                                hits[0]._source.data.pegi.rating_image = "/theeasteregg_web/assets/pegi/PEGI_12.webp";
                                 break;
                             case "16":
-                                hits[0]._source.data.pegi.rating_image = Pegi16;
+                                hits[0]._source.data.pegi.rating_image = "/theeasteregg_web/assets/pegi/PEGI_16.webp";
                                 break;
                             case "18":
-                                hits[0]._source.data.pegi.rating_image = Pegi18;
+                                hits[0]._source.data.pegi.rating_image = "/theeasteregg_web/assets/pegi/PEGI_18.webp";
                                 break;
                             default:
-                                hits[0]._source.data.pegi.rating_image = Pegi3;
+                                hits[0]._source.data.pegi.rating_image = "/theeasteregg_web/assets/pegi/PEGI_3.webp";
                                 break;
                         }
                     }
@@ -165,14 +151,14 @@ const GameDetails = () => {
                         const descriptors_images = [];
 
                         const checks = [
-                            { keywords: ["bad", "language"], file: PegiBadLanguage },
-                            { keywords: ["discrimination"], file: PegiDicrimination },
-                            { keywords: ["drugs"], file: PegiDrugs },
-                            { keywords: ["fear"], file: PegiFear },
-                            { keywords: ["gambling"], file: PegiGambling },
-                            { keywords: ["purchase", "purchases"], file: PegiInGamePurchases },
-                            { keywords: ["sex", "sexual"], file: PegiSexualContent },
-                            { keywords: ["extreme", "violence"], file: PegiViolence },
+                            { keywords: ["bad", "language"], file: "/theeasteregg_web/assets/pegi/bad-language.webp" },
+                            { keywords: ["discrimination"], file: "/theeasteregg_web/assets/pegi/discrimination.webp" },
+                            { keywords: ["drugs"], file: "/theeasteregg_web/assets/pegi/drugs.webp" },
+                            { keywords: ["fear"], file: "/theeasteregg_web/assets/pegi/fear.webp" },
+                            { keywords: ["gambling"], file: "/theeasteregg_web/assets/pegi/gambling.webp" },
+                            { keywords: ["purchase", "purchases"], file: "/theeasteregg_web/assets/pegi/in-game-purchases.webp" },
+                            { keywords: ["sex", "sexual"], file: "/theeasteregg_web/assets/pegi/sexual-content.webp" },
+                            { keywords: ["extreme", "violence"], file: "/theeasteregg_web/assets/pegi/violence.webp" },
                         ];
 
                         checks.forEach(({ keywords, file }) => {
@@ -202,7 +188,7 @@ const GameDetails = () => {
     useEffect(() => {
         const fetchGameDetails = async () => {
             try {
-                const response = await axios.post('http://localhost:9200/theeasteregg_prices_history_index/_search', {
+                const response = await axios.post(`${REACT_APP_ELASTICSEARCH_URL}/theeasteregg_prices_history_index/_search`, {
                     size: 1,
                     query: {
                         term: {
@@ -673,7 +659,7 @@ const GameDetails = () => {
                                         <div className="GameDetails-SecondaryInfo-Metacritic-Grade Margin-right" style={{ backgroundColor: game.metacritic.color }}>
                                             {game.metacritic.score}
                                         </div>
-                                        <img src={Metacritic} className="Margin-right GameDetails-SecondaryInfo-Metacritic-Image" />
+                                        <img src="/theeasteregg_web/assets/metacritic.webp" className="Margin-right GameDetails-SecondaryInfo-Metacritic-Image" />
                                     </div>
                                 </a>
                             ) }

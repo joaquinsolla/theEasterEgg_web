@@ -12,6 +12,7 @@ import users from "../../users";
 import Searchbar from "./Searchbar";
 import IndieGames from "./IndieGames";
 
+const REACT_APP_ELASTICSEARCH_URL = process.env.REACT_APP_ELASTICSEARCH_URL;
 
 const ForYou = () => {
     const [favoriteGames, setFavoriteGames] = useState([]);
@@ -50,7 +51,7 @@ const ForYou = () => {
         if (!favoriteIds.length) return;
 
         try {
-            const response = await axios.post('http://localhost:9200/theeasteregg_games_index/_search', {
+            const response = await axios.post(`${REACT_APP_ELASTICSEARCH_URL}/theeasteregg_games_index/_search`, {
                 size: 5,
                 query: {
                     ids: {
@@ -93,7 +94,7 @@ const ForYou = () => {
         try {
             let category = refGame?.["data"]?.["categories"][0];
 
-            const response = await axios.post('http://localhost:9200/theeasteregg_games_index/_search', {
+            const response = await axios.post(`${REACT_APP_ELASTICSEARCH_URL}/theeasteregg_games_index/_search`, {
                 size: 5,
                 query: {
                     bool: {
@@ -146,7 +147,7 @@ const ForYou = () => {
         try {
             let genre = refGame?.["data"]?.["genres"][0];
 
-            const response = await axios.post('http://localhost:9200/theeasteregg_games_index/_search', {
+            const response = await axios.post(`${REACT_APP_ELASTICSEARCH_URL}/theeasteregg_games_index/_search`, {
                 size: 5,
                 query: {
                     bool: {
@@ -199,7 +200,7 @@ const ForYou = () => {
         try {
             let developer = refGame?.["data"]?.["developers"][0];
 
-            const response = await axios.post('http://localhost:9200/theeasteregg_games_index/_search', {
+            const response = await axios.post(`${REACT_APP_ELASTICSEARCH_URL}/theeasteregg_games_index/_search`, {
                 size: 5,
                 query: {
                     bool: {
@@ -252,7 +253,7 @@ const ForYou = () => {
         try {
             let publisher = refGame?.["data"]?.["publishers"][0];
 
-            const response = await axios.post('http://localhost:9200/theeasteregg_games_index/_search', {
+            const response = await axios.post(`${REACT_APP_ELASTICSEARCH_URL}/theeasteregg_games_index/_search`, {
                 size: 5,
                 query: {
                     bool: {

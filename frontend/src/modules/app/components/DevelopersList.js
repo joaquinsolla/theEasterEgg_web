@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import { EuiFieldSearch } from "@elastic/eui";
 import Searchbar from "./Searchbar";
 
+const REACT_APP_ELASTICSEARCH_URL = process.env.REACT_APP_ELASTICSEARCH_URL;
+
 const CategoriesList = () => {
     const [developers, setDevelopers] = useState([]);
     const [publishers, setPublishers] = useState([]);
@@ -13,7 +15,7 @@ const CategoriesList = () => {
     useEffect(() => {
         const fetchDevelopers = async () => {
             try {
-                const response = await axios.post('http://localhost:9200/theeasteregg_developers_index/_search', {
+                const response = await axios.post(`${REACT_APP_ELASTICSEARCH_URL}/theeasteregg_developers_index/_search`, {
                     query: { match_all: {} },
                     sort: [{ "name.keyword": { order: "asc" } }],
                     _source: ["name"],
@@ -28,7 +30,7 @@ const CategoriesList = () => {
 
         const fetchPublishers = async () => {
             try {
-                const response = await axios.post('http://localhost:9200/theeasteregg_publishers_index/_search', {
+                const response = await axios.post(`${REACT_APP_ELASTICSEARCH_URL}/theeasteregg_publishers_index/_search`, {
                     query: { match_all: {} },
                     sort: [{ "name.keyword": { order: "asc" } }],
                     _source: ["name"],

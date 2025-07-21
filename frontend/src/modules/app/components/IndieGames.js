@@ -9,13 +9,15 @@ import { ReactComponent as BattleIcon } from "../../common/assets/svg/battle.svg
 import { ReactComponent as GogIcon } from "../../common/assets/svg/gog.svg";
 import {Link} from "react-router-dom";
 
+const REACT_APP_ELASTICSEARCH_URL = process.env.REACT_APP_ELASTICSEARCH_URL;
+
 const IndieGames = () => {
     const [indieGames, setIndieGames] = useState([]);
 
     useEffect(() => {
         const fetchIndieGames = async () => {
             try {
-                const response = await axios.post('http://localhost:9200/theeasteregg_games_index/_search', {
+                const response = await axios.post(`${REACT_APP_ELASTICSEARCH_URL}/theeasteregg_games_index/_search`, {
                     size: 5,
                     query: {
                         bool: {

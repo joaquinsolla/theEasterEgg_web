@@ -5,7 +5,6 @@ import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import * as actions from '../actions';
 import "../../app/style/UserStyle.css";
-import Arthur from '../../common/assets/arthur.webp';
 
 const Login = () => {
     const dispatch = useDispatch();
@@ -91,7 +90,7 @@ const Login = () => {
              style={{ backgroundImage: `var(--background-image-opacity-2), url(https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1174180/page_bg_raw.jpg?t=1720558643)` }}>
             <div className="Flex-center-div Text-center Justify-Content-Center">
                 <div className="User-Login-Container">
-                    <img src={Arthur} className="User-Login-Image" alt="Arthur" />
+                    <img src="/theeasteregg_web/assets/arthur.webp" className="User-Login-Image" alt="Arthur" />
                     <div className="Text-left">
                         <h1 className="Margin-top Margin-bottom">
                             Iniciar sesión

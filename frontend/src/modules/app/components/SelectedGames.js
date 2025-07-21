@@ -9,6 +9,8 @@ import { ReactComponent as EpicIcon } from "../../common/assets/svg/epic.svg";
 import { ReactComponent as BattleIcon } from "../../common/assets/svg/battle.svg";
 import { ReactComponent as GogIcon } from "../../common/assets/svg/gog.svg";
 
+const REACT_APP_ELASTICSEARCH_URL = process.env.REACT_APP_ELASTICSEARCH_URL;
+
 const SelectedGames = () => {
     const [games, setGames] = useState([]);
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -16,7 +18,7 @@ const SelectedGames = () => {
     useEffect(() => {
         const fetchTopGames = async () => {
             try {
-                const response = await axios.post('http://localhost:9200/theeasteregg_games_index/_search', {
+                const response = await axios.post(`${REACT_APP_ELASTICSEARCH_URL}/theeasteregg_games_index/_search`, {
                     size: 5,
                     query: {
                         range: {

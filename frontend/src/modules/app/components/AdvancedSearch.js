@@ -24,6 +24,7 @@ import {
 } from '@elastic/eui';
 import {Link} from "react-router-dom";
 
+const REACT_APP_ELASTICSEARCH_URL = process.env.REACT_APP_ELASTICSEARCH_URL;
 
 const AdvancedSearch = () => {
     const [games, setGames] = useState([]);
@@ -64,7 +65,7 @@ const AdvancedSearch = () => {
     useEffect(() => {
         const fetchGenres = async () => {
             try {
-                const response = await axios.post('http://localhost:9200/theeasteregg_genres_index/_search', {
+                const response = await axios.post(`${REACT_APP_ELASTICSEARCH_URL}/theeasteregg_genres_index/_search`, {
                     query: { match_all: {} },
                     sort: [{ "name.keyword": { order: "asc" } }],
                     _source: ["name"],
@@ -90,7 +91,7 @@ const AdvancedSearch = () => {
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const response = await axios.post('http://localhost:9200/theeasteregg_categories_index/_search', {
+                const response = await axios.post(`${REACT_APP_ELASTICSEARCH_URL}/theeasteregg_categories_index/_search`, {
                     query: { match_all: {} },
                     sort: [{ "name.keyword": { order: "asc" } }],
                     _source: ["name"],
@@ -116,7 +117,7 @@ const AdvancedSearch = () => {
     useEffect(() => {
         const fetchDevelopers = async () => {
             try {
-                const response = await axios.post('http://localhost:9200/theeasteregg_developers_index/_search', {
+                const response = await axios.post(`${REACT_APP_ELASTICSEARCH_URL}/theeasteregg_developers_index/_search`, {
                     query: { match_all: {} },
                     sort: [{ "name.keyword": { order: "asc" } }],
                     _source: ["name"],
@@ -142,7 +143,7 @@ const AdvancedSearch = () => {
     useEffect(() => {
         const fetchPublishers = async () => {
             try {
-                const response = await axios.post('http://localhost:9200/theeasteregg_publishers_index/_search', {
+                const response = await axios.post(`${REACT_APP_ELASTICSEARCH_URL}/theeasteregg_publishers_index/_search`, {
                     query: { match_all: {} },
                     sort: [{ "name.keyword": { order: "asc" } }],
                     _source: ["name"],
@@ -173,7 +174,7 @@ const AdvancedSearch = () => {
     useEffect(() => {
         const fetchPegis = async () => {
             try {
-                const response = await axios.post('http://localhost:9200/theeasteregg_pegi_index/_search', {
+                const response = await axios.post(`${REACT_APP_ELASTICSEARCH_URL}/theeasteregg_pegi_index/_search`, {
                     query: { match_all: {} },
                     sort: [{ "name.keyword": { order: "asc" } }],  // Este sort ya no es necesario, pero no molesta
                     _source: ["name"],
@@ -490,7 +491,7 @@ const AdvancedSearch = () => {
                 //endregion
 
                 /*** RESPONSE ***/
-                const response = await axios.post('http://localhost:9200/theeasteregg_games_index/_search', {
+                const response = await axios.post(`${REACT_APP_ELASTICSEARCH_URL}/theeasteregg_games_index/_search`, {
                     query: {
                         bool: {
                             must,

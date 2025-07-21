@@ -4,13 +4,15 @@ import axios from 'axios';
 import {FaPlus } from "react-icons/fa6";
 import {Link} from "react-router-dom";
 
+const REACT_APP_ELASTICSEARCH_URL = process.env.REACT_APP_ELASTICSEARCH_URL;
+
 const ComingSoonGames = () => {
     const [comingSoonGames, setComingSoonGames] = useState([]);
 
     useEffect(() => {
         const fetchComingSoonGames = async () => {
             try {
-                const response = await axios.post('http://localhost:9200/theeasteregg_games_index/_search', {
+                const response = await axios.post(`${REACT_APP_ELASTICSEARCH_URL}/theeasteregg_games_index/_search`, {
                     size: 5,
                     query: {
                         bool: {

@@ -55,3 +55,18 @@ mvn archetype:generate \
     mvn spring-boot:run
     ```
 * Thanks to the provided plugin configuration you can access your React app directly on http://localhost:8080/theeasteregg_web
+
+### Despliegue en Raspberry
+
+cd frontend
+npm run build
+
+cd ..
+Borrar el contenido de src\main\resources\static\
+Copiar el contenido de frontend\build\ a src\main\resources\static\
+
+mvn clean package -DskipTests
+Coger el .jar generado en /target
+
+En la Raspberry:
+java -jar x.jar --server.port=3000 --server.address=0.0.0.0

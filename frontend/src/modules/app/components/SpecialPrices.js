@@ -10,6 +10,8 @@ import { ReactComponent as GogIcon } from "../../common/assets/svg/gog.svg";
 import {Link} from "react-router-dom";
 import { LuLoader } from "react-icons/lu";
 
+const REACT_APP_ELASTICSEARCH_URL = process.env.REACT_APP_ELASTICSEARCH_URL;
+
 const SpecialPrices = () => {
     const initial_step = 20;
     const step = 10;
@@ -20,7 +22,7 @@ const SpecialPrices = () => {
     const fetchGames = async (start = 0) => {
         setLoading(true);
         try {
-            const response = await axios.post('http://localhost:9200/theeasteregg_games_index/_search', {
+            const response = await axios.post(`${REACT_APP_ELASTICSEARCH_URL}/theeasteregg_games_index/_search`, {
                 from: start,
                 size: initial_step,
                 query: {

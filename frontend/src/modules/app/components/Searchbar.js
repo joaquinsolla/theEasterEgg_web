@@ -5,6 +5,8 @@ import {EuiFieldSearch} from "@elastic/eui";
 import axios from "axios";
 import { BsFillLightningFill } from "react-icons/bs";
 
+const REACT_APP_ELASTICSEARCH_URL = process.env.REACT_APP_ELASTICSEARCH_URL;
+
 const Searchbar = () => {
     const [fieldSearchQuery, setFieldSearchQuery] = useState('');
     const [fieldSearchResults, setFieldSearchResults] = useState([]);
@@ -27,7 +29,7 @@ const Searchbar = () => {
         }
 
         try {
-            const response = await axios.post('http://localhost:9200/theeasteregg_games_index/_search', {
+            const response = await axios.post(`${REACT_APP_ELASTICSEARCH_URL}/theeasteregg_games_index/_search`, {
                 size: 5,
                 query: {
                     multi_match: {

@@ -4,7 +4,6 @@ import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import * as actions from '../actions';
 import "../../app/style/UserStyle.css";
-import Ellie from '../../common/assets/ellie.webp';
 import Button from "react-bootstrap/Button";
 
 const SignUp = () => {
@@ -143,7 +142,7 @@ const SignUp = () => {
         >
             <div className="Flex-center-div Text-center Justify-Content-Center">
                 <div className="User-Login-Container">
-                    <img src={Ellie} className="User-Login-Image" alt="Ellie" />
+                    <img src="/theeasteregg_web/assets/ellie.webp" className="User-Login-Image" alt="Ellie" />
                     <div className="Text-left">
                         <h1 className="Margin-top Margin-bottom">Registrarse</h1>
 
