@@ -69,4 +69,4 @@ mvn clean package -DskipTests
 Coger el .jar generado en /target
 
 En la Raspberry:
-java -jar x.jar --server.port=3000 --server.address=0.0.0.0
+java -jar x.jar --server.port=8000 --server.address=0.0.0.0
