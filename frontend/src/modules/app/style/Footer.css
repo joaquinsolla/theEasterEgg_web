@@ -24,5 +24,17 @@
 }
 
 @media (max-width: 900px) {
+    .Footer {
+        min-height: auto;
+    }
 
+    .Footer-Platforms{
+
+    }
+
+    .Footer-Platforms-Svg{
+        width: auto;
+        height: 3rem;
+        margin: var(--small-margin) var(--small-margin);
+    }
 }
