@@ -82,4 +82,39 @@
 
 @media (max-width: 900px) {
 
+    .SpecialPrices-Item-Content{
+        justify-content: center;
+        display: flex;
+        align-items: center;
+    }
+
+    .SpecialPrices-Item-Content-Image {
+        width: auto;
+        height: 3rem;
+    }
+
+    .SpecialPrices-Item-Content-Info {
+        height: auto;
+        min-height: 3rem;
+        justify-content: center;
+        display: flex;
+        align-items: center;
+    }
+
+    .SpecialPrices-Item-Price-Price {
+        font-size: 1.1rem;
+    }
+
+    .SpecialPrices-Item-Price-Platform-Svg {
+        display: none;
+    }
+
+    .SpecialPrices-Item-Content-Info-Genre {
+        display: none;
+    }
+
+    .SpecialPrices-Item-Price-Price{
+        width: max-content;
+        margin-right: 0;
+    }
 }

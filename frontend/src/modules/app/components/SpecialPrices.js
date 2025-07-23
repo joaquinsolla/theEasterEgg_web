@@ -138,7 +138,7 @@ const SpecialPrices = () => {
                         <div className="SpecialPrices-Item-Content Flex-start-div">
                             <img className="SpecialPrices-Item-Content-Image Margin-right" src={game.data.capsule_image} />
                             <div className="SpecialPrices-Item-Content-Info">
-                                <h3 className="Margin-bottom-small">{game.name}</h3>
+                                <h4 className="Margin-bottom-small">{game.name}</h4>
                                 <div>
                                     {game.genres && game.genres.length > 0 ? (
                                         game.genres.map((genre, index) => (
