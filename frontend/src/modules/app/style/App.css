@@ -175,6 +175,8 @@ p {
 }
 
 @media (max-width: 900px) {
-
+  .Content {
+    padding: var(--default-padding);
+  }
 }
 
