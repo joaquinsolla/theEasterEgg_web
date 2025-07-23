@@ -78,4 +78,8 @@
 
 @media (max-width: 900px) {
 
+    .User-Login-Container {
+        width: 100%;
+    }
+
 }

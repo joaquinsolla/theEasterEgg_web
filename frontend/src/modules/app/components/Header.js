@@ -37,12 +37,14 @@ const Header = () => {
                         </div>
                     ) : (
                         <div className="Flex-center-div Header-Buttons-Container">
+                            <p>&nbsp;</p>
                             <Link to="/signup" className="Link-simple">
                                 <p>Crear cuenta</p>
                             </Link>
                             <Link to="/login" className="Link-simple Margin-left">
                                 <p>Iniciar sesión</p>
                             </Link>
+                            <p>&nbsp;</p>
                         </div>
                     )}
                 </div>
@@ -72,12 +74,14 @@ const Header = () => {
                         </div>
                     ) : (
                         <div className="Flex-center-div Header-Buttons-Container">
+                            <p>&nbsp;</p>
                             <Link to="/signup" className="Link-simple">
                                 <p>Crear cuenta</p>
                             </Link>
                             <Link to="/login" className="Link-simple Margin-left">
                                 <p>Iniciar sesión</p>
                             </Link>
+                            <p>&nbsp;</p>
                         </div>
                     )}
                 </div>
