@@ -12,23 +12,25 @@ const Header = () => {
 
     return (
         <div className="Header">
-            <div>
+            <div className="Header-Banner-Container">
                 <Link to="">
                     <img src="/theeasteregg_web/assets/header-logo-3.webp" className="Header-Banner" alt="logo"/>
                 </Link>
             </div>
-            <div>
+            <div className="Header-Buttons-Container">
                 {isLoggedIn ? (
                     <div className="Flex-center-div">
-                        <Link to="/for-you" className="Link-simple">
-                            <p>Para ti</p>
-                        </Link>
-                        <Link to="/desired-games" className="Link-simple Flex-center-div Margin-left Flex-center-div">
-                            <p>Lista de deseados</p>
-                        </Link>
-                        <Link to="/account" className="Link-simple Flex-center-div Margin-left Flex-center-div">
-                            <p>{user.userName}</p>
-                        </Link>
+                        <div className="Flex-center-div Header-Buttons-Container-Userbuttons">
+                            <Link to="/for-you" className="Link-simple">
+                                <p>Para ti</p>
+                            </Link>
+                            <Link to="/desired-games" className="Link-simple Flex-center-div Margin-left Flex-center-div">
+                                <p>Lista de deseados</p>
+                            </Link>
+                            <Link to="/account" className="Link-simple Flex-center-div Margin-left Flex-center-div">
+                                <p>{user.userName}</p>
+                            </Link>
+                        </div>
                         <Link to="/logout" className="Link-simple Flex-center-div Margin-left Flex-center-div Logout-Container">
                             <p>Cerrar sesión</p>
                             <TbLogout className="Header-User-Icon Margin-left-small"/>

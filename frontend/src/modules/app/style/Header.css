@@ -30,5 +30,36 @@
 }
 
 @media (max-width: 900px) {
+    .Header {
+        display: block;
+        justify-content: center;
+        height: auto;
+        width: 100vw;
+    }
+
+    .Header-Banner-Container{
+        margin-bottom: var(--default-margin);
+        text-align: center;
+    }
+
+    .Header-Banner {
+        height: auto;
+        width: 85vw;
+    }
+
+    .Header-Buttons-Container{
+        text-align: center;
+    }
+
+    .Header-User-Icon {
+    }
+
+    .Logout-Container{
+        width: 35%;
+    }
+
+    .Header-Buttons-Container-Userbuttons{
+        width: 65%;
+    }
 
 }
