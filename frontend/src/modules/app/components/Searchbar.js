@@ -89,68 +89,121 @@ const Searchbar = () => {
     };
 
     return (
-        <div className="Searchbar">
-            <div className="Searchbar-separator Not-displayed"></div>
-            <Link to="/platforms-list" className="Link-simple">
-                <p>Plataformas</p>
-            </Link>
-            <div className="Searchbar-separator"></div>
-            <Link to="/categories-list" className="Link-simple">
-                <p>Categorías</p>
-            </Link>
-            <div className="Searchbar-separator"></div>
-            <Link to="/developers-list" className="Link-simple">
-                <p>Desarrolladores</p>
-            </Link>
-            <div className="Searchbar-separator"></div>
-            <Link to="/advanced-search" className="Link-simple Flex-center-div">
-                <BsFillLightningFill />
-                <p>&nbsp;Búsqueda avanzada</p>
-            </Link>
-            <div className="Searchbar-FieldSearch-Container">
-                <EuiFieldSearch
-                    className="Searchbar-FieldSearch"
-                    placeholder="Buscar..."
-                    value={fieldSearchQuery}
-                    onChange={handleFieldSearchQuery}
-                    isClearable
-                    fullWidth
-                    onKeyDown={(e) => {
-                        if (e.key === 'Enter') {
-                            handleFieldSearchSubmit();
-                        }
-                    }}
-                />
-                <div className="Searchbar-FieldSearch-Results">
-                    {fieldSearchResults.length > 0 && (
-                        <div>
-                            {fieldSearchResults.map(({ _id, name, min_price, capsule_image }) => (
-                                <Link to={`/game/${_id}`} key={_id} className="Searchbar-FieldSearch-Link">
-                                    <div className="Searchbar-FieldSearch-Result Flex-center-div">
-                                        <img src={capsule_image} alt={name} className="Searchbar-FieldSearch-Result-Image"/>
-                                        <div className="Searchbar-FieldSearch-Result-Info">
-                                            <h4>{name}</h4>
-                                            <div className="Searchbar-FieldSearch-Result-Info-Price">
-                                                <p>{min_price}</p>
+        <div>
+            <div className="Searchbar">
+                <div className="Searchbar-separator Not-displayed"></div>
+                <Link to="/platforms-list" className="Link-simple">
+                    <p>Plataformas</p>
+                </Link>
+                <div className="Searchbar-separator"></div>
+                <Link to="/categories-list" className="Link-simple">
+                    <p>Categorías</p>
+                </Link>
+                <div className="Searchbar-separator"></div>
+                <Link to="/developers-list" className="Link-simple">
+                    <p>Desarrolladores</p>
+                </Link>
+                <div className="Searchbar-separator Not-displayedOnSmall"></div>
+                <Link to="/advanced-search" className="Link-simple Flex-center-div HideOnSmall">
+                    <BsFillLightningFill />
+                    <p>&nbsp;Búsqueda avanzada</p>
+                </Link>
+                <div className="Searchbar-FieldSearch-Container HideOnSmall">
+                    <EuiFieldSearch
+                        className="Searchbar-FieldSearch"
+                        placeholder="Buscar..."
+                        value={fieldSearchQuery}
+                        onChange={handleFieldSearchQuery}
+                        isClearable
+                        fullWidth
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                                handleFieldSearchSubmit();
+                            }
+                        }}
+                    />
+                    <div className="Searchbar-FieldSearch-Results">
+                        {fieldSearchResults.length > 0 && (
+                            <div>
+                                {fieldSearchResults.map(({ _id, name, min_price, capsule_image }) => (
+                                    <Link to={`/game/${_id}`} key={_id} className="Searchbar-FieldSearch-Link">
+                                        <div className="Searchbar-FieldSearch-Result Flex-center-div">
+                                            <img src={capsule_image} alt={name} className="Searchbar-FieldSearch-Result-Image"/>
+                                            <div className="Searchbar-FieldSearch-Result-Info">
+                                                <h4>{name}</h4>
+                                                <div className="Searchbar-FieldSearch-Result-Info-Price">
+                                                    <p>{min_price}</p>
+                                                </div>
                                             </div>
                                         </div>
+                                        <hr className="Searchbar-FieldSearch-Result-Hr"/>
+                                    </Link>
+                                ))}
+                                <Link to="/advanced-search" className="Searchbar-FieldSearch-Link">
+                                    <div className="Searchbar-FieldSearch-Link-AdvancedSearch">
+                                        <div className="Flex-center-div">
+                                            <BsFillLightningFill />
+                                            &nbsp;Búsqueda avanzada
+                                        </div>
                                     </div>
-                                    <hr className="Searchbar-FieldSearch-Result-Hr"/>
                                 </Link>
-                            ))}
-                            <Link to="/advanced-search" className="Searchbar-FieldSearch-Link">
-                                <div className="Searchbar-FieldSearch-Link-AdvancedSearch">
-                                    <div className="Flex-center-div">
-                                        <BsFillLightningFill />
-                                        &nbsp;Búsqueda avanzada
+                            </div>
+                        )}
+                    </div>
+                </div>
+            </div>
+            <div className="Searchbar-Small HideOnBigToFlex">
+                <div className="Searchbar-separator Not-displayed"></div>
+                <Link to="/advanced-search" className="Link-simple Flex-center-div">
+                    <BsFillLightningFill />
+                    <p>&nbsp;Búsqueda avanzada</p>
+                </Link>
+                <div className="Searchbar-FieldSearch-Container">
+                    <EuiFieldSearch
+                        className="Searchbar-FieldSearch"
+                        placeholder="Buscar..."
+                        value={fieldSearchQuery}
+                        onChange={handleFieldSearchQuery}
+                        isClearable
+                        fullWidth
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                                handleFieldSearchSubmit();
+                            }
+                        }}
+                    />
+                    <div className="Searchbar-FieldSearch-Results">
+                        {fieldSearchResults.length > 0 && (
+                            <div>
+                                {fieldSearchResults.map(({ _id, name, min_price, capsule_image }) => (
+                                    <Link to={`/game/${_id}`} key={_id} className="Searchbar-FieldSearch-Link">
+                                        <div className="Searchbar-FieldSearch-Result Flex-center-div">
+                                            <img src={capsule_image} alt={name} className="Searchbar-FieldSearch-Result-Image"/>
+                                            <div className="Searchbar-FieldSearch-Result-Info">
+                                                <h4>{name}</h4>
+                                                <div className="Searchbar-FieldSearch-Result-Info-Price">
+                                                    <p>{min_price}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr className="Searchbar-FieldSearch-Result-Hr"/>
+                                    </Link>
+                                ))}
+                                <Link to="/advanced-search" className="Searchbar-FieldSearch-Link">
+                                    <div className="Searchbar-FieldSearch-Link-AdvancedSearch">
+                                        <div className="Flex-center-div">
+                                            <BsFillLightningFill />
+                                            &nbsp;Búsqueda avanzada
+                                        </div>
                                     </div>
-                                </div>
-                            </Link>
-                        </div>
-                    )}
+                                </Link>
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
         </div>
+
     );
 }
 

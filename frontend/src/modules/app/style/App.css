@@ -51,6 +51,14 @@ p {
   padding: var(--default-padding) 15% var(--default-padding) 15%;
 }
 
+.HideOnBigToFlex, .HideOnBigToBlock{
+  display: none;
+}
+
+.HideOnSmall{
+
+}
+
 .Text-left {
   text-align: left;
 }
@@ -113,6 +121,9 @@ p {
 
 .Not-displayed {
   opacity: 0;
+}
+
+.Not-displayedOnSmall {
 }
 
 .Link-simple {
@@ -178,5 +189,22 @@ p {
   .Content {
     padding: var(--default-padding);
   }
+
+  .HideOnBigToBlock{
+    display: block;
+  }
+
+  .HideOnBigToFlex{
+    display: flex;
+  }
+
+  .HideOnSmall{
+    display: none;
+  }
+
+  .Not-displayedOnSmall {
+    opacity: 0;
+  }
+
 }
 

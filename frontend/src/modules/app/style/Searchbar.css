@@ -116,5 +116,32 @@
 }
 
 @media (max-width: 900px) {
+    .Searchbar{
+        margin-bottom: var(--default-margin);
+    }
+
+    .Searchbar-Small{
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: var(--color-generic-dark);
+        border-radius: var(--big-radius);
+        border: var(--default-border) groove var(--color-special-secondary);
+        border-right: none;
+        height: 2.5rem;
+        margin-bottom: var(--default-margin);
+        z-index: 100;
+    }
+
+    .Searchbar-FieldSearch-Container {
+        width: 50%;
+    }
+
+
+    .Searchbar-FieldSearch-Results {
+        width: 200%;
+        margin-left: -100%;
+    }
 
 }
