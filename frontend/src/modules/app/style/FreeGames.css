@@ -60,4 +60,40 @@
 
 @media (max-width: 900px) {
 
+    .FreeGames-List {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .FreeGames-List-Item{
+        width: calc(50% - var(--small-margin)*2);
+        margin: var(--small-margin);
+        background-color: var(--color-generic-medium);
+        border-radius: var(--default-radius);
+    }
+
+    .FreeGames-List > .Formatted-Link:last-child:nth-child(odd) {
+        display: none;
+    }
+
+    .FreeGames-List-Item-Image{
+        border-radius: var(--default-radius) var(--default-radius) 0 0;
+        width: 100%;
+        height: auto;
+    }
+
+    .FreeGames-List-Item-Info {
+        padding: var(--small-padding);
+    }
+
+    .FreeGames-List-Item-Info-Availability {
+        text-align: left;
+    }
+
+    .FreeGames-List-Item-Info-Availability-Svg {
+        fill: var(--color-white);
+        width: auto;
+        height: 1rem;
+    }
+
 }
