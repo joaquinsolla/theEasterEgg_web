@@ -29,12 +29,24 @@
     padding-left: var(--default-margin);
 }
 
+.HeaderSpacer {
+    display: none !important;
+}
+
 @media (max-width: 900px) {
     .Header {
         display: block;
         justify-content: center;
         height: auto;
         width: 100vw;
+        position: fixed;
+        z-index: 999;
+    }
+
+    .HeaderSpacer {
+        display: block !important;
+        position: sticky !important;
+        z-index: 998 !important;
     }
 
     .Header-Banner-Container{
