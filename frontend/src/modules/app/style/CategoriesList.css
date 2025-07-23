@@ -45,5 +45,20 @@
 }
 
 @media (max-width: 900px) {
+    .CategoriesList-Container-Column-Capital {
+        font-size: 1.5rem;
+    }
+
+    .CategoriesList-Container-Column-Item {
+        font-size: 1rem;
+        margin-bottom: 0.25rem;
+        cursor: pointer;
+        color: var(--color-white);
+        transition: var(--default-transition);
+    }
+
+    .CategoriesList-Container-Column{
+        padding-right: var(--big-padding);
+    }
 
 }
