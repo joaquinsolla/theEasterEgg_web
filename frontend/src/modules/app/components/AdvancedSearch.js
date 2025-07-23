@@ -12,7 +12,7 @@ import Searchbar from "./Searchbar";
 import { CgDisplayGrid } from "react-icons/cg";
 import { MdViewList } from "react-icons/md";
 import { LuLoader } from "react-icons/lu";
-import {FaPlus } from "react-icons/fa6";
+import {FaAnglesDown, FaAnglesUp, FaPlus} from "react-icons/fa6";
 import {
     EuiFieldSearch,
     EuiDualRange ,
@@ -27,6 +27,7 @@ import {Link} from "react-router-dom";
 const REACT_APP_ELASTICSEARCH_URL = process.env.REACT_APP_ELASTICSEARCH_URL;
 
 const AdvancedSearch = () => {
+    const [showMobileFilters, setShowMobileFilters] = useState(false);
     const [games, setGames] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [visibleCount, setVisibleCount] = useState(100);
@@ -546,9 +547,10 @@ const AdvancedSearch = () => {
     return (
         <div className="AdvancedSearch Content">
             <Searchbar />
+            <h1 className="Margin-bottom HideOnBigToBlock">Búsqueda avanzada</h1>
 
             <div className="Flex-start-div">
-                <div className="AdvancedSearch-Filters">
+                <div className="AdvancedSearch-Filters HideOnSmall">
                     <h1 className="Margin-bottom">Búsqueda avanzada</h1>
                     <div id="Name" className="AdvancedSearch-Filters-Container Margin-bottom-big">
                         <EuiFieldSearch
@@ -838,6 +840,320 @@ const AdvancedSearch = () => {
 
                 </div>
                 <div className="AdvancedSearch-Results-And-Sorting">
+                    <div id="Name" className="AdvancedSearch-Filters-Container Margin-bottom HideOnBigToBlock">
+                        <EuiFieldSearch
+                            className="AdvancedSearch-Filters-EuiFieldSearch"
+                            placeholder="Buscar por nombre..."
+                            value={searchTerm}
+                            onChange={e => setSearchTerm(e.target.value)}
+                            isClearable
+                            fullWidth
+                        />
+                    </div>
+
+                    <div>
+                        {showMobileFilters ? (
+                            <div>
+                                <div className="AdvancedSearch-Filters HideOnBigToBlock">
+                                    <div id="Platforms" className="AdvancedSearch-Filters-Container Margin-bottom-big">
+                                        <div className="Flex-start-div Space-Between">
+                                            <h4 className="Margin-bottom-small">Plataformas</h4>
+                                            {selectedPlatforms.length > 0 && (
+                                                <MdCancel className="ClearFilter-Button" onClick={() => setSelectedPlatforms([])}/>
+                                            )}
+                                        </div>
+                                        <EuiSelectable
+                                            searchable={false}
+                                            options={platformOptions.map(p => ({
+                                                label: p.label,
+                                                checked: selectedPlatforms.some(sp => sp.label === p.label) ? 'on' : undefined,
+                                                prepend: platformIcons[p.label] || null  // Aquí usamos prepend en lugar de append
+                                            }))}
+                                            onChange={(options) => {
+                                                const selected = options.filter(o => o.checked === 'on');
+                                                setSelectedPlatforms(
+                                                    selected.map(o => {
+                                                        const match = platformOptions.find(p => p.label === o.label);
+                                                        return { label: o.label, value: match?.value || '' };
+                                                    })
+                                                );
+                                            }}
+                                            listProps={{ bordered: true }}
+                                            fullWidth
+                                        >
+                                            {(list) => <>{list}</>}
+                                        </EuiSelectable>
+                                    </div>
+                                    <div id="Price" className="AdvancedSearch-Filters-Container Margin-bottom-big">
+                                        <div className="Flex-start-div Space-Between">
+                                            <h4 className="Margin-bottom-small">
+                                                {isFreeChecked ? "Rango de precios: Gratis" : `Rango de precios: ${priceRange[0]}€ ~ ${priceRange[1]}€`}
+                                            </h4>
+                                            {(isFreeChecked || isNotFreeChecked || priceRange[0] !== 0 || priceRange[1] !== 110) && (
+                                                <MdCancel
+                                                    className="ClearFilter-Button"
+                                                    onClick={() => {
+                                                        setPriceRange([0, 110]);
+                                                        setIsFreeChecked(false);
+                                                        setIsNotFreeChecked(false);
+                                                    }}
+                                                />
+                                            )}
+                                        </div>
+                                        <EuiDualRange
+                                            min={0}
+                                            max={110}
+                                            step={1}
+                                            value={[priceRange[0], priceRange[1]]}
+                                            onChange={(value) => {
+                                                if (Array.isArray(value)) {
+                                                    setPriceRange(value.map(Number));
+                                                }
+                                            }}
+                                            showLabels
+                                            tickInterval={Math.ceil(110 / 5)}
+                                            fullWidth
+                                            disabled={isFreeChecked}
+                                            className="AdvancedSearch-Filter"
+                                        />
+                                        <EuiCheckbox
+                                            id="freeGamesCheckbox"
+                                            label="Mostrar solo juegos gratis"
+                                            checked={isFreeChecked}
+                                            onChange={(e) => setIsFreeChecked(e.target.checked)}
+                                            className="Margin-bottom-small AdvancedSearch-Filter"
+                                            disabled={isNotFreeChecked}
+                                        />
+                                        <EuiCheckbox
+                                            id="notFreeGamesCheckbox"
+                                            label="Excluir juegos gratis"
+                                            checked={isNotFreeChecked}
+                                            onChange={(e) => {
+                                                setIsNotFreeChecked(e.target.checked);
+                                                setIsFreeChecked(false);
+                                            }}
+                                            disabled={isFreeChecked}
+                                            className="AdvancedSearch-Filter"
+                                        />
+                                    </div>
+                                    <div id="Genres" className="AdvancedSearch-Filters-Container Margin-bottom-big">
+                                        <div className="Flex-start-div Space-Between">
+                                            <h4 className="Margin-bottom-small">Géneros</h4>
+                                        </div>
+                                        <EuiComboBox
+                                            placeholder="Seleccionar..."
+                                            options={genresOptions}
+                                            selectedOptions={selectedGenres}
+                                            onChange={setSelectedGenres}
+                                            isClearable
+                                            className="AdvancedSearch-Filter"
+                                        />
+                                    </div>
+                                    <div id="Categories" className="AdvancedSearch-Filters-Container Margin-bottom-big">
+                                        <div className="Flex-start-div Space-Between">
+                                            <h4 className="Margin-bottom-small">Categorías</h4>
+                                        </div>
+                                        <EuiComboBox
+                                            placeholder="Seleccionar..."
+                                            options={categoriesOptions}
+                                            selectedOptions={selectedCategories}
+                                            onChange={setSelectedCategories}
+                                            isClearable
+                                            className="AdvancedSearch-Filter"
+                                        />
+                                    </div>
+                                    <div id="Developers" className="AdvancedSearch-Filters-Container Margin-bottom-big">
+                                        <div className="Flex-start-div Space-Between">
+                                            <h4 className="Margin-bottom-small">Desarrolladores</h4>
+                                        </div>
+                                        <EuiComboBox
+                                            placeholder="Seleccionar..."
+                                            options={developersOptions}
+                                            selectedOptions={selectedDevelopers}
+                                            onChange={setSelectedDevelopers}
+                                            isClearable
+                                            className="AdvancedSearch-Filter"
+                                        />
+                                    </div>
+                                    <div id="Publishers" className="AdvancedSearch-Filters-Container Margin-bottom-big">
+                                        <div className="Flex-start-div Space-Between">
+                                            <h4 className="Margin-bottom-small">Publishers</h4>
+                                        </div>
+                                        <EuiComboBox
+                                            placeholder="Seleccionar..."
+                                            options={publishersOptions}
+                                            selectedOptions={selectedPublishers}
+                                            onChange={setSelectedPublishers}
+                                            isClearable
+                                            className="AdvancedSearch-Filter"
+                                        />
+                                    </div>
+                                    <div id="OS" className="AdvancedSearch-Filters-Container Margin-bottom-big">
+                                        <div className="Flex-start-div Space-Between">
+                                            <h4 className="Margin-bottom-small">Sistemas operativos</h4>
+                                            {(isSoWindowsChecked || isSoMacChecked || isSoLinuxChecked ) && (
+                                                <MdCancel
+                                                    className="ClearFilter-Button"
+                                                    onClick={() => {
+                                                        setIsSoWindowsChecked(false);
+                                                        setIsSoMacChecked(false);
+                                                        setIsSoLinuxChecked(false);
+                                                    }}
+                                                />
+                                            )}
+                                        </div>
+                                        <EuiCheckbox
+                                            id="soWindowsCheckbox"
+                                            label="Windows"
+                                            checked={isSoWindowsChecked}
+                                            onChange={(e) => setIsSoWindowsChecked(e.target.checked)}
+                                            className="AdvancedSearch-Filter"
+                                        />
+                                        <EuiCheckbox
+                                            id="soMacCheckbox"
+                                            label="Mac"
+                                            checked={isSoMacChecked}
+                                            onChange={(e) => setIsSoMacChecked(e.target.checked)}
+                                            className="AdvancedSearch-Filter"
+                                        />
+                                        <EuiCheckbox
+                                            id="soLinuxCheckbox"
+                                            label="Linux"
+                                            checked={isSoLinuxChecked}
+                                            onChange={(e) => setIsSoLinuxChecked(e.target.checked)}
+                                            className="Margin-bottom-small AdvancedSearch-Filter"
+                                        />
+                                    </div>
+                                    <div id="ReleaseYear" className="AdvancedSearch-Filters-Container Margin-bottom-big">
+                                        <div className="Flex-start-div Space-Between">
+                                            <h4 className="Margin-bottom">Lanzamiento</h4>
+                                            {(releaseYearFrom !== '' || releaseYearTo !== '' || isComingSoonChecked ) && (
+                                                <MdCancel
+                                                    className="ClearFilter-Button"
+                                                    onClick={() => {
+                                                        setReleaseYearFrom('');
+                                                        setReleaseYearTo('');
+                                                        setIsComingSoonChecked(false)
+                                                    }}
+                                                />
+                                            )}
+                                        </div>
+                                        <div className="Margin-bottom">
+                                            <p className="Margin-bottom-small">Año desde:</p>
+                                            <EuiSelect
+                                                options={yearOptions}
+                                                value={releaseYearFrom}
+                                                onChange={(e) => setReleaseYearFrom(e.target.value)}
+                                                aria-label="Año desde"
+                                                disabled={isComingSoonChecked}
+                                                className="AdvancedSearch-Filter-ComboBox"
+                                            />
+                                        </div>
+                                        <div className="Margin-bottom">
+                                            <p className="Margin-bottom-small">Año hasta:</p>
+                                            <EuiSelect
+                                                options={yearOptions}
+                                                value={releaseYearTo}
+                                                onChange={(e) => setReleaseYearTo(e.target.value)}
+                                                aria-label="Año hasta"
+                                                disabled={isComingSoonChecked}
+                                                className="AdvancedSearch-Filter-ComboBox"
+                                            />
+                                        </div>
+                                        <EuiCheckbox
+                                            id="comingSoonCheckbox"
+                                            label="Mostrar solo próximos lanzamientos"
+                                            checked={isComingSoonChecked}
+                                            onChange={(e) => {
+                                                setIsComingSoonChecked(e.target.checked)
+                                                setReleaseYearFrom('');
+                                                setReleaseYearTo('');
+                                            }}
+                                            className="AdvancedSearch-Filter"
+                                        />
+                                    </div>
+                                    <div id="PEGI" className="AdvancedSearch-Filters-Container Margin-bottom-big">
+                                        <div className="Flex-start-div Space-Between">
+                                            <h4 className="Margin-bottom-small">PEGI</h4>
+                                            {( selectedPegis.length > 0 ) && (
+                                                <MdCancel
+                                                    className="ClearFilter-Button"
+                                                    onClick={() => {
+                                                        setSelectedPegis([]);
+                                                    }}
+                                                />
+                                            )}
+                                        </div>
+                                        {pegiOptions.map((option) => {
+                                            const isChecked = selectedPegis.some((pegi) => pegi.value === option.value);
+                                            const handleChange = (e) => {
+                                                if (e.target.checked) {
+                                                    setSelectedPegis([...selectedPegis, option]);
+                                                } else {
+                                                    setSelectedPegis(selectedPegis.filter((pegi) => pegi.value !== option.value));
+                                                }
+                                            };
+                                            return (
+                                                <EuiCheckbox
+                                                    key={option.value}
+                                                    id={`pegi-${option.value}`}
+                                                    label={option.label}
+                                                    checked={isChecked}
+                                                    onChange={handleChange}
+                                                    className="Margin-bottom-small AdvancedSearch-Filter"
+                                                />
+                                            );
+                                        })}
+                                    </div>
+
+                                    <EuiButton
+                                        size="s"
+                                        onClick={() => {
+                                            setSearchTerm('');
+                                            setSelectedPlatforms([]);
+                                            setPriceRange([0, 110]);
+                                            setIsFreeChecked(false);
+                                            setIsNotFreeChecked(false);
+                                            setSelectedGenres([]);
+                                            setSelectedCategories([]);
+                                            setSelectedDevelopers([]);
+                                            setSelectedPublishers([]);
+                                            setIsSoWindowsChecked(false);
+                                            setIsSoMacChecked(false);
+                                            setIsSoLinuxChecked(false);
+                                            setSelectedPegis([]);
+                                            setReleaseYearFrom('');
+                                            setReleaseYearTo('');
+                                            setIsComingSoonChecked(false);
+                                        }}
+                                        className="ResetFilter-Button"
+                                    >
+                                        Reiniciar filtros
+                                    </EuiButton >
+
+                                    <EuiButton
+                                        size="s"
+                                        onClick={() => setShowMobileFilters(false)}
+                                        className="HideFilters-Button Margin-top"
+                                    >
+                                        Ocultar filtros
+                                    </EuiButton >
+
+                                </div>
+                            </div>
+                        ) : (
+                            <div>
+                                <EuiButton
+                                    size="s"
+                                    onClick={() => setShowMobileFilters(true)}
+                                    className="ShowFilters-Button"
+                                >
+                                    Mostrar filtros
+                                </EuiButton >
+                            </div>
+                        )}
+                    </div>
+
                     <div className="AdvancedSearch-Sorting Flex-center-div">
                         <div className="AdvancedSearch-Sorting-Sorting">
                             <h4 className="Margin-bottom-small">Ordenar por: </h4>
@@ -893,8 +1209,8 @@ const AdvancedSearch = () => {
                                     <div className="AdvancedSearch-List-Item-Content Flex-start-div">
                                         <img className="AdvancedSearch-List-Item-Content-Image Margin-right" src={game.capsule_image} />
                                         <div className="AdvancedSearch-List-Item-Content-Info">
-                                            <h3 className="Margin-bottom-small">{game.name}</h3>
-                                            <div className="AdvancedSearch-List-Item-Price-Platform">
+                                            <h4 className="Margin-bottom-small">{game.name}</h4>
+                                            <div className="AdvancedSearch-List-Item-Price-Platform HideOnSmall">
                                                 {game.availability_steam && (
                                                     <SteamIcon className="AdvancedSearch-List-Item-Price-Platform-Svg"/>
                                                 )}
@@ -935,7 +1251,7 @@ const AdvancedSearch = () => {
                                         <img className="AdvancedSearch-Results-Item-Image" src={game.header_image} />
                                         <div className="AdvancedSearch-Results-Item-Info">
                                             <h4 className="Margin-bottom-small">{game.name}</h4>
-                                            <div className="Flex-center-div">
+                                            <div className="Flex-center-div AdvancedSearch-Results-Item-Info-Vars">
                                                 <div className="AdvancedSearch-Results-Item-Info-Misc">
                                                     <div className="AdvancedSearch-Results-Item-Info-Availability">
                                                         {game.availability_steam && (

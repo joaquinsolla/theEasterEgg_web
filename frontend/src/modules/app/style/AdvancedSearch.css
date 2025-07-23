@@ -251,6 +251,100 @@
     color: white !important;
 }
 
+.ShowFilters-Button {
+    text-align: center;
+    width: 100%;
+}
+
+.HideFilters-Button {
+    text-align: center;
+    width: 100%;
+    background-color: var(--color-generic-dark) !important;
+}
+
 @media (max-width: 900px) {
+    .AdvancedSearch-Results-And-Sorting {
+        width: 100%;
+    }
+
+    .AdvancedSearch-Results-List {
+        padding: 0;
+    }
+
+    .AdvancedSearch-Results {
+        padding: 0;
+    }
+
+    .AdvancedSearch-Results-List {
+        padding: 0;
+    }
+
+    .AdvancedSearch-Results-Item-Info {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+    }
+
+    .AdvancedSearch-Results-Item{
+        width: calc(50% - var(--small-margin));
+        height: 100%;
+    }
+
+    .AdvancedSearch-Results-Item-Info-Vars{
+        display: block !important;
+    }
+
+    .AdvancedSearch-Results-Item-Info-Misc, .AdvancedSearch-Results-Item-Info-Price{
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        align-items: center;
+        margin-top: var(--extra-small-margin);
+    }
+
+    .AdvancedSearch-List-Item-Content{
+        display: flex;
+        align-items: center;
+    }
+
+    .AdvancedSearch-List-Item-Content-Image {
+        width: auto;
+        height: 3rem;
+    }
+
+    .AdvancedSearch-List-Item-Content-Info {
+        min-height: 3rem;
+        justify-content: center;
+        align-content: center;
+    }
+
+    .AdvancedSearch-List-Item-Price-Platform-Svg {
+        fill: var(--color-white);
+        width: auto;
+        height: 1.2rem;
+    }
+
+    .AdvancedSearch-Sorting{
+        padding: var(--default-padding) 0;
+        width: 100%;
+    }
+
+    .AdvancedSearch-Sorting-Sorting {
+        width: 100%;
+        margin-right: var(--default-padding);
+    }
+
+    .AdvancedSearch-Sorting-View {
+        margin-right: 0 !important;
+    }
+
+    .AdvancedSearch-Results-Item {
+        text-align: center;
+    }
+
+    .AdvancedSearch-Filters {
+        width: 100%;
+        padding: var(--default-padding);
+    }
 
 }
