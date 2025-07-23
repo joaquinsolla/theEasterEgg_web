@@ -399,43 +399,49 @@ const GameDetails = () => {
             {game ? (
                 <div className="GameDetails Content" style={{backgroundImage: `var(--background-image-opacity-2), url(${game.data.background_raw})`}}>
                     <Searchbar />
-                    <div className="Flex-center-div Space-Between">
+                    <div className="Flex-center-div Space-Between GameDetails-Header">
+                        <FaRegHeart className="GameDetails-NoLiked HideOnBigToBlock Not-displayed" />
                         <h1 className="Margin-bottom-small">{game.name}&nbsp;{ game.data.release_date.year !== null && (<span className="GameDetails-Year">{game.data.release_date.year}</span>)}</h1>
-                        {isLoggedIn ? (
-                            <>
-                                {isFavorite ? (
-                                    <div className="Flex-center-div" onClick={handleRemoveFavorite} style={{ cursor: 'pointer' }}>
-                                        <span className="GameDetails-Liked-Text Margin-right">En la lista de deseados</span>
-                                        <FaHeart className="GameDetails-Liked" />
-                                    </div>
-                                ) : (
+                        <div>
+                            {isLoggedIn ? (
+                                <>
+                                    {isFavorite ? (
+                                        <div className="Flex-center-div" onClick={handleRemoveFavorite} style={{ cursor: 'pointer' }}>
+                                            <span className="GameDetails-Liked-Text HideOnSmall Margin-right">En la lista de deseados</span>
+                                            <FaHeart className="GameDetails-Liked" />
+                                        </div>
+                                    ) : (
+                                        <div className="Flex-center-div" onClick={handleAddFavorite} style={{ cursor: 'pointer' }}>
+                                            <span className="GameDetails-Liked-Text HideOnSmall Margin-right">Añadir a la lista de deseados</span>
+                                            <FaRegHeart className="GameDetails-NoLiked" />
+                                        </div>
+                                    )}
+                                </>
+                            ) : (
+                                <Link to="/login" className="Link-simple">
                                     <div className="Flex-center-div" onClick={handleAddFavorite} style={{ cursor: 'pointer' }}>
-                                        <span className="GameDetails-Liked-Text Margin-right">Añadir a la lista de deseados</span>
+                                        <span className="GameDetails-Liked-Text HideOnSmall Margin-right">Añadir a la lista de deseados</span>
                                         <FaRegHeart className="GameDetails-NoLiked" />
                                     </div>
-                                )}
-                            </>
-                        ) : (
-                            <Link to="/login" className="Link-simple">
-                                <div className="Flex-center-div" onClick={handleAddFavorite} style={{ cursor: 'pointer' }}>
-                                    <span className="GameDetails-Liked-Text Margin-right">Añadir a la lista de deseados</span>
-                                    <FaRegHeart className="GameDetails-NoLiked" />
-                                </div>
-                            </Link>
-                        )}
+                                </Link>
+                            )}
+                        </div>
 
                     </div>
-                    <div className="GameDetails-Year-Recommendations Flex-center-div Margin-bottom-small">
-                        Recomendaciones: {game.data.total_recommendations}
-                        <FaThumbsUp className="Margin-left-small"/>
+                    <div className="GameDetails-Year-Recommendations-Container">
+                        <div className="GameDetails-Year-Recommendations Flex-center-div Margin-bottom-small">
+                            Recomendaciones: {game.data.total_recommendations}
+                            <FaThumbsUp className="Margin-left-small"/>
+                        </div>
                     </div>
-                    <div className="Flex-start-div">
+
+                    <div className="Flex-start-div GameDetails-Info-Container">
                         <div className="GameDetails-MainInfo">
                             <div className="GameDetails-MainInfo-Media Margin-bottom">
                                 {renderMainMedia()}
                                 <div className="GameDetails-MainInfo-Thumbnails-Container">{renderThumbnails()}</div>
                             </div>
-                            <div className="GameDetails-MainInfo-Description-Container Margin-bottom">
+                            <div className="GameDetails-MainInfo-Description-Container HideOnSmall Margin-bottom">
                                 <h2 className="Margin-bottom-small">Acerca del juego</h2>
                                 <div
                                     ref={descriptionRef}
@@ -448,7 +454,7 @@ const GameDetails = () => {
                                     </div>
                                 )}
                             </div>
-                            <div className="GameDetails-MainInfo-Requirements Margin-bottom">
+                            <div className="GameDetails-MainInfo-Requirements Margin-bottom HideOnSmall">
                                 <div
                                     ref={requirementsRef}
                                     className={`GameDetails-MainInfo-Requirements-Expandible ${isRequirementsOverflowing && !isRequirementsExpanded ? 'clamped' : ''}`}
@@ -500,7 +506,7 @@ const GameDetails = () => {
                                     </div>
                                 )}
                             </div>
-                            <div className="GameDetails-MainInfo-Languages Margin-bottom">
+                            <div className="GameDetails-MainInfo-Languages Margin-bottom HideOnSmall">
                                 <h2 className="Margin-bottom-small">Idiomas soportados</h2>
                                 <div className="GameDetails-MainInfo-GameDetails-MainInfo-Languages-Container">
                                     <div className="GameDetails-MainInfo-GameDetails-MainInfo-Languages-Languages Margin-bottom-small"
@@ -508,10 +514,10 @@ const GameDetails = () => {
                                     />
                                 </div>
                             </div>
-                            <div className="GameDetails-MainInfo-LegalInfo Margin-bottom" dangerouslySetInnerHTML={{ __html: game.data?.legal_notice }}/>
+                            <div className="GameDetails-MainInfo-LegalInfo Margin-bottom HideOnSmall"  dangerouslySetInnerHTML={{ __html: game.data?.legal_notice }}/>
                         </div>
                         <div className="GameDetails-SecondaryInfo">
-                            <img className="GameDetails-SecondaryInfo-HeaderImage Margin-bottom" src={game.data.header_image} />
+                            <img className="GameDetails-SecondaryInfo-HeaderImage Margin-bottom HideOnSmall" src={game.data.header_image} />
                             <div className="Margin-bottom">
                                 <h2 className="Margin-bottom-small">Tabla de precios</h2>
                                 <div className="GameDetails-SecondaryInfo-PricesTable">
@@ -609,6 +615,19 @@ const GameDetails = () => {
                                     </div>
                                 </div>
                             )}
+                            <div className="GameDetails-MainInfo-Description-Container HideOnBigToBlock Margin-bottom">
+                                <h2 className="Margin-bottom-small">Acerca del juego</h2>
+                                <div
+                                    ref={descriptionRef}
+                                    className={`GameDetails-MainInfo-Description Margin-bottom ${isDescriptionOverflowing && !isDescriptionExpanded ? 'clamped' : ''}`}
+                                    dangerouslySetInnerHTML={{ __html: game?.data?.about_the_game }}
+                                />
+                                {isDescriptionOverflowing && (
+                                    <div onClick={toggleDescriptionExpand} className="GameDetails-MainInfo-Description-ShowMoreButton">
+                                        {isDescriptionExpanded ? <div className="Flex-center-div"><FaAnglesUp />&nbsp;Mostrar menos</div> : <div className="Flex-center-div"><FaAnglesDown />&nbsp;Mostrar más</div>}
+                                    </div>
+                                )}
+                            </div>
                             <div className="Margin-bottom">
                                 <h2 className="Margin-bottom-small">Información</h2>
                                 <div className="GameDetails-SecondaryInfo-Section">
@@ -625,7 +644,7 @@ const GameDetails = () => {
                                     <div className="Margin-bottom-small">
                                         { game.data.website && (
                                             <span><b>Web oficial:</b><br/>
-                                                <a href={game.data.website} target="_blank" className="CenteredLink">
+                                                <a href={game.data.website} target="_blank" className="CenteredLink Formatted-Link-Blue">
                                                     {game.data.website}&nbsp;<FaLink />
                                                 </a>
                                             </span>
@@ -748,13 +767,74 @@ const GameDetails = () => {
                                             </div>
                                         )}
                                         <div className="Text-center Margin-top-small">
-                                            <a href="https://pegi.info/" target="_blank" className="CenteredLink">
+                                            <a href="https://pegi.info/" target="_blank" className="CenteredLink Formatted-Link-Blue">
                                                 <b>PEGI.info</b>&nbsp;<FaLink />
                                             </a>
                                         </div>
                                     </div>
                                 </div>
                             )}
+                            <div className="GameDetails-MainInfo-Requirements Margin-bottom HideOnBigToBlock">
+                                <div
+                                    ref={requirementsRef}
+                                    className={`GameDetails-MainInfo-Requirements-Expandible ${isRequirementsOverflowing && !isRequirementsExpanded ? 'clamped' : ''}`}
+                                >
+                                    <h2 className="Margin-bottom-small">Requisitos</h2>
+                                    <div className="GameDetails-MainInfo-GameDetails-MainInfo-Requirements-Container">
+                                        <h3>Windows</h3>
+                                        <div className="Flex-start-div Margin-bottom-small">
+                                            <div
+                                                className="GameDetails-MainInfo-GameDetails-MainInfo-Requirements-Item Margin-bottom"
+                                                dangerouslySetInnerHTML={{ __html: game.data?.pc_requirements?.minimum }}
+                                            />
+                                            <div
+                                                className="GameDetails-MainInfo-GameDetails-MainInfo-Requirements-Item Margin-bottom"
+                                                dangerouslySetInnerHTML={{ __html: game.data?.pc_requirements?.recommended }}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="GameDetails-MainInfo-GameDetails-MainInfo-Requirements-Container">
+                                        <h3>Mac</h3>
+                                        <div className="Flex-start-div Margin-bottom-small">
+                                            <div
+                                                className="GameDetails-MainInfo-GameDetails-MainInfo-Requirements-Item Margin-bottom"
+                                                dangerouslySetInnerHTML={{ __html: game.data?.mac_requirements?.minimum }}
+                                            />
+                                            <div
+                                                className="GameDetails-MainInfo-GameDetails-MainInfo-Requirements-Item Margin-bottom"
+                                                dangerouslySetInnerHTML={{ __html: game.data?.mac_requirements?.recommended }}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="GameDetails-MainInfo-GameDetails-MainInfo-Requirements-Container">
+                                        <h3>Linux</h3>
+                                        <div className="Flex-start-div Margin-bottom-small">
+                                            <div
+                                                className="GameDetails-MainInfo-GameDetails-MainInfo-Requirements-Item Margin-bottom"
+                                                dangerouslySetInnerHTML={{ __html: game.data?.linux_requirements?.minimum }}
+                                            />
+                                            <div
+                                                className="GameDetails-MainInfo-GameDetails-MainInfo-Requirements-Item Margin-bottom"
+                                                dangerouslySetInnerHTML={{ __html: game.data?.linux_requirements?.recommended }}
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                {isRequirementsOverflowing && (
+                                    <div onClick={toggleRequirementsExpand} className="GameDetails-MainInfo-Description-ShowMoreButton">
+                                        {isRequirementsExpanded ? <div className="Flex-center-div"><FaAnglesUp />&nbsp;Mostrar menos</div> : <div className="Flex-center-div"><FaAnglesDown />&nbsp;Mostrar más</div>}
+                                    </div>
+                                )}
+                            </div>
+                            <div className="GameDetails-MainInfo-Languages Margin-bottom HideOnBigToBlock">
+                                <h2 className="Margin-bottom-small">Idiomas soportados</h2>
+                                <div className="GameDetails-MainInfo-GameDetails-MainInfo-Languages-Container">
+                                    <div className="GameDetails-MainInfo-GameDetails-MainInfo-Languages-Languages Margin-bottom-small"
+                                         dangerouslySetInnerHTML={{ __html: game.data?.supported_languages }}
+                                    />
+                                </div>
+                            </div>
+                            <div className="GameDetails-MainInfo-LegalInfo Margin-bottom HideOnBigToBlock"  dangerouslySetInnerHTML={{ __html: game.data?.legal_notice }}/>
                         </div>
                     </div>
                 </div>

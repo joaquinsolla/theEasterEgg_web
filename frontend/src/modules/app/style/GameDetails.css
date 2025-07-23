@@ -348,5 +348,34 @@
 }
 
 @media (max-width: 900px) {
+    .GameDetails-Header{
+        text-align: center;
+    }
+
+    .GameDetails-Year-Recommendations-Container {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        text-align: center !important;
+    }
+
+    .GameDetails-Info-Container{
+        display: block !important;
+    }
+
+    .GameDetails-MainInfo{
+        width: 100%;
+        padding: 0;
+    }
+
+    .GameDetails-SecondaryInfo{
+        width: 100%;
+        padding: 0;
+    }
+
+    .GameDetails-MainInfo-Thumbnail {
+        width: 25%;
+        height: auto;
+    }
 
 }
