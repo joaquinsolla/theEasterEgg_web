@@ -29,4 +29,32 @@
 
 @media (max-width: 900px) {
 
+    .PlatformsList-Container {
+        width: 100%;
+        display: flex !important;
+        flex-wrap: wrap !important;
+    }
+
+    .PlatformsList-Container-Item {
+        width: 40%;
+        padding: var(--big-padding);
+        text-align: center;
+    }
+
+    .PlatformsList-Container-Item:nth-child(odd):last-child {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .PlatformsList-Container-Item-Svg {
+        width: 75%;
+        height: auto;
+        fill: var(--color-white);
+        transition: var(--default-transition);
+    }
+
+    .PlatformsList-Container-Item-Svg:hover {
+        fill: var(--color-grey);
+    }
+
 }
