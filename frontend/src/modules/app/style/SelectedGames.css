@@ -110,5 +110,36 @@
 
 
 @media (max-width: 900px) {
+    .SelectedGames-Carousel-Content-Item {
+        width: 100%;
+        display: block;
+    }
+
+    .SelectedGames-Carousel-Content-Item-Image {
+        width: 100%;
+        height: auto;
+        border-radius: var(--big-radius) var(--big-radius) 0 0;
+    }
+
+    .SelectedGames-Carousel-Content-Item-Info {
+        width: 100%;
+        border-radius: 0 0 var(--big-radius) var(--big-radius);
+    }
+
+    .SelectedGames-Carousel-Lines-Line {
+        width: 10px;
+        height: 10px;
+        margin: 0 7px;
+        border: none;
+        background-color: var(--color-grey);
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        border-radius: 50%;
+    }
+
+    .SelectedGames-Carousel-Content-Item-Info-Price {
+        font-size: 1.25rem;
+        padding: var(--small-padding);
+    }
 
 }

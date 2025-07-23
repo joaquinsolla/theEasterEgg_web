@@ -103,7 +103,7 @@ const SelectedGames = () => {
         <div className="SelectedGames-Carousel Margin-bottom-big">
             {currentGame && (
                 <div className="SelectedGames-Carousel-Content Flex-center-div">
-                    <button onClick={goPrev} className="SelectedGames-Carousel-Arrow"><FaAngleLeft /></button>
+                    <button onClick={goPrev} className="SelectedGames-Carousel-Arrow HideOnSmall"><FaAngleLeft /></button>
                     <Link to={`/game/${currentGame._id}`} key={currentGame._id} className="Formatted-Link">
                         <div className="SelectedGames-Carousel-Content-Item">
                             <img src={currentGame.header_image} alt={currentGame.name} className="SelectedGames-Carousel-Content-Item-Image" />
@@ -159,7 +159,7 @@ const SelectedGames = () => {
                             </div>
                         </div>
                     </Link>
-                    <button onClick={goNext} className="SelectedGames-Carousel-Arrow"><FaAngleRight /></button>
+                    <button onClick={goNext} className="SelectedGames-Carousel-Arrow HideOnSmall"><FaAngleRight /></button>
                 </div>
             )}
 
