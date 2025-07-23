@@ -38,4 +38,12 @@
 
 @media (max-width: 900px) {
 
+    .HomeBanner-Container {
+        padding: var(--default-padding) var(--small-padding);
+    }
+
+    .HomeBanner-Container-Image {
+        max-width: 95%;
+        height: auto;
+    }
 }
