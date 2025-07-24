@@ -21,49 +21,57 @@ const FreeGames = () => {
                     size: 5,
                     query: {
                         bool: {
-                            should: [
+                            must: [
+                                { exists: { field: "data.capsule_image" } },
+                                { exists: { field: "data.header_image" } },
                                 {
                                     bool: {
-                                        must: [
-                                            { term: { "stores.steam.availability": true } },
-                                            { term: { "stores.steam.price_in_cents": 0 } }
-                                        ]
-                                    }
-                                },
-                                {
-                                    bool: {
-                                        must: [
-                                            { term: { "stores.xbox.availability": true } },
-                                            { term: { "stores.xbox.price_in_cents": 0 } }
-                                        ]
-                                    }
-                                },
-                                {
-                                    bool: {
-                                        must: [
-                                            { term: { "stores.epic.availability": true } },
-                                            { term: { "stores.epic.price_in_cents": 0 } }
-                                        ]
-                                    }
-                                },
-                                {
-                                    bool: {
-                                        must: [
-                                            { term: { "stores.battle.availability": true } },
-                                            { term: { "stores.battle.price_in_cents": 0 } }
-                                        ]
-                                    }
-                                },
-                                {
-                                    bool: {
-                                        must: [
-                                            { term: { "stores.gog.availability": true } },
-                                            { term: { "stores.gog.price_in_cents": 0 } }
-                                        ]
+                                        should: [
+                                            {
+                                                bool: {
+                                                    must: [
+                                                        { term: { "stores.steam.availability": true } },
+                                                        { term: { "stores.steam.price_in_cents": 0 } }
+                                                    ]
+                                                }
+                                            },
+                                            {
+                                                bool: {
+                                                    must: [
+                                                        { term: { "stores.xbox.availability": true } },
+                                                        { term: { "stores.xbox.price_in_cents": 0 } }
+                                                    ]
+                                                }
+                                            },
+                                            {
+                                                bool: {
+                                                    must: [
+                                                        { term: { "stores.epic.availability": true } },
+                                                        { term: { "stores.epic.price_in_cents": 0 } }
+                                                    ]
+                                                }
+                                            },
+                                            {
+                                                bool: {
+                                                    must: [
+                                                        { term: { "stores.battle.availability": true } },
+                                                        { term: { "stores.battle.price_in_cents": 0 } }
+                                                    ]
+                                                }
+                                            },
+                                            {
+                                                bool: {
+                                                    must: [
+                                                        { term: { "stores.gog.availability": true } },
+                                                        { term: { "stores.gog.price_in_cents": 0 } }
+                                                    ]
+                                                }
+                                            }
+                                        ],
+                                        minimum_should_match: 1
                                     }
                                 }
-                            ],
-                            minimum_should_match: 1
+                            ]
                         }
                     },
                     sort: [

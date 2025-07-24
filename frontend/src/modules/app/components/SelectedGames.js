@@ -41,6 +41,16 @@ const SelectedGames = () => {
                                         ],
                                         minimum_should_match: 1
                                     }
+                                },
+                                {
+                                    exists: {
+                                        field: "data.capsule_image"
+                                    }
+                                },
+                                {
+                                    exists: {
+                                        field: "data.header_image"
+                                    }
                                 }
                             ]
                         }

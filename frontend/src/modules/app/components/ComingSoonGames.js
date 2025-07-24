@@ -18,7 +18,9 @@ const ComingSoonGames = () => {
                         bool: {
                             must: [
                                 { term: { "data.release_date.coming_soon": true } },
-                            ],
+                                { exists: { field: "data.capsule_image" } },
+                                { exists: { field: "data.header_image" } }
+                            ]
                         }
                     },
                     sort: [

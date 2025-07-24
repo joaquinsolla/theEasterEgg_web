@@ -32,18 +32,24 @@ const Searchbar = () => {
             const response = await axios.post(`${REACT_APP_ELASTICSEARCH_URL}/theeasteregg_games_index/_search`, {
                 size: 5,
                 query: {
-                    multi_match: {
-                        query: query,
-                        fields: [
-                            "name"
-                        ],
-                        analyzer: "ngram_analyzer",
-                        minimum_should_match: "75%"
+                    bool: {
+                        must: [
+                            {
+                                multi_match: {
+                                    query: query,
+                                    fields: ["name"],
+                                    analyzer: "ngram_analyzer",
+                                    minimum_should_match: "75%"
+                                }
+                            },
+                            { exists: { field: "data.capsule_image" } },
+                            { exists: { field: "data.header_image" } }
+                        ]
                     }
                 },
                 sort: [
                     { "_score": "desc" },
-                    { "data.total_recommendations": "desc" },
+                    { "data.total_recommendations": "desc" }
                 ],
                 _source: ["name", "data.capsule_image", "stores"]
             });

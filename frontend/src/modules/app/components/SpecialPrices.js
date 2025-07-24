@@ -27,6 +27,10 @@ const SpecialPrices = () => {
                 size: initial_step,
                 query: {
                     bool: {
+                        must: [
+                            { exists: { field: "data.capsule_image" } },
+                            { exists: { field: "data.header_image" } }
+                        ],
                         should: [
                             {
                                 bool: {

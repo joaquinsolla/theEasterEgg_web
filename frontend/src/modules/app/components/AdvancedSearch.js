@@ -492,6 +492,8 @@ const AdvancedSearch = () => {
                 //endregion
 
                 /*** RESPONSE ***/
+                must.push({ exists: { field: "data.capsule_image" } });
+                must.push({ exists: { field: "data.header_image" } });
                 const response = await axios.post(`${REACT_APP_ELASTICSEARCH_URL}/theeasteregg_games_index/_search`, {
                     query: {
                         bool: {

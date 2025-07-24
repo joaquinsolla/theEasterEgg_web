@@ -54,8 +54,16 @@ const ForYou = () => {
             const response = await axios.post(`${REACT_APP_ELASTICSEARCH_URL}/theeasteregg_games_index/_search`, {
                 size: 5,
                 query: {
-                    ids: {
-                        values: favoriteIds.map(String)
+                    bool: {
+                        must: [
+                            {
+                                ids: {
+                                    values: favoriteIds.map(String)
+                                }
+                            },
+                            { exists: { field: "data.capsule_image" } },
+                            { exists: { field: "data.header_image" } }
+                        ]
                     }
                 },
                 sort: [
@@ -103,15 +111,19 @@ const ForYou = () => {
                                 term: {
                                     "data.categories.keyword": category
                                 }
-                            }
+                            },
+                            { exists: { field: "data.capsule_image" } },
+                            { exists: { field: "data.header_image" } }
                         ],
-                        must_not: refGame?.["name"] ? [
-                            {
-                                term: {
-                                    "name.keyword": refGame["name"]
+                        must_not: refGame?.["name"]
+                            ? [
+                                {
+                                    term: {
+                                        "name.keyword": refGame["name"]
+                                    }
                                 }
-                            }
-                        ] : []
+                            ]
+                            : []
                     }
                 },
                 sort: [
@@ -153,18 +165,22 @@ const ForYou = () => {
                     bool: {
                         must: [
                             {
-                                "term": {
+                                term: {
                                     "data.genres.keyword": genre
                                 }
-                            }
+                            },
+                            { exists: { field: "data.capsule_image" } },
+                            { exists: { field: "data.header_image" } }
                         ],
-                        must_not: refGame?.["name"] ? [
-                            {
-                                term: {
-                                    "name.keyword": refGame["name"]
+                        must_not: refGame?.["name"]
+                            ? [
+                                {
+                                    term: {
+                                        "name.keyword": refGame["name"]
+                                    }
                                 }
-                            }
-                        ] : []
+                            ]
+                            : []
                     }
                 },
                 sort: [
@@ -206,18 +222,22 @@ const ForYou = () => {
                     bool: {
                         must: [
                             {
-                                "term": {
+                                term: {
                                     "data.developers.keyword": developer
                                 }
-                            }
+                            },
+                            { exists: { field: "data.capsule_image" } },
+                            { exists: { field: "data.header_image" } }
                         ],
-                        must_not: refGame?.["name"] ? [
-                            {
-                                term: {
-                                    "name.keyword": refGame["name"]
+                        must_not: refGame?.["name"]
+                            ? [
+                                {
+                                    term: {
+                                        "name.keyword": refGame["name"]
+                                    }
                                 }
-                            }
-                        ] : []
+                            ]
+                            : []
                     }
                 },
                 sort: [
@@ -259,18 +279,22 @@ const ForYou = () => {
                     bool: {
                         must: [
                             {
-                                "term": {
+                                term: {
                                     "data.publishers.keyword": publisher
                                 }
-                            }
+                            },
+                            { exists: { field: "data.capsule_image" } },
+                            { exists: { field: "data.header_image" } }
                         ],
-                        must_not: refGame?.["name"] ? [
-                            {
-                                term: {
-                                    "name.keyword": refGame["name"]
+                        must_not: refGame?.["name"]
+                            ? [
+                                {
+                                    term: {
+                                        "name.keyword": refGame["name"]
+                                    }
                                 }
-                            }
-                        ] : []
+                            ]
+                            : []
                     }
                 },
                 sort: [

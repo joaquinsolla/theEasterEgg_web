@@ -23,10 +23,12 @@ const IndieGames = () => {
                         bool: {
                             must: [
                                 {
-                                    "term": {
+                                    term: {
                                         "data.genres.keyword": "Indie"
                                     }
-                                }
+                                },
+                                { exists: { field: "data.capsule_image" } },
+                                { exists: { field: "data.header_image" } }
                             ]
                         }
                     },
