@@ -330,7 +330,7 @@ const AdvancedSearch = () => {
                             query: searchTerm,
                             fields: ["name"],
                             analyzer: "ngram_analyzer",
-                            minimum_should_match: "75%"
+                            minimum_should_match: "85%"
                         }
                     });
                 }

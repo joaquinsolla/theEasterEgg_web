@@ -39,7 +39,7 @@ const Searchbar = () => {
                                     query: query,
                                     fields: ["name"],
                                     analyzer: "ngram_analyzer",
-                                    minimum_should_match: "75%"
+                                    minimum_should_match: "85%"
                                 }
                             },
                             { exists: { field: "data.capsule_image" } },
