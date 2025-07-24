@@ -851,10 +851,10 @@ const AdvancedSearch = () => {
                         />
                     </div>
 
-                    <div>
+                    <div className="HideOnBigToBlock">
                         {showMobileFilters ? (
                             <div>
-                                <div className="AdvancedSearch-Filters HideOnBigToBlock">
+                                <div className="AdvancedSearch-Filters">
                                     <div id="Platforms" className="AdvancedSearch-Filters-Container Margin-bottom-big">
                                         <div className="Flex-start-div Space-Between">
                                             <h4 className="Margin-bottom-small">Plataformas</h4>
