@@ -357,7 +357,16 @@ const AdvancedSearch = () => {
                             should: [
                                 { range: { "stores.steam.price_in_cents": { lte: 0 } } },
                                 { range: { "stores.epic.price_in_cents": { lte: 0 } } },
-                                { range: { "stores.xbox.price_in_cents": { lte: 0 } } },
+                                {
+                                    bool: {
+                                        must: [
+                                            { range: { "stores.xbox.price_in_cents": { lte: 0 } } }
+                                        ],
+                                        must_not: [
+                                            { term: { "stores.xbox.price_in_cents": -2 } }
+                                        ]
+                                    }
+                                },
                                 { range: { "stores.battle.price_in_cents": { lte: 0 } } },
                                 { range: { "stores.gog.price_in_cents": { lte: 0 } } }
                             ],
@@ -1235,6 +1244,8 @@ const AdvancedSearch = () => {
                                         <div className="AdvancedSearch-List-Item-Price-Price">
                                             {game.coming_soon === true ? (
                                                 <span className="AdvancedSearch-Results-Item-Info-Price-ComingSoon">Próximamente</span>
+                                            ) : game.min_price === -0.02 ? (
+                                                <span className="AdvancedSearch-Results-Item-Info-Price-BattlePass">Battle&nbsp;Pass</span>
                                             ) : game.min_price === 0 && game.max_price === 0 ? (
                                                 <span className="AdvancedSearch-Results-Item-Info-Price-Free">Gratis</span>
                                             ) : (
@@ -1245,6 +1256,7 @@ const AdvancedSearch = () => {
                                                     )}
                                                 </>
                                             )}
+
                                         </div>
                                     </div>
                                 </div>
@@ -1276,6 +1288,8 @@ const AdvancedSearch = () => {
                                                 <div className="AdvancedSearch-Results-Item-Info-Price">
                                                     {game.coming_soon === true ? (
                                                         <span className="AdvancedSearch-Results-Item-Info-Price-ComingSoon">Próximamente</span>
+                                                    ) : game.min_price === -0.02 ? (
+                                                        <span className="AdvancedSearch-Results-Item-Info-Price-BattlePass">Battle&nbsp;Pass</span>
                                                     ) : game.min_price === 0 && game.max_price === 0 ? (
                                                         <span className="AdvancedSearch-Results-Item-Info-Price-Free">Gratis</span>
                                                     ) : (
