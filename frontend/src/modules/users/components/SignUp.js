@@ -17,6 +17,8 @@ const SignUp = () => {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState(null);
     const [passwordsDoNotMatch, setPasswordsDoNotMatch] = useState(false);
+    const [errorMinLengthPassword, setErrorMinLengthPassword] = useState(false);
+
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const [errorEmail, setErrorEmail] = useState(null);
@@ -33,43 +35,34 @@ const SignUp = () => {
         setErrorPassword(false);
         setErrorConfirmPassword(false);
         setPasswordsDoNotMatch(false);
+        setErrorMinLengthPassword(false);
         setError(false);
+
+        let hasError = false;
 
         if (email.trim().length === 0 || !emailRegex.test(email)) {
             setErrorEmail(true);
-            if(userName.length === 0) {
-                setErrorUserName(true);
-                if (password.length === 0) {
-                    setErrorPassword(true);
-                    if (confirmPassword.length === 0) {
-                        setErrorConfirmPassword(true);
-                    }
-                }
-            }
-            return;
+            hasError = true;
         }
-        if(userName.length === 0) {
+        if (userName.trim().length === 0) {
             setErrorUserName(true);
-            if (password.length === 0) {
-                setErrorPassword(true);
-                if (confirmPassword.length === 0) {
-                    setErrorConfirmPassword(true);
-                }
-            }
-            return;
+            hasError = true;
         }
         if (password.length === 0) {
             setErrorPassword(true);
-            if (confirmPassword.length === 0) {
-                setErrorConfirmPassword(true);
-            }
-            return;
+            hasError = true;
         }
         if (confirmPassword.length === 0) {
             setErrorConfirmPassword(true);
-            return;
+            hasError = true;
         }
 
+        if (hasError) return;
+
+        if (password.length < 7) {
+            setErrorMinLengthPassword(true);
+            return;
+        }
 
         if (password !== confirmPassword) {
             setPasswordsDoNotMatch(true);
@@ -236,6 +229,11 @@ const SignUp = () => {
                                 { passwordsDoNotMatch && (
                                     <div className="Margin-bottom User-Login-Error">
                                         Las contraseñas no coinciden
+                                    </div>
+                                )}
+                                { errorMinLengthPassword && (
+                                    <div className="Margin-bottom User-Login-Error">
+                                        La contraseña debe tener una longitud mínima de 7 caracteres
                                     </div>
                                 )}
                             </div>
