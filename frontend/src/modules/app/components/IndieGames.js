@@ -17,6 +17,8 @@ const IndieGames = () => {
     useEffect(() => {
         const fetchIndieGames = async () => {
             try {
+                const currentYear = new Date().getFullYear();
+
                 const response = await axios.post(`${REACT_APP_ELASTICSEARCH_URL}/theeasteregg_games_index/_search`, {
                     size: 5,
                     query: {
@@ -25,6 +27,18 @@ const IndieGames = () => {
                                 {
                                     term: {
                                         "data.genres.keyword": "Indie"
+                                    }
+                                },
+                                {
+                                    bool: {
+                                        should: [
+                                            { term: { "data.release_date.year": currentYear } },
+                                            { term: { "data.release_date.year": currentYear -1} },
+                                            { term: { "data.release_date.year": currentYear -2} },
+                                            { term: { "data.release_date.year": currentYear -3} },
+                                            { term: { "data.release_date.year": currentYear -4} }
+                                        ],
+                                        minimum_should_match: 1
                                     }
                                 },
                                 { exists: { field: "data.capsule_image" } },
