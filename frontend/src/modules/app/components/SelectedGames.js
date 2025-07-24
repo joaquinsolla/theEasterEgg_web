@@ -18,20 +18,46 @@ const SelectedGames = () => {
     useEffect(() => {
         const fetchTopGames = async () => {
             try {
+                const currentYear = new Date().getFullYear();
+                const lastYear = currentYear - 1;
+
                 const response = await axios.post(`${REACT_APP_ELASTICSEARCH_URL}/theeasteregg_games_index/_search`, {
                     size: 5,
                     query: {
-                        range: {
-                            "stores.steam.price_in_cents": {
-                                gt: 0
-                            }
+                        bool: {
+                            must: [
+                                {
+                                    range: {
+                                        "stores.steam.price_in_cents": {
+                                            gt: 0
+                                        }
+                                    }
+                                },
+                                {
+                                    bool: {
+                                        should: [
+                                            { term: { "data.release_date.year": currentYear } },
+                                            { term: { "data.release_date.year": lastYear } }
+                                        ],
+                                        minimum_should_match: 1
+                                    }
+                                }
+                            ]
                         }
                     },
                     sort: [
                         { "data.total_recommendations": "desc" }
                     ],
-                    _source: ["name", "data.header_image", "stores", "data.background_raw", "data.short_description",
-                        "data.total_recommendations", "data.genres", "data.categories"]
+                    _source: [
+                        "name",
+                        "data.header_image",
+                        "stores",
+                        "data.background_raw",
+                        "data.short_description",
+                        "data.total_recommendations",
+                        "data.genres",
+                        "data.categories"
+                    ]
                 });
 
                 const hits = response.data.hits.hits;
