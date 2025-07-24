@@ -65,15 +65,37 @@ const AdvancedSearch = () => {
     /*** Fetch genres for the combo box ***/
     useEffect(() => {
         const fetchGenres = async () => {
+            const SCROLL_TIMEOUT = '1m';
+            const BATCH_SIZE = 1000;
+            let allHits = [];
+
             try {
-                const response = await axios.post(`${REACT_APP_ELASTICSEARCH_URL}/theeasteregg_genres_index/_search`, {
-                    query: { match_all: {} },
-                    sort: [{ "name.keyword": { order: "asc" } }],
-                    _source: ["name"],
-                    size: 10000
-                });
-                const hits = response.data.hits.hits;
-                const options = hits.map(hit => ({
+                const firstResponse = await axios.post(
+                    `${REACT_APP_ELASTICSEARCH_URL}/theeasteregg_genres_index/_search?scroll=${SCROLL_TIMEOUT}`,
+                    {
+                        size: BATCH_SIZE,
+                        query: { match_all: {} },
+                        sort: [{ "name.keyword": { order: "asc" } }],
+                        _source: ["name"]
+                    }
+                );
+
+                let scrollId = firstResponse.data._scroll_id;
+                let hits = firstResponse.data.hits.hits;
+                allHits.push(...hits);
+
+                while (hits.length > 0) {
+                    const scrollResponse = await axios.post(`${REACT_APP_ELASTICSEARCH_URL}/_search/scroll`, {
+                        scroll: SCROLL_TIMEOUT,
+                        scroll_id: scrollId
+                    });
+
+                    scrollId = scrollResponse.data._scroll_id;
+                    hits = scrollResponse.data.hits.hits;
+                    allHits.push(...hits);
+                }
+
+                const options = allHits.map(hit => ({
                     label: hit._source.name
                 }));
                 setGenresOptions(options);
@@ -85,21 +107,44 @@ const AdvancedSearch = () => {
         fetchGenres();
     }, []);
 
+
     /*** Categories ***/
     const [categoriesOptions, setCategoriesOptions] = useState([]);
     const [selectedCategories, setSelectedCategories] = useState([]);
     /*** Fetch categories for the combo box ***/
     useEffect(() => {
         const fetchCategories = async () => {
+            const SCROLL_TIMEOUT = '1m';
+            const BATCH_SIZE = 1000;
+            let allHits = [];
+
             try {
-                const response = await axios.post(`${REACT_APP_ELASTICSEARCH_URL}/theeasteregg_categories_index/_search`, {
-                    query: { match_all: {} },
-                    sort: [{ "name.keyword": { order: "asc" } }],
-                    _source: ["name"],
-                    size: 10000
-                });
-                const hits = response.data.hits.hits;
-                const options = hits.map(hit => ({
+                const firstResponse = await axios.post(
+                    `${REACT_APP_ELASTICSEARCH_URL}/theeasteregg_categories_index/_search?scroll=${SCROLL_TIMEOUT}`,
+                    {
+                        size: BATCH_SIZE,
+                        query: { match_all: {} },
+                        sort: [{ "name.keyword": { order: "asc" } }],
+                        _source: ["name"]
+                    }
+                );
+
+                let scrollId = firstResponse.data._scroll_id;
+                let hits = firstResponse.data.hits.hits;
+                allHits.push(...hits);
+
+                while (hits.length > 0) {
+                    const scrollResponse = await axios.post(`${REACT_APP_ELASTICSEARCH_URL}/_search/scroll`, {
+                        scroll: SCROLL_TIMEOUT,
+                        scroll_id: scrollId
+                    });
+
+                    scrollId = scrollResponse.data._scroll_id;
+                    hits = scrollResponse.data.hits.hits;
+                    allHits.push(...hits);
+                }
+
+                const options = allHits.map(hit => ({
                     label: hit._source.name
                 }));
                 setCategoriesOptions(options);
@@ -117,15 +162,37 @@ const AdvancedSearch = () => {
     /*** Fetch developers for the combo box ***/
     useEffect(() => {
         const fetchDevelopers = async () => {
+            const SCROLL_TIMEOUT = '1m';
+            const BATCH_SIZE = 1000;
+            let allHits = [];
+
             try {
-                const response = await axios.post(`${REACT_APP_ELASTICSEARCH_URL}/theeasteregg_developers_index/_search`, {
-                    query: { match_all: {} },
-                    sort: [{ "name.keyword": { order: "asc" } }],
-                    _source: ["name"],
-                    size: 10000
-                });
-                const hits = response.data.hits.hits;
-                const options = hits.map(hit => ({
+                const firstResponse = await axios.post(
+                    `${REACT_APP_ELASTICSEARCH_URL}/theeasteregg_developers_index/_search?scroll=${SCROLL_TIMEOUT}`,
+                    {
+                        size: BATCH_SIZE,
+                        query: { match_all: {} },
+                        sort: [{ "name.keyword": { order: "asc" } }],
+                        _source: ["name"]
+                    }
+                );
+
+                let scrollId = firstResponse.data._scroll_id;
+                let hits = firstResponse.data.hits.hits;
+                allHits.push(...hits);
+
+                while (hits.length > 0) {
+                    const scrollResponse = await axios.post(`${REACT_APP_ELASTICSEARCH_URL}/_search/scroll`, {
+                        scroll: SCROLL_TIMEOUT,
+                        scroll_id: scrollId
+                    });
+
+                    scrollId = scrollResponse.data._scroll_id;
+                    hits = scrollResponse.data.hits.hits;
+                    allHits.push(...hits);
+                }
+
+                const options = allHits.map(hit => ({
                     label: hit._source.name
                 }));
                 setDevelopersOptions(options);
@@ -143,15 +210,37 @@ const AdvancedSearch = () => {
     /*** Fetch publishers for the combo box ***/
     useEffect(() => {
         const fetchPublishers = async () => {
+            const SCROLL_TIMEOUT = '1m';
+            const BATCH_SIZE = 1000;
+            let allHits = [];
+
             try {
-                const response = await axios.post(`${REACT_APP_ELASTICSEARCH_URL}/theeasteregg_publishers_index/_search`, {
-                    query: { match_all: {} },
-                    sort: [{ "name.keyword": { order: "asc" } }],
-                    _source: ["name"],
-                    size: 10000
-                });
-                const hits = response.data.hits.hits;
-                const options = hits.map(hit => ({
+                const firstResponse = await axios.post(
+                    `${REACT_APP_ELASTICSEARCH_URL}/theeasteregg_publishers_index/_search?scroll=${SCROLL_TIMEOUT}`,
+                    {
+                        size: BATCH_SIZE,
+                        query: { match_all: {} },
+                        sort: [{ "name.keyword": { order: "asc" } }],
+                        _source: ["name"]
+                    }
+                );
+
+                let scrollId = firstResponse.data._scroll_id;
+                let hits = firstResponse.data.hits.hits;
+                allHits.push(...hits);
+
+                while (hits.length > 0) {
+                    const scrollResponse = await axios.post(`${REACT_APP_ELASTICSEARCH_URL}/_search/scroll`, {
+                        scroll: SCROLL_TIMEOUT,
+                        scroll_id: scrollId
+                    });
+
+                    scrollId = scrollResponse.data._scroll_id;
+                    hits = scrollResponse.data.hits.hits;
+                    allHits.push(...hits);
+                }
+
+                const options = allHits.map(hit => ({
                     label: hit._source.name
                 }));
                 setPublishersOptions(options);

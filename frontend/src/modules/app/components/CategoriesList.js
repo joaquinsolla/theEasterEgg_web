@@ -11,40 +11,48 @@ const CategoriesList = () => {
     const [categories, setCategories] = useState([]);
     const [genres, setGenres] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
+    const BATCH_SIZE = 1000;
+    const SCROLL_TIMEOUT = '1m';
 
     useEffect(() => {
-        const fetchCategories = async () => {
+        const fetchAllWithScroll = async (indexName, setStateCallback) => {
             try {
-                const response = await axios.post(`${REACT_APP_ELASTICSEARCH_URL}/theeasteregg_categories_index/_search`, {
-                    query: { match_all: {} },
-                    sort: [{ "name.keyword": { order: "asc" } }],
-                    _source: ["name"],
-                    size: 10000
-                });
-                const hits = response.data.hits.hits;
-                setCategories(hits.map(hit => ({ _id: hit._id, name: hit._source.name })));
+                let allHits = [];
+
+                const firstResponse = await axios.post(
+                    `${REACT_APP_ELASTICSEARCH_URL}/${indexName}/_search?scroll=${SCROLL_TIMEOUT}`,
+                    {
+                        size: BATCH_SIZE,
+                        query: { match_all: {} },
+                        sort: [{ "name.keyword": { order: "asc" } }],
+                        _source: ["name"]
+                    }
+                );
+
+                let scrollId = firstResponse.data._scroll_id;
+                let hits = firstResponse.data.hits.hits;
+                allHits.push(...hits);
+
+                while (hits.length > 0) {
+                    const scrollResponse = await axios.post(`${REACT_APP_ELASTICSEARCH_URL}/_search/scroll`, {
+                        scroll: SCROLL_TIMEOUT,
+                        scroll_id: scrollId
+                    });
+
+                    scrollId = scrollResponse.data._scroll_id;
+                    hits = scrollResponse.data.hits.hits;
+                    allHits.push(...hits);
+                }
+
+                const items = allHits.map(hit => ({ _id: hit._id, name: hit._source.name }));
+                setStateCallback(items);
             } catch (error) {
-                console.error("Error fetching categories:", error);
+                console.error(`Error fetching ${indexName}:`, error);
             }
         };
 
-        const fetchGenres = async () => {
-            try {
-                const response = await axios.post(`${REACT_APP_ELASTICSEARCH_URL}/theeasteregg_genres_index/_search`, {
-                    query: { match_all: {} },
-                    sort: [{ "name.keyword": { order: "asc" } }],
-                    _source: ["name"],
-                    size: 10000
-                });
-                const hits = response.data.hits.hits;
-                setGenres(hits.map(hit => ({ _id: hit._id, name: hit._source.name })));
-            } catch (error) {
-                console.error("Error fetching genres:", error);
-            }
-        };
-
-        fetchCategories();
-        fetchGenres();
+        fetchAllWithScroll("theeasteregg_categories_index", setCategories);
+        fetchAllWithScroll("theeasteregg_genres_index", setGenres);
     }, []);
 
     const groupByInitial = (items) => {

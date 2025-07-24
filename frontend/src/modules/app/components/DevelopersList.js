@@ -11,40 +11,48 @@ const CategoriesList = () => {
     const [developers, setDevelopers] = useState([]);
     const [publishers, setPublishers] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
+    const SCROLL_TIMEOUT = '1m';
+    const BATCH_SIZE = 1000;
 
     useEffect(() => {
-        const fetchDevelopers = async () => {
+        const fetchAllWithScroll = async (indexName, setStateCallback) => {
             try {
-                const response = await axios.post(`${REACT_APP_ELASTICSEARCH_URL}/theeasteregg_developers_index/_search`, {
-                    query: { match_all: {} },
-                    sort: [{ "name.keyword": { order: "asc" } }],
-                    _source: ["name"],
-                    size: 10000
-                });
-                const hits = response.data.hits.hits;
-                setDevelopers(hits.map(hit => ({ _id: hit._id, name: hit._source.name })));
+                let allHits = [];
+
+                const firstResponse = await axios.post(
+                    `${REACT_APP_ELASTICSEARCH_URL}/${indexName}/_search?scroll=${SCROLL_TIMEOUT}`,
+                    {
+                        size: BATCH_SIZE,
+                        query: { match_all: {} },
+                        sort: [{ "name.keyword": { order: "asc" } }],
+                        _source: ["name"]
+                    }
+                );
+
+                let scrollId = firstResponse.data._scroll_id;
+                let hits = firstResponse.data.hits.hits;
+                allHits.push(...hits);
+
+                while (hits.length > 0) {
+                    const scrollResponse = await axios.post(`${REACT_APP_ELASTICSEARCH_URL}/_search/scroll`, {
+                        scroll: SCROLL_TIMEOUT,
+                        scroll_id: scrollId
+                    });
+
+                    scrollId = scrollResponse.data._scroll_id;
+                    hits = scrollResponse.data.hits.hits;
+                    allHits.push(...hits);
+                }
+
+                const items = allHits.map(hit => ({ _id: hit._id, name: hit._source.name }));
+                setStateCallback(items);
             } catch (error) {
-                console.error("Error fetching developers:", error);
+                console.error(`Error fetching ${indexName}:`, error);
             }
         };
 
-        const fetchPublishers = async () => {
-            try {
-                const response = await axios.post(`${REACT_APP_ELASTICSEARCH_URL}/theeasteregg_publishers_index/_search`, {
-                    query: { match_all: {} },
-                    sort: [{ "name.keyword": { order: "asc" } }],
-                    _source: ["name"],
-                    size: 10000
-                });
-                const hits = response.data.hits.hits;
-                setPublishers(hits.map(hit => ({ _id: hit._id, name: hit._source.name })));
-            } catch (error) {
-                console.error("Error fetching publishers:", error);
-            }
-        };
-
-        fetchDevelopers();
-        fetchPublishers();
+        fetchAllWithScroll("theeasteregg_developers_index", setDevelopers);
+        fetchAllWithScroll("theeasteregg_publishers_index", setPublishers);
     }, []);
 
     const groupByInitial = (items) => {
