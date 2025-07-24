@@ -245,6 +245,16 @@ const AdvancedSearch = () => {
     /*** Fetch filters from URL params ***/
     const location = useLocation();
     useEffect(() => {
+        const allOptionsLoaded = (
+            platformOptions.length > 0 &&
+            genresOptions.length > 0 &&
+            categoriesOptions.length > 0 &&
+            developersOptions.length > 0 &&
+            publishersOptions.length > 0
+        );
+
+        if (!allOptionsLoaded) return;
+
         const params = new URLSearchParams(location.search);
 
         // --- Platform ---
@@ -258,7 +268,7 @@ const AdvancedSearch = () => {
 
         // --- Genre ---
         const genreParam = params.get('genre');
-        if (genreParam && genresOptions.length > 0) {
+        if (genreParam) {
             const match = genresOptions.find(c => c.label.toLowerCase() === genreParam.toLowerCase());
             if (match) {
                 setSelectedGenres([match]);
@@ -267,7 +277,7 @@ const AdvancedSearch = () => {
 
         // --- Category ---
         const categoryParam = params.get('category');
-        if (categoryParam && categoriesOptions.length > 0) {
+        if (categoryParam) {
             const match = categoriesOptions.find(c => c.label.toLowerCase() === categoryParam.toLowerCase());
             if (match) {
                 setSelectedCategories([match]);
@@ -276,7 +286,7 @@ const AdvancedSearch = () => {
 
         // --- Developer ---
         const developerParam = params.get('developer');
-        if (developerParam && developersOptions.length > 0) {
+        if (developerParam) {
             const match = developersOptions.find(c => c.label.toLowerCase() === developerParam.toLowerCase());
             if (match) {
                 setSelectedDevelopers([match]);
@@ -285,7 +295,7 @@ const AdvancedSearch = () => {
 
         // --- Publisher ---
         const publisherParam = params.get('publisher');
-        if (publisherParam && publishersOptions.length > 0) {
+        if (publisherParam) {
             const match = publishersOptions.find(c => c.label.toLowerCase() === publisherParam.toLowerCase());
             if (match) {
                 setSelectedPublishers([match]);
@@ -294,23 +304,30 @@ const AdvancedSearch = () => {
 
         // --- Free ---
         const freeParam = params.get('free');
-        if (freeParam && freeParam === "true") {
+        if (freeParam === "true") {
             setIsFreeChecked(true);
         }
 
         // --- Coming soon ---
         const comingSoonParam = params.get('coming_soon');
-        if (comingSoonParam && comingSoonParam === "true") {
+        if (comingSoonParam === "true") {
             setIsComingSoonChecked(true);
         }
 
         // --- Search term ---
         const searchTermParam = params.get('search_term');
-        if (searchTermParam && searchTermParam.length > 0) {
+        if (searchTermParam?.length > 0) {
             setSearchTerm(searchTermParam);
         }
 
-    }, [location.search, categoriesOptions, genresOptions, developersOptions, publishersOptions]);
+    }, [
+        location.search,
+        platformOptions,
+        genresOptions,
+        categoriesOptions,
+        developersOptions,
+        publishersOptions
+    ]);
     //endregion
 
     //region Fetch games based on filters
