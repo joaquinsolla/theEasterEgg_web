@@ -13,8 +13,8 @@ import { LuLoader } from "react-icons/lu";
 const REACT_APP_ELASTICSEARCH_URL = process.env.REACT_APP_ELASTICSEARCH_URL;
 
 const SpecialPrices = () => {
-    const initial_step = 20;
-    const step = 10;
+    const initial_step = 25;
+    const step = 50;
     const [games, setGames] = useState([]);
     const [from, setFrom] = useState(0);
     const [loading, setLoading] = useState(false);
