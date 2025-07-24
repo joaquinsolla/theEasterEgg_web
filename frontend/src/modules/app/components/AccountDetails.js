@@ -38,8 +38,9 @@ const AccountDetails = () => {
                         </div>
 
                         <div className="Margin-bottom">
-                            <Link to="/desired-games" className="Formatted-Link-Blue">
-                                Mis juegos deseados
+                            <br/>
+                            <Link to="/changePassword" className="Formatted-Link-Blue">
+                                Cambiar contraseña
                             </Link>
                         </div>
 

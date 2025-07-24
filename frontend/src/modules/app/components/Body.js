@@ -16,7 +16,8 @@ import ForYou from "./ForYou";
 import users, {
     Login,
     SignUp,
-    Logout
+    Logout,
+    ChangePassword
 } from "../../users";
 
 const Body = () => {
@@ -35,6 +36,7 @@ const Body = () => {
         {!loggedIn && <Route path="/login" element={<Login />} />}
         {!loggedIn && <Route path="/signup" element={<SignUp />} />}
         {loggedIn && <Route path="/logout" element={<Logout />} />}
+        {loggedIn && <Route path="/changePassword" element={<ChangePassword />} />}
         {loggedIn && <Route path="/account" element={<AccountDetails />} />}
         {loggedIn && <Route path="/desired-games" element={<DesiredGames />} />}
         {loggedIn && <Route path="/for-you" element={<ForYou />} />}
