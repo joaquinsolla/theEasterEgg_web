@@ -90,7 +90,7 @@ const GameDetails = () => {
                             xboxPrice === 0
                                 ? "Gratis"
                                 : xboxPrice === -2
-                                    ? "Solo en Battle Pass"
+                                    ? "Solo en Game Pass"
                                     : `${(xboxPrice / 100).toFixed(2)} €`;
                     } else hits[0]._source.stores.xbox.price_in_euros = "No disponible"
                     if (hits[0]._source.stores.battle.availability) hits[0]._source.stores.battle.price_in_euros = hits[0]._source.stores.battle.price_in_cents === 0 ? "Gratis" : `${(hits[0]._source.stores.battle.price_in_cents / 100).toFixed(2)} €`;

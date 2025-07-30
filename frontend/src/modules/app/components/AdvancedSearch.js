@@ -1351,7 +1351,7 @@ const AdvancedSearch = () => {
                                             {game.coming_soon === true ? (
                                                 <span className="AdvancedSearch-Results-Item-Info-Price-ComingSoon">Próximamente</span>
                                             ) : game.min_price === -0.02 ? (
-                                                <span className="AdvancedSearch-Results-Item-Info-Price-BattlePass">Battle&nbsp;Pass</span>
+                                                <span className="AdvancedSearch-Results-Item-Info-Price-BattlePass">Game&nbsp;Pass</span>
                                             ) : game.min_price === 0 && game.max_price === 0 ? (
                                                 <span className="AdvancedSearch-Results-Item-Info-Price-Free">Gratis</span>
                                             ) : (
@@ -1395,7 +1395,7 @@ const AdvancedSearch = () => {
                                                     {game.coming_soon === true ? (
                                                         <span className="AdvancedSearch-Results-Item-Info-Price-ComingSoon">Próximamente</span>
                                                     ) : game.min_price === -0.02 ? (
-                                                        <span className="AdvancedSearch-Results-Item-Info-Price-BattlePass">Battle&nbsp;Pass</span>
+                                                        <span className="AdvancedSearch-Results-Item-Info-Price-BattlePass">Game&nbsp;Pass</span>
                                                     ) : game.min_price === 0 && game.max_price === 0 ? (
                                                         <span className="AdvancedSearch-Results-Item-Info-Price-Free">Gratis</span>
                                                     ) : (
